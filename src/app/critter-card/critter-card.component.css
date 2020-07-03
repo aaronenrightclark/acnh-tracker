@@ -1,0 +1,15 @@
+.critter-card {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid black;
+}
+
+.collection-checks {
+  display: flex;
+  flex-direction: column;
+}
+
+.critter-image img {
+  max-width: 64px;
+  height: auto;
+}
