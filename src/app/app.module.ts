@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderNavComponent } from './header-nav/header-nav.component';
@@ -11,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LandingViewComponent } from './landing-view/landing-view.component';
 import { CritterCardComponent } from './critter-card/critter-card.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule, DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -22,13 +22,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     LandingViewComponent,
     CritterCardComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-  ],
-  providers: [],
+  imports: [BrowserModule, CommonModule, AppRoutingModule, ReactiveFormsModule],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

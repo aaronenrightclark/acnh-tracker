@@ -124,7 +124,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
   },
   10: {
     index: 10,
-    name: `Raja Brooke's Birdwing`,
+    name: `Rajah Brooke's Birdwing`,
     price: 2500,
     type: CritterType.BUG,
     monthsActive: [

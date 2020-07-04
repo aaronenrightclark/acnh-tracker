@@ -1,7 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { Critter } from '../shared/models/critter.model';
+import {
+  Critter,
+  BugLocation,
+  FishLocation,
+} from '../shared/models/critter.model';
 import { CritterType } from '../critter-tracker/models/critter-tracker.model';
+import { enableDebugTools } from '@angular/platform-browser';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-critter-card',
@@ -14,7 +20,7 @@ export class CritterCardComponent implements OnInit {
   collectionForm: FormGroup;
   imageSrc: string;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private datePipe: DatePipe) {}
 
   ngOnInit(): void {
     this.collectionForm = this.formBuilder.group({
@@ -23,15 +29,54 @@ export class CritterCardComponent implements OnInit {
     });
 
     this.imageSrc = this.getImageSrc();
+  }
 
-    // this.collectionForm = this.formBuilder.group({
-    //   collected: [false],
-    //   haveModel: [false],
-    // });
-    // this.collectionForm = new FormGroup({
-    //   collected: new FormControl(),
-    //   haveModel: new FormControl(),
-    // });
+  getLocation(): string {
+    return (this.critter.location as any[])
+      .map((loc) => {
+        return this.critter.type === CritterType.BUG
+          ? BugLocation[+loc]
+          : FishLocation[+loc];
+      })
+      .join(', ');
+  }
+
+  getMonths(): string {
+    return this.critter.monthsActive.length
+      ? this.critter.monthsActive
+          .map((activityWindow) => {
+            const start = new Date();
+            const end = new Date();
+            start.setMonth(activityWindow.start);
+            end.setMonth(activityWindow.end);
+            return activityWindow.start === activityWindow.end
+              ? this.datePipe.transform(start, 'MMM')
+              : `${this.datePipe.transform(
+                  start,
+                  'MMM'
+                )}-${this.datePipe.transform(end, 'MMM')}`;
+          })
+          .join(', ')
+      : 'ALL YEAR';
+  }
+
+  getTimes(): string {
+    return this.critter.timesActive.length
+      ? this.critter.timesActive
+          .map((activityWindow) => {
+            const start = new Date();
+            const end = new Date();
+            start.setHours(activityWindow.start);
+            end.setHours(activityWindow.end);
+            return activityWindow.start === activityWindow.end
+              ? this.datePipe.transform(start, 'h a')
+              : `${this.datePipe.transform(
+                  start,
+                  'h a'
+                )}-${this.datePipe.transform(end, 'h a')}`;
+          })
+          .join(', ')
+      : 'ALL DAY';
   }
 
   getImageSrc(): string {

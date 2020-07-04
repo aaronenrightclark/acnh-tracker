@@ -9,6 +9,11 @@
     <img [src]="imageSrc" />
   </div>
   <div class="critter-info">
-    <span>{{ critter.name }}</span>
+    <div>{{ critter.name }}</div>
+    <div>L: {{ getLocation() }}</div>
+    <div>M: {{ getMonths() }}</div>
+    <div>T: {{ getTimes() }}</div>
+    <div>$: {{ critter.price }}</div>
+    <div>#: {{ critter.index }}</div>
   </div>
 </div>
