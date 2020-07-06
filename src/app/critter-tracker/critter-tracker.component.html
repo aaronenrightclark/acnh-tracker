@@ -1,6 +1,7 @@
 <div class="critter-tracker-container">
   <app-critter-card
-    *ngFor="let critter of critters"
+    *ngFor="let critter of _critters"
     [critter]="critter"
+    (critterCollected)="markCritterCollected($event)"
   ></app-critter-card>
 </div>

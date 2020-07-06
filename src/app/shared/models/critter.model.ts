@@ -8,7 +8,7 @@ export interface Critter {
   monthsActive: ActivityWindow[]; // empty signifies all-year activity
   timesActive: ActivityWindow[]; // empty signifies all-day activity
   location: BugLocation[] | FishLocation[];
-  caught: boolean;
+  collected: boolean;
   haveModel: boolean;
   size?: FishSize;
   notes?: string;

@@ -10,7 +10,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 8, end: 5 }],
     timesActive: [{ start: 4, end: 19 }],
     location: [BugLocation.FLYING],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   1: {
@@ -24,7 +24,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     ],
     timesActive: [{ start: 4, end: 19 }],
     location: [BugLocation.FLYING],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   2: {
@@ -35,7 +35,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 2, end: 8 }],
     timesActive: [{ start: 4, end: 19 }],
     location: [BugLocation.FLYING],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   3: {
@@ -49,7 +49,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     ],
     timesActive: [{ start: 4, end: 19 }],
     location: [BugLocation.FLYING],
-    caught: false,
+    collected: false,
     haveModel: false,
     notes: 'Appears near hybrid flowers',
   },
@@ -61,7 +61,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 3, end: 7 }],
     timesActive: [{ start: 4, end: 19 }],
     location: [BugLocation.FLYING],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   5: {
@@ -72,7 +72,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [],
     timesActive: [{ start: 8, end: 19 }],
     location: [BugLocation.FLYING],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   6: {
@@ -83,7 +83,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 4, end: 7 }],
     timesActive: [{ start: 4, end: 19 }],
     location: [BugLocation.FLYING],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   7: {
@@ -94,7 +94,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 8, end: 10 }],
     timesActive: [{ start: 4, end: 17 }],
     location: [BugLocation.FLYING],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   8: {
@@ -108,7 +108,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     ],
     timesActive: [{ start: 17, end: 8 }],
     location: [BugLocation.FLYING],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   9: {
@@ -119,7 +119,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 3, end: 8 }],
     timesActive: [{ start: 8, end: 17 }],
     location: [BugLocation.FLYING],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   10: {
@@ -133,7 +133,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     ],
     timesActive: [{ start: 8, end: 17 }],
     location: [BugLocation.FLYING],
-    caught: false,
+    collected: false,
     haveModel: false,
     notes: 'Appears near purple flowers',
   },
@@ -145,7 +145,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 4, end: 8 }],
     timesActive: [{ start: 8, end: 16 }],
     location: [BugLocation.FLYING],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   12: {
@@ -156,7 +156,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [],
     timesActive: [{ start: 19, end: 4 }],
     location: [BugLocation.FLYING],
-    caught: false,
+    collected: false,
     haveModel: false,
     notes: 'Appears near light sources',
   },
@@ -168,7 +168,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 3, end: 8 }],
     timesActive: [{ start: 19, end: 4 }],
     location: [BugLocation.TREE_TRUNK],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   14: {
@@ -179,7 +179,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 3, end: 8 }],
     timesActive: [{ start: 8, end: 16 }],
     location: [BugLocation.FLYING],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   15: {
@@ -190,7 +190,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 3, end: 10 }],
     timesActive: [{ start: 8, end: 19 }],
     location: [BugLocation.GROUND],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   16: {
@@ -201,7 +201,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 7, end: 10 }],
     timesActive: [{ start: 8, end: 19 }],
     location: [BugLocation.GROUND],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   17: {
@@ -212,7 +212,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 10, end: 10 }],
     timesActive: [{ start: 8, end: 19 }],
     location: [BugLocation.GROUND],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   18: {
@@ -223,7 +223,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 6, end: 8 }],
     timesActive: [{ start: 8, end: 17 }],
     location: [BugLocation.GROUND],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   19: {
@@ -234,7 +234,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 8, end: 10 }],
     timesActive: [{ start: 17, end: 8 }],
     location: [BugLocation.GROUND],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   20: {
@@ -245,7 +245,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 8, end: 9 }],
     timesActive: [{ start: 17, end: 8 }],
     location: [BugLocation.GROUND],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   21: {
@@ -256,7 +256,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 2, end: 10 }],
     timesActive: [{ start: 8, end: 17 }],
     location: [BugLocation.FLOWER],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   22: {
@@ -267,7 +267,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 2, end: 10 }],
     timesActive: [{ start: 8, end: 17 }],
     location: [BugLocation.FLOWER],
-    caught: false,
+    collected: false,
     haveModel: false,
     notes: 'Appears on white flowers',
   },
@@ -279,7 +279,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 2, end: 6 }],
     timesActive: [{ start: 8, end: 17 }],
     location: [BugLocation.FLYING],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   24: {
@@ -290,7 +290,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [],
     timesActive: [],
     location: [BugLocation.TREE_SHAKE],
-    caught: false,
+    collected: false,
     haveModel: false,
     notes: 'Will attack; have net in hand',
   },
@@ -302,7 +302,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 6, end: 7 }],
     timesActive: [{ start: 8, end: 17 }],
     location: [BugLocation.TREE_TRUNK],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   26: {
@@ -313,7 +313,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 6, end: 7 }],
     timesActive: [{ start: 8, end: 17 }],
     location: [BugLocation.TREE_TRUNK],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   27: {
@@ -324,7 +324,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 6, end: 7 }],
     timesActive: [{ start: 8, end: 17 }],
     location: [BugLocation.TREE_TRUNK],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   28: {
@@ -335,7 +335,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 7, end: 8 }],
     timesActive: [{ start: 8, end: 17 }],
     location: [BugLocation.TREE_TRUNK],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   29: {
@@ -349,7 +349,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
       { start: 16, end: 19 },
     ],
     location: [BugLocation.TREE_TRUNK],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   30: {
@@ -360,7 +360,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 6, end: 7 }],
     timesActive: [],
     location: [BugLocation.TREE_TRUNK],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   31: {
@@ -371,7 +371,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 8, end: 9 }],
     timesActive: [{ start: 8, end: 19 }],
     location: [BugLocation.FLYING],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   32: {
@@ -382,7 +382,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 3, end: 9 }],
     timesActive: [{ start: 8, end: 17 }],
     location: [BugLocation.FLYING],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   33: {
@@ -393,7 +393,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 4, end: 9 }],
     timesActive: [{ start: 8, end: 17 }],
     location: [BugLocation.FLYING],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   34: {
@@ -404,7 +404,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 10, end: 1 }],
     timesActive: [],
     location: [BugLocation.FLYING],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   35: {
@@ -415,7 +415,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 5, end: 5 }],
     timesActive: [{ start: 19, end: 4 }],
     location: [BugLocation.FLYING],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   36: {
@@ -426,7 +426,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 10, end: 4 }],
     timesActive: [{ start: 4, end: 19 }],
     location: [BugLocation.UNDERGROUND],
-    caught: false,
+    collected: false,
     haveModel: false,
     notes: 'Can be heard chirping when near',
   },
@@ -438,7 +438,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 4, end: 8 }],
     timesActive: [{ start: 8, end: 19 }],
     location: [BugLocation.WATER_POND],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   38: {
@@ -449,7 +449,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 4, end: 8 }],
     timesActive: [{ start: 8, end: 19 }],
     location: [BugLocation.WATER_POND, BugLocation.WATER_RIVER],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   39: {
@@ -460,7 +460,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 3, end: 8 }],
     timesActive: [{ start: 19, end: 8 }],
     location: [BugLocation.WATER_POND, BugLocation.WATER_RIVER],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   40: {
@@ -471,7 +471,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 2, end: 10 }],
     timesActive: [],
     location: [BugLocation.FLOWER],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   41: {
@@ -482,7 +482,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 2, end: 10 }],
     timesActive: [{ start: 19, end: 8 }],
     location: [BugLocation.FLOWER],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   42: {
@@ -496,7 +496,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     ],
     timesActive: [{ start: 8, end: 17 }],
     location: [BugLocation.FLOWER],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   43: {
@@ -507,7 +507,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 1, end: 10 }],
     timesActive: [],
     location: [BugLocation.GROUND],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   44: {
@@ -518,7 +518,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 3, end: 7 }],
     timesActive: [],
     location: [BugLocation.TREE_STUMP],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   45: {
@@ -532,7 +532,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     ],
     timesActive: [],
     location: [BugLocation.TREE_STUMP],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   46: {
@@ -543,7 +543,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [],
     timesActive: [],
     location: [BugLocation.TREE_STUMP],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   47: {
@@ -554,7 +554,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 4, end: 8 }],
     timesActive: [],
     location: [BugLocation.TREE_STUMP],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   48: {
@@ -565,7 +565,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 6, end: 7 }],
     timesActive: [],
     location: [BugLocation.TREE_COCONUT],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   49: {
@@ -576,7 +576,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 11, end: 1 }],
     timesActive: [],
     location: [BugLocation.GROUND],
-    caught: false,
+    collected: false,
     haveModel: false,
     notes: 'Appears pushing snowballs',
   },
@@ -588,7 +588,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 6, end: 8 }],
     timesActive: [],
     location: [BugLocation.GROUND],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   51: {
@@ -599,7 +599,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 6, end: 7 }],
     timesActive: [{ start: 23, end: 8 }],
     location: [BugLocation.TREE_TRUNK],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   52: {
@@ -610,7 +610,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 5, end: 7 }],
     timesActive: [],
     location: [BugLocation.TREE_TRUNK],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   53: {
@@ -621,7 +621,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 5, end: 8 }],
     timesActive: [{ start: 17, end: 8 }],
     location: [BugLocation.TREE_COCONUT],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   54: {
@@ -632,7 +632,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 6, end: 7 }],
     timesActive: [],
     location: [BugLocation.TREE_TRUNK],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   55: {
@@ -643,7 +643,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 6, end: 7 }],
     timesActive: [],
     location: [BugLocation.TREE_TRUNK],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   56: {
@@ -654,7 +654,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 6, end: 7 }],
     timesActive: [{ start: 23, end: 8 }],
     location: [BugLocation.TREE_TRUNK],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   57: {
@@ -665,7 +665,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 5, end: 8 }],
     timesActive: [{ start: 19, end: 8 }],
     location: [BugLocation.TREE_STUMP],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   58: {
@@ -676,7 +676,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 6, end: 7 }],
     timesActive: [{ start: 17, end: 8 }],
     location: [BugLocation.TREE_COCONUT],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   59: {
@@ -687,7 +687,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 6, end: 7 }],
     timesActive: [{ start: 17, end: 8 }],
     location: [BugLocation.TREE_COCONUT],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   60: {
@@ -698,7 +698,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 6, end: 7 }],
     timesActive: [{ start: 17, end: 8 }],
     location: [BugLocation.TREE_COCONUT],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   61: {
@@ -709,7 +709,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 6, end: 7 }],
     timesActive: [{ start: 17, end: 8 }],
     location: [BugLocation.TREE_TRUNK],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   62: {
@@ -720,7 +720,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 6, end: 7 }],
     timesActive: [{ start: 17, end: 8 }],
     location: [BugLocation.TREE_COCONUT],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   63: {
@@ -731,7 +731,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 6, end: 7 }],
     timesActive: [{ start: 17, end: 8 }],
     location: [BugLocation.TREE_COCONUT],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   64: {
@@ -742,7 +742,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 6, end: 7 }],
     timesActive: [{ start: 17, end: 8 }],
     location: [BugLocation.TREE_COCONUT],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   65: {
@@ -756,7 +756,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
       { start: 17, end: 19 },
     ],
     location: [BugLocation.TREE_TRUNK],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   66: {
@@ -767,7 +767,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 6, end: 7 }],
     timesActive: [],
     location: [BugLocation.GROUND],
-    caught: false,
+    collected: false,
     haveModel: false,
     notes: 'Appears disguised as furniture leaf',
   },
@@ -779,7 +779,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [],
     timesActive: [],
     location: [BugLocation.TREE_SHAKE],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   68: {
@@ -790,7 +790,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [],
     timesActive: [],
     location: [BugLocation.ROTTEN_FOOD],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   69: {
@@ -801,7 +801,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [],
     timesActive: [{ start: 19, end: 8 }],
     location: [BugLocation.BEACH],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   70: {
@@ -812,7 +812,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [],
     timesActive: [],
     location: [BugLocation.BEACH],
-    caught: false,
+    collected: false,
     haveModel: false,
     notes: 'Appears on rocks',
   },
@@ -824,7 +824,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [],
     timesActive: [],
     location: [BugLocation.TRASH],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   72: {
@@ -835,7 +835,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 5, end: 8 }],
     timesActive: [{ start: 17, end: 4 }],
     location: [BugLocation.FLYING],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   73: {
@@ -846,7 +846,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 3, end: 10 }],
     timesActive: [],
     location: [BugLocation.VILLAGER],
-    caught: false,
+    collected: false,
     haveModel: false,
     notes: 'Appears jumping on villagers',
   },
@@ -858,7 +858,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [],
     timesActive: [],
     location: [BugLocation.ROCK, BugLocation.SHRUB],
-    caught: false,
+    collected: false,
     haveModel: false,
     notes: 'Appears during rainy weather',
   },
@@ -870,7 +870,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 8, end: 5 }],
     timesActive: [{ start: 23, end: 16 }],
     location: [BugLocation.ROCK],
-    caught: false,
+    collected: false,
     haveModel: false,
     notes: 'Appears upon striking rocks with tools',
   },
@@ -882,7 +882,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 8, end: 5 }],
     timesActive: [{ start: 16, end: 23 }],
     location: [BugLocation.ROCK],
-    caught: false,
+    collected: false,
     haveModel: false,
     notes: 'Appears upon striking rocks with tools',
   },
@@ -894,7 +894,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [],
     timesActive: [{ start: 19, end: 8 }],
     location: [BugLocation.TREE_SHAKE],
-    caught: false,
+    collected: false,
     haveModel: false,
   },
   78: {
@@ -905,7 +905,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 10, end: 3 }],
     timesActive: [{ start: 19, end: 4 }],
     location: [BugLocation.GROUND],
-    caught: false,
+    collected: false,
     haveModel: false,
     notes: 'Will attack if threatened by net, approach when calm',
   },
@@ -917,7 +917,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     monthsActive: [{ start: 4, end: 9 }],
     timesActive: [{ start: 19, end: 4 }],
     location: [BugLocation.GROUND],
-    caught: false,
+    collected: false,
     haveModel: false,
     notes: 'Will attack if threatened by net, approach when calm',
   },

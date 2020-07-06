@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import {
   Critter,
@@ -17,6 +17,8 @@ import { DatePipe } from '@angular/common';
 export class CritterCardComponent implements OnInit {
   @Input() critter: Critter;
 
+  @Output() critterCollected: EventEmitter<Critter> = new EventEmitter();
+
   collectionForm: FormGroup;
   imageSrc: string;
 
@@ -24,11 +26,15 @@ export class CritterCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.collectionForm = this.formBuilder.group({
-      collected: [this.critter.caught],
+      collected: [this.critter.collected],
       haveModel: [this.critter.haveModel],
     });
 
     this.imageSrc = this.getImageSrc();
+  }
+
+  markCritterCollected() {
+    this.critterCollected.emit(this.critter);
   }
 
   getLocation(): string {

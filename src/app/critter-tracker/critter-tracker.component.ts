@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Critter } from '../shared/models/critter.model';
 
 @Component({
@@ -7,9 +7,21 @@ import { Critter } from '../shared/models/critter.model';
   styleUrls: ['./critter-tracker.component.css'],
 })
 export class CritterTrackerComponent implements OnInit {
-  @Input() critters: Critter[];
+  _critters: Critter[] = [];
+  @Input() set critters(critters: { [key: string]: Critter }) {
+    console.log(
+      'critter-tracker-component: critters: ' + JSON.stringify(critters)
+    );
+    this._critters = Object.keys(critters).map((key) => critters[key]);
+  }
+
+  @Output() critterCollected: EventEmitter<Critter> = new EventEmitter();
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  markCritterCollected(critter) {
+    this.critterCollected.emit(critter);
+  }
 }

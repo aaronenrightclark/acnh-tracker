@@ -1,6 +1,12 @@
 <div class="critter-card">
   <div class="collection-checks" [formGroup]="collectionForm">
-    <span><input type="checkbox" formControlName="collected" />COLLECTED</span>
+    <span
+      ><input
+        type="checkbox"
+        formControlName="collected"
+        (click)="markCritterCollected()"
+      />COLLECTED</span
+    >
     <span><input type="checkbox" formControlName="haveModel" />HAVE MODEL</span>
     <!-- <input type="checkbox" formControlName="collected" />
     <input type="checkbox" formControlName="haveModel" /> -->
