@@ -1,0 +1,8 @@
+.header-nav {
+  display: flex;
+  max-width: 600px;
+}
+
+.nav-link {
+  padding: 10px;
+}

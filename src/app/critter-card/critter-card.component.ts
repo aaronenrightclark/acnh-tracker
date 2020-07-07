@@ -1,13 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import {
   Critter,
   BugLocation,
   FishLocation,
 } from '../shared/models/critter.model';
-import { CritterType } from '../critter-tracker/models/critter-tracker.model';
-import { enableDebugTools } from '@angular/platform-browser';
 import { DatePipe } from '@angular/common';
+import { CritterType } from '../shared/models/critter.model';
 
 @Component({
   selector: 'app-critter-card',

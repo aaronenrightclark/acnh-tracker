@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Critter } from '../shared/models/critter.model';
 import { selectBugs } from './reducer/bug-tracker.reducer';
-import { markBugCollected } from './actions/bug-tracker.actions';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { AppState } from '../shared/models/app-state.model';
+import { toggleBugCollectedAction } from './actions/bug-tracker.actions';
 
 @Component({
   selector: 'app-bug-tracker-view',
@@ -14,8 +14,6 @@ import { AppState } from '../shared/models/app-state.model';
 })
 export class BugTrackerViewComponent implements OnInit {
   critters$: Observable<{ [key: number]: Critter }>;
-
-  critters: Critter[];
 
   constructor(private store: Store<AppState>) {
     this.critters$ = this.store.pipe(
@@ -26,7 +24,7 @@ export class BugTrackerViewComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  markBugCollected(bug: Critter) {
-    this.store.dispatch(markBugCollected({ critter: bug }));
+  toggleBugCollected(bug: Critter) {
+    this.store.dispatch(toggleBugCollectedAction({ critter: bug }));
   }
 }

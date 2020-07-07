@@ -13,6 +13,12 @@ import { CritterCardComponent } from './critter-card/critter-card.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 import { bugTrackerReducer } from './bug-tracker-view/reducer/bug-tracker.reducer';
+import { SongTrackerViewComponent } from './song-tracker-view/song-tracker-view.component';
+import { SeaCreatureTrackerViewComponent } from './sea-creature-tracker-view/sea-creature-tracker-view.component';
+import { CollectibleCardComponent } from './collectible-card/collectible-card.component';
+import { CollectibleTrackerComponent } from './collectible-tracker/collectible-tracker.component';
+import { fishTrackerReducer } from './fish-tracker-view/reducer/fish-tracker.reducer';
+import { songTrackerReducer } from './song-tracker-view/reducers/song-tracker.reducer';
 
 @NgModule({
   declarations: [
@@ -23,13 +29,21 @@ import { bugTrackerReducer } from './bug-tracker-view/reducer/bug-tracker.reduce
     FishTrackerViewComponent,
     LandingViewComponent,
     CritterCardComponent,
+    SongTrackerViewComponent,
+    SeaCreatureTrackerViewComponent,
+    CollectibleCardComponent,
+    CollectibleTrackerComponent,
   ],
   imports: [
     BrowserModule,
     CommonModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({ bugTrackerState: bugTrackerReducer }),
+    StoreModule.forRoot({
+      bugTrackerState: bugTrackerReducer,
+      fishTrackerState: fishTrackerReducer,
+      songTrackerState: songTrackerReducer,
+    }),
     StoreDevtoolsModule.instrument({ maxAge: 25 }),
   ],
   providers: [DatePipe],

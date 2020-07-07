@@ -1,22 +1,38 @@
-import { CritterType } from '../../critter-tracker/models/critter-tracker.model';
-
-export interface Critter {
+export interface Collectible {
   index: number;
   name: string;
   price: number;
+  collected: boolean;
+}
+
+export interface Song extends Collectible {
+  mood: SongMood;
+}
+
+export interface Critter extends Collectible {
   type: CritterType;
   monthsActive: ActivityWindow[]; // empty signifies all-year activity
   timesActive: ActivityWindow[]; // empty signifies all-day activity
   location: BugLocation[] | FishLocation[];
-  collected: boolean;
   haveModel: boolean;
   size?: FishSize;
   notes?: string;
+  playerNotes?: number;
 }
 
 export interface ActivityWindow {
   start: number;
   end: number;
+}
+
+export enum SongMood {
+  GRUMPY,
+  LAID_BACK,
+  REQUEST,
+  GOOD,
+  BLUE,
+  HARD_TO_SAY,
+  CHEERFUL_UPBEAT,
 }
 
 export enum BugLocation {
@@ -44,6 +60,7 @@ export enum FishLocation {
   SEA_RAINY,
   RIVER,
   RIVER_CLIFF,
+  RIVER_MOUTH,
   POND,
   POND_CLIFF,
 }
@@ -53,5 +70,14 @@ export enum FishSize {
   SMALL,
   MEDIUM,
   LARGE,
+  LARGE_FIN,
+  EXTRA_LARGE,
   LARGEST,
+  LARGEST_FIN,
+  NARROW,
+}
+
+export enum CritterType {
+  BUG,
+  FISH,
 }

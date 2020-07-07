@@ -1,0 +1,6 @@
+<div class="song-tracker-container">
+  <app-collectible-tracker
+    [collectibles]="songs$ | async"
+    (collectibleCollected)="toggleSongCollected($event)"
+  ></app-collectible-tracker>
+</div>

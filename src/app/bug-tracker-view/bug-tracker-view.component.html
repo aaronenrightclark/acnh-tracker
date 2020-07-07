@@ -1,6 +1,6 @@
 <div class="bug-tracker-container">
   <app-critter-tracker
     [critters]="critters$ | async"
-    (critterCollected)="markBugCollected($event)"
+    (critterCollected)="toggleBugCollected($event)"
   ></app-critter-tracker>
 </div>
