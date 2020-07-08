@@ -108,7 +108,8 @@ const _bugTrackerReducer: ActionReducer<
         'updating bug collection state from session data: ' +
           JSON.stringify(bugCollectionData)
       );
-      const updated = { ...state };
+      const updated = JSON.parse(JSON.stringify(state));
+      // const updated = {...state};
       for (const key of Object.keys(state.bugs)) {
         updated.bugs[key] = {
           ...state.bugs[key],
@@ -126,7 +127,8 @@ const _bugTrackerReducer: ActionReducer<
       'updating bug model state from session data: ' +
         JSON.stringify(bugModelData)
     );
-    const updated = { ...state };
+    // const updated = {...state};
+    const updated = JSON.parse(JSON.stringify(state));
     for (const key of Object.keys(state.bugs)) {
       updated.bugs[key] = {
         ...state.bugs[key],

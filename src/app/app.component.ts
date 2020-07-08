@@ -67,7 +67,9 @@ export class AppComponent implements OnDestroy {
             invalid: !validEntry,
           };
           if (validEntry) {
-            this.getDecodedSession();
+            console.log('getting decoded');
+            this.sessionData = this.getDecodedSession();
+            console.log('dispatching session data');
             this.dispatchSessionData();
           }
         })
@@ -119,9 +121,14 @@ export class AppComponent implements OnDestroy {
   }
 
   dispatchSessionData(): void {
+    console.log(
+      'dispatching for session data: ' + JSON.stringify(this.sessionData)
+    );
     Object.keys(this.sessionData).forEach((key) => {
+      console.log('dispatching session data for key: ' + +key);
       switch (+key) {
         case TrackerCategory.BUG_COLLECTION: {
+          console.log('dispatching update bug collection');
           this.store.dispatch(
             updateBugCollectionStateFromSessionAction({
               bugCollectionData: this.sessionData[key],
@@ -130,6 +137,7 @@ export class AppComponent implements OnDestroy {
           break;
         }
         case TrackerCategory.BUG_MODELS: {
+          console.log('dispatching update bug model');
           this.store.dispatch(
             updateBugModelStateFromSessionAction({
               bugModelData: this.sessionData[key],
@@ -156,15 +164,23 @@ export class AppComponent implements OnDestroy {
   }
 
   getDecodedSession(): SessionData {
+    console.log('decoding session...');
     const decoded: SessionData = {};
     const sessionCategories = this.encodedSessionData.split('.');
     sessionCategories.forEach((cat) => {
       const catData = cat.split('-');
+      console.log(
+        `catData[2].split(','): ` + `'${JSON.stringify(catData[2].split(','))}'`
+      );
       decoded[catData[0]] = {
         inclusive: catData[1],
-        indices: catData[2].split(',').map((index) => +index.trim()),
+        indices: catData[2]
+          .split(',')
+          .filter((index) => index !== '')
+          .map((index) => +index.trim()),
       };
     });
+    console.log('decoded session: ' + JSON.stringify(decoded));
     return decoded;
   }
 
