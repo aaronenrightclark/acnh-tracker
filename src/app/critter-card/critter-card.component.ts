@@ -17,6 +17,7 @@ export class CritterCardComponent implements OnInit {
   @Input() critter: Critter;
 
   @Output() critterCollected: EventEmitter<Critter> = new EventEmitter();
+  @Output() critterModelCollected: EventEmitter<Critter> = new EventEmitter();
 
   collectionForm: FormGroup;
   imageSrc: string;
@@ -34,6 +35,10 @@ export class CritterCardComponent implements OnInit {
 
   markCritterCollected() {
     this.critterCollected.emit(this.critter);
+  }
+
+  markCritterModelCollected() {
+    this.critterModelCollected.emit(this.critter);
   }
 
   getLocation(): string {

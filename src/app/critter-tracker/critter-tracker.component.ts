@@ -9,13 +9,11 @@ import { Critter } from '../shared/models/critter.model';
 export class CritterTrackerComponent implements OnInit {
   _critters: Critter[] = [];
   @Input() set critters(critters: { [key: string]: Critter }) {
-    console.log(
-      'critter-tracker-component: critters: ' + JSON.stringify(critters)
-    );
     this._critters = Object.keys(critters).map((key) => critters[key]);
   }
 
   @Output() critterCollected: EventEmitter<Critter> = new EventEmitter();
+  @Output() critterModelCollected: EventEmitter<Critter> = new EventEmitter();
 
   constructor() {}
 
@@ -23,5 +21,9 @@ export class CritterTrackerComponent implements OnInit {
 
   markCritterCollected(critter) {
     this.critterCollected.emit(critter);
+  }
+
+  markCritterModelCollected(critter) {
+    this.critterModelCollected.emit(critter);
   }
 }

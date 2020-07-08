@@ -3,5 +3,6 @@
     *ngFor="let critter of _critters"
     [critter]="critter"
     (critterCollected)="markCritterCollected($event)"
+    (critterModelCollected)="markCritterModelCollected($event)"
   ></app-critter-card>
 </div>

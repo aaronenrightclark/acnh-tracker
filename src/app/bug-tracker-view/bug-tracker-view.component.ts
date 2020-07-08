@@ -5,7 +5,10 @@ import { selectBugs } from './reducer/bug-tracker.reducer';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { AppState } from '../shared/models/app-state.model';
-import { toggleBugCollectedAction } from './actions/bug-tracker.actions';
+import {
+  toggleBugCollectedAction,
+  toggleBugModelObtainedAction,
+} from './actions/bug-tracker.actions';
 
 @Component({
   selector: 'app-bug-tracker-view',
@@ -26,5 +29,9 @@ export class BugTrackerViewComponent implements OnInit {
 
   toggleBugCollected(bug: Critter) {
     this.store.dispatch(toggleBugCollectedAction({ critter: bug }));
+  }
+
+  toggleBugModelCollected(bug: Critter) {
+    this.store.dispatch(toggleBugModelObtainedAction({ critter: bug }));
   }
 }

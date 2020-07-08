@@ -10,7 +10,7 @@ import { FishTrackerViewComponent } from './fish-tracker-view/fish-tracker-view.
 import { AppRoutingModule } from './app-routing.module';
 import { LandingViewComponent } from './landing-view/landing-view.component';
 import { CritterCardComponent } from './critter-card/critter-card.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 import { bugTrackerReducer } from './bug-tracker-view/reducer/bug-tracker.reducer';
 import { SongTrackerViewComponent } from './song-tracker-view/song-tracker-view.component';
@@ -37,6 +37,7 @@ import { songTrackerReducer } from './song-tracker-view/reducers/song-tracker.re
   imports: [
     BrowserModule,
     CommonModule,
+    FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     StoreModule.forRoot({
