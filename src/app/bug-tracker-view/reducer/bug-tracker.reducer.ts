@@ -11,7 +11,19 @@ import {
 } from '../actions/bug-tracker.actions';
 import { BUG_DATA } from '../../shared/models/constants';
 import { Critter } from '../../shared/models/critter.model';
-import { AppState, TrackerCategory } from '../../shared/models/app-state.model';
+import {
+  AppState,
+  TrackerCategory,
+  SessionCategoryData,
+} from '../../shared/models/app-state.model';
+import {
+  toggleHaveBugModelSuppliesAction,
+  updateHaveBugModelSuppliesStateFromSessionAction,
+} from '../actions/bug-tracker.actions';
+import {
+  getDefaultEncoding,
+  encodeSessionData,
+} from '../../shared/services/collection-encoding.service';
 import {
   updateBugCollectionStateFromSessionAction,
   updateBugModelStateFromSessionAction,
@@ -24,7 +36,11 @@ export interface BugTrackerState {
 
 const initialState: BugTrackerState = {
   bugs: BUG_DATA,
-  encoded: '0-1-.1-1-',
+  encoded: getDefaultEncoding([
+    TrackerCategory.BUG_COLLECTION,
+    TrackerCategory.BUG_MODELS,
+    TrackerCategory.BUG_MODEL_SUPPLIES,
+  ]),
 };
 
 export const selectBugTrackerState = (state: AppState) => state.bugTrackerState;
@@ -40,9 +56,14 @@ const getEncodedState = (bugs: { [key: number]: Critter }): string => {
   const uncollected = new Array<number>();
   const haveModels = new Array<number>();
   const missingModels = new Array<number>();
+  const haveModelSupplies = new Array<number>();
+  const missingModelSupplies = new Array<number>();
   Object.keys(bugs).forEach((key) => {
     bugs[key].collected ? collected.push(+key) : uncollected.push(+key);
     bugs[key].haveModel ? haveModels.push(+key) : missingModels.push(+key);
+    bugs[key].haveModelSupplies
+      ? haveModelSupplies.push(+key)
+      : missingModelSupplies.push(+key);
     sessionData[TrackerCategory.BUG_COLLECTION] = {
       inclusive: collected.length <= uncollected.length,
       indices: collected.length <= uncollected.length ? collected : uncollected,
@@ -52,18 +73,15 @@ const getEncodedState = (bugs: { [key: number]: Critter }): string => {
       indices:
         haveModels.length <= missingModels.length ? haveModels : missingModels,
     };
+    sessionData[TrackerCategory.BUG_MODEL_SUPPLIES] = {
+      inclusive: haveModelSupplies.length <= missingModelSupplies.length,
+      indices:
+        haveModelSupplies.length <= missingModelSupplies.length
+          ? haveModelSupplies
+          : missingModelSupplies,
+    };
   });
-  let encodedSession = '';
-  Object.keys(sessionData).forEach((key) => {
-    let encodedSessionCategory = key;
-    encodedSessionCategory += `-${+sessionData[key].inclusive}`;
-    encodedSessionCategory += `-${sessionData[key].indices.join(',')}`;
-    if (!!encodedSession) {
-      encodedSession += '.';
-    }
-    encodedSession += encodedSessionCategory;
-  });
-  return encodedSession;
+  return encodeSessionData(sessionData);
 };
 
 const _bugTrackerReducer: ActionReducer<
@@ -82,7 +100,7 @@ const _bugTrackerReducer: ActionReducer<
           collected: !state.bugs[critter.index].collected,
         },
       },
-    };
+    } as BugTrackerState;
     updated.encoded = getEncodedState(updated.bugs);
     return updated;
   }),
@@ -97,50 +115,64 @@ const _bugTrackerReducer: ActionReducer<
           haveModel: !state.bugs[critter.index].haveModel,
         },
       },
-    };
+    } as BugTrackerState;
+    updated.encoded = getEncodedState(updated.bugs);
+    return updated;
+  }),
+  on(toggleHaveBugModelSuppliesAction, (state, { critter }) => {
+    console.log('toggling have bug model supplies: ' + JSON.stringify(critter));
+    const updated = {
+      ...state,
+      bugs: {
+        ...state.bugs,
+        [critter.index]: {
+          ...state.bugs[critter.index],
+          haveModelSupplies: !state.bugs[critter.index].haveModelSupplies,
+        },
+      },
+    } as BugTrackerState;
     updated.encoded = getEncodedState(updated.bugs);
     return updated;
   }),
   on(
     updateBugCollectionStateFromSessionAction,
-    (state, { bugCollectionData }) => {
-      console.log(
-        'updating bug collection state from session data: ' +
-          JSON.stringify(bugCollectionData)
-      );
-      const updated = JSON.parse(JSON.stringify(state));
-      // const updated = {...state};
-      for (const key of Object.keys(state.bugs)) {
-        updated.bugs[key] = {
-          ...state.bugs[key],
-        } as Critter;
-        updated.bugs[key].collected = bugCollectionData.inclusive
-          ? bugCollectionData.indices.indexOf(+key) > -1
-          : bugCollectionData.indices.indexOf(+key) < 0;
-      }
-      updated.encoded = getEncodedState(updated.bugs);
-      return updated;
-    }
+    (state, { bugCollectionData }) =>
+      getUpdatedBugStateForProperty(state, bugCollectionData, 'collected')
   ),
-  on(updateBugModelStateFromSessionAction, (state, { bugModelData }) => {
-    console.log(
-      'updating bug model state from session data: ' +
-        JSON.stringify(bugModelData)
-    );
-    // const updated = {...state};
-    const updated = JSON.parse(JSON.stringify(state));
-    for (const key of Object.keys(state.bugs)) {
-      updated.bugs[key] = {
-        ...state.bugs[key],
-      } as Critter;
-      updated.bugs[key].haveModel = bugModelData.inclusive
-        ? bugModelData.indices.indexOf(+key) > -1
-        : bugModelData.indices.indexOf(+key) < 0;
-    }
-    updated.encoded = getEncodedState(updated.bugs);
-    return updated;
-  })
+  on(updateBugModelStateFromSessionAction, (state, { bugModelData }) =>
+    getUpdatedBugStateForProperty(state, bugModelData, 'haveModel')
+  ),
+  on(
+    updateHaveBugModelSuppliesStateFromSessionAction,
+    (state, { haveBugSuppliesData }) =>
+      getUpdatedBugStateForProperty(
+        state,
+        haveBugSuppliesData,
+        'haveModelSupplies'
+      )
+  )
 );
+
+export function getUpdatedBugStateForProperty(
+  state: BugTrackerState,
+  data: SessionCategoryData,
+  propName: string
+): BugTrackerState {
+  console.log(
+    `updating ${propName} state from session data: ` + JSON.stringify(data)
+  );
+  const updated = JSON.parse(JSON.stringify(state)) as BugTrackerState;
+  for (const key of Object.keys(state.bugs)) {
+    updated.bugs[key] = {
+      ...state.bugs[key],
+    } as Critter;
+    updated.bugs[key][propName] = data.inclusive
+      ? data.indices.indexOf(+key) > -1
+      : data.indices.indexOf(+key) < 0;
+  }
+  updated.encoded = getEncodedState(updated.bugs);
+  return updated;
+}
 
 export function bugTrackerReducer(state, action): BugTrackerState {
   return _bugTrackerReducer(state, action);

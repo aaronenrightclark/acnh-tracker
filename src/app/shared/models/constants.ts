@@ -20,6 +20,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.FLYING],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   1: {
     index: 1,
@@ -34,6 +35,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.FLYING],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   2: {
     index: 2,
@@ -45,6 +47,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.FLYING],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   3: {
     index: 3,
@@ -60,6 +63,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     collected: false,
     haveModel: false,
     notes: 'Appears near hybrid flowers',
+    haveModelSupplies: false,
   },
   4: {
     index: 4,
@@ -71,6 +75,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.FLYING],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   5: {
     index: 5,
@@ -82,6 +87,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.FLYING],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   6: {
     index: 6,
@@ -93,6 +99,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.FLYING],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   7: {
     index: 7,
@@ -104,6 +111,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.FLYING],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   8: {
     index: 8,
@@ -118,6 +126,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.FLYING],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   9: {
     index: 9,
@@ -129,6 +138,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.FLYING],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   10: {
     index: 10,
@@ -144,6 +154,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     collected: false,
     haveModel: false,
     notes: 'Appears near purple flowers',
+    haveModelSupplies: false,
   },
   11: {
     index: 11,
@@ -155,6 +166,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.FLYING],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   12: {
     index: 12,
@@ -167,6 +179,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     collected: false,
     haveModel: false,
     notes: 'Appears near light sources',
+    haveModelSupplies: false,
   },
   13: {
     index: 13,
@@ -178,6 +191,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_TRUNK],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   14: {
     index: 14,
@@ -189,6 +203,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.FLYING],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   15: {
     index: 15,
@@ -200,6 +215,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.GROUND],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   16: {
     index: 16,
@@ -211,6 +227,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.GROUND],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   17: {
     index: 17,
@@ -222,6 +239,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.GROUND],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   18: {
     index: 18,
@@ -233,6 +251,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.GROUND],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   19: {
     index: 19,
@@ -244,6 +263,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.GROUND],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   20: {
     index: 20,
@@ -255,6 +275,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.GROUND],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   21: {
     index: 21,
@@ -266,6 +287,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.FLOWER],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   22: {
     index: 22,
@@ -278,6 +300,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     collected: false,
     haveModel: false,
     notes: 'Appears on white flowers',
+    haveModelSupplies: false,
   },
   23: {
     index: 23,
@@ -289,6 +312,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.FLYING],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   24: {
     index: 24,
@@ -301,6 +325,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     collected: false,
     haveModel: false,
     notes: 'Will attack; have net in hand',
+    haveModelSupplies: false,
   },
   25: {
     index: 25,
@@ -312,6 +337,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_TRUNK],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   26: {
     index: 26,
@@ -323,6 +349,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_TRUNK],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   27: {
     index: 27,
@@ -334,6 +361,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_TRUNK],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   28: {
     index: 28,
@@ -345,6 +373,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_TRUNK],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   29: {
     index: 29,
@@ -359,6 +388,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_TRUNK],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   30: {
     index: 30,
@@ -370,6 +400,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_TRUNK],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   31: {
     index: 31,
@@ -381,6 +412,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.FLYING],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   32: {
     index: 32,
@@ -392,6 +424,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.FLYING],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   33: {
     index: 33,
@@ -403,6 +436,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.FLYING],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   34: {
     index: 34,
@@ -414,6 +448,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.FLYING],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   35: {
     index: 35,
@@ -425,6 +460,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.FLYING],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   36: {
     index: 36,
@@ -437,6 +473,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     collected: false,
     haveModel: false,
     notes: 'Can be heard chirping when near',
+    haveModelSupplies: false,
   },
   37: {
     index: 37,
@@ -448,6 +485,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.WATER_POND],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   38: {
     index: 38,
@@ -459,6 +497,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.WATER_POND, BugLocation.WATER_RIVER],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   39: {
     index: 39,
@@ -470,6 +509,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.WATER_POND, BugLocation.WATER_RIVER],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   40: {
     index: 40,
@@ -481,6 +521,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.FLOWER],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   41: {
     index: 41,
@@ -492,6 +533,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.FLOWER],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   42: {
     index: 42,
@@ -506,6 +548,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.FLOWER],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   43: {
     index: 43,
@@ -517,6 +560,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.GROUND],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   44: {
     index: 44,
@@ -528,6 +572,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_STUMP],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   45: {
     index: 45,
@@ -542,6 +587,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_STUMP],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   46: {
     index: 46,
@@ -553,6 +599,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_STUMP],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   47: {
     index: 47,
@@ -564,6 +611,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_STUMP],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   48: {
     index: 48,
@@ -575,6 +623,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_COCONUT],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   49: {
     index: 49,
@@ -587,6 +636,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     collected: false,
     haveModel: false,
     notes: 'Appears pushing snowballs',
+    haveModelSupplies: false,
   },
   50: {
     index: 50,
@@ -598,6 +648,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.GROUND],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   51: {
     index: 51,
@@ -609,6 +660,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_TRUNK],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   52: {
     index: 52,
@@ -620,6 +672,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_TRUNK],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   53: {
     index: 53,
@@ -631,6 +684,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_COCONUT],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   54: {
     index: 54,
@@ -642,6 +696,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_TRUNK],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   55: {
     index: 55,
@@ -653,6 +708,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_TRUNK],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   56: {
     index: 56,
@@ -664,6 +720,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_TRUNK],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   57: {
     index: 57,
@@ -675,6 +732,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_STUMP],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   58: {
     index: 58,
@@ -686,6 +744,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_COCONUT],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   59: {
     index: 59,
@@ -697,6 +756,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_COCONUT],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   60: {
     index: 60,
@@ -708,6 +768,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_COCONUT],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   61: {
     index: 61,
@@ -719,6 +780,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_TRUNK],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   62: {
     index: 62,
@@ -730,6 +792,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_COCONUT],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   63: {
     index: 63,
@@ -741,6 +804,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_COCONUT],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   64: {
     index: 64,
@@ -752,6 +816,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_COCONUT],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   65: {
     index: 65,
@@ -766,6 +831,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_TRUNK],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   66: {
     index: 66,
@@ -778,6 +844,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     collected: false,
     haveModel: false,
     notes: 'Appears disguised as furniture leaf',
+    haveModelSupplies: false,
   },
   67: {
     index: 67,
@@ -789,6 +856,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_SHAKE],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   68: {
     index: 68,
@@ -800,6 +868,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.ROTTEN_FOOD],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   69: {
     index: 69,
@@ -811,6 +880,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.BEACH],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   70: {
     index: 70,
@@ -823,6 +893,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     collected: false,
     haveModel: false,
     notes: 'Appears on rocks',
+    haveModelSupplies: false,
   },
   71: {
     index: 71,
@@ -834,6 +905,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TRASH],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   72: {
     index: 72,
@@ -845,6 +917,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.FLYING],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   73: {
     index: 73,
@@ -857,6 +930,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     collected: false,
     haveModel: false,
     notes: 'Appears jumping on villagers',
+    haveModelSupplies: false,
   },
   74: {
     index: 74,
@@ -869,6 +943,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     collected: false,
     haveModel: false,
     notes: 'Appears during rainy weather',
+    haveModelSupplies: false,
   },
   75: {
     index: 75,
@@ -881,6 +956,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     collected: false,
     haveModel: false,
     notes: 'Appears upon striking rocks with tools',
+    haveModelSupplies: false,
   },
   76: {
     index: 76,
@@ -893,6 +969,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     collected: false,
     haveModel: false,
     notes: 'Appears upon striking rocks with tools',
+    haveModelSupplies: false,
   },
   77: {
     index: 77,
@@ -904,6 +981,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     location: [BugLocation.TREE_SHAKE],
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   78: {
     index: 78,
@@ -916,6 +994,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     collected: false,
     haveModel: false,
     notes: 'Will attack if threatened by net, approach when calm',
+    haveModelSupplies: false,
   },
   79: {
     index: 79,
@@ -928,6 +1007,7 @@ export const BUG_DATA: { [key: number]: Critter } = {
     collected: false,
     haveModel: false,
     notes: 'Will attack if threatened by net, approach when calm',
+    haveModelSupplies: false,
   },
 };
 
@@ -943,6 +1023,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALLEST,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   1: {
     index: 1,
@@ -955,6 +1036,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALLEST,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   2: {
     index: 2,
@@ -967,6 +1049,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALL,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   3: {
     index: 3,
@@ -979,6 +1062,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.MEDIUM,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   4: {
     index: 4,
@@ -991,6 +1075,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGE,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   5: {
     index: 5,
@@ -1003,6 +1088,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGE,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   6: {
     index: 6,
@@ -1015,6 +1101,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALLEST,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   7: {
     index: 7,
@@ -1027,6 +1114,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALLEST,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   8: {
     index: 8,
@@ -1039,6 +1127,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALL,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   9: {
     index: 9,
@@ -1051,6 +1140,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALLEST,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   10: {
     index: 10,
@@ -1063,6 +1153,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALL,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   11: {
     index: 11,
@@ -1075,6 +1166,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGE,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   12: {
     index: 12,
@@ -1087,6 +1179,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.EXTRA_LARGE,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   13: {
     index: 13,
@@ -1099,6 +1192,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALLEST,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   14: {
     index: 14,
@@ -1111,6 +1205,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALL,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   15: {
     index: 15,
@@ -1123,6 +1218,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALL,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   16: {
     index: 16,
@@ -1135,6 +1231,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALL,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   17: {
     index: 17,
@@ -1147,6 +1244,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGE,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   18: {
     index: 18,
@@ -1159,6 +1257,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.EXTRA_LARGE,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   19: {
     index: 19,
@@ -1171,6 +1270,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALL,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   20: {
     index: 20,
@@ -1183,6 +1283,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.MEDIUM,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   21: {
     index: 21,
@@ -1195,6 +1296,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGE,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   22: {
     index: 22,
@@ -1207,6 +1309,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.MEDIUM,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   23: {
     index: 23,
@@ -1219,6 +1322,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.EXTRA_LARGE,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   24: {
     index: 24,
@@ -1231,6 +1335,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALL,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   25: {
     index: 25,
@@ -1243,6 +1348,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.MEDIUM,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   26: {
     index: 26,
@@ -1258,6 +1364,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.MEDIUM,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   27: {
     index: 27,
@@ -1273,6 +1380,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.MEDIUM,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   28: {
     index: 28,
@@ -1288,6 +1396,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.MEDIUM,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   29: {
     index: 29,
@@ -1300,6 +1409,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.EXTRA_LARGE,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   30: {
     index: 30,
@@ -1312,6 +1422,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGE,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   31: {
     index: 31,
@@ -1324,6 +1435,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGEST,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   32: {
     index: 32,
@@ -1336,6 +1448,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALL,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   33: {
     index: 33,
@@ -1348,6 +1461,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALLEST,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   34: {
     index: 34,
@@ -1360,6 +1474,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALLEST,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   35: {
     index: 35,
@@ -1372,6 +1487,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALL,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   36: {
     index: 36,
@@ -1384,6 +1500,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALL,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   37: {
     index: 37,
@@ -1396,6 +1513,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALLEST,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   38: {
     index: 38,
@@ -1408,6 +1526,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALLEST,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   39: {
     index: 39,
@@ -1423,6 +1542,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALL,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   40: {
     index: 40,
@@ -1435,6 +1555,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGE,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   41: {
     index: 41,
@@ -1447,6 +1568,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.EXTRA_LARGE,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   42: {
     index: 42,
@@ -1459,6 +1581,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGEST,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   43: {
     index: 43,
@@ -1471,6 +1594,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGEST,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   44: {
     index: 44,
@@ -1483,6 +1607,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGE,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   45: {
     index: 45,
@@ -1495,6 +1620,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGE,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   46: {
     index: 46,
@@ -1507,6 +1633,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALLEST,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   47: {
     index: 47,
@@ -1519,6 +1646,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALLEST,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   48: {
     index: 48,
@@ -1531,6 +1659,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALLEST,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   49: {
     index: 49,
@@ -1543,6 +1672,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALL,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   50: {
     index: 50,
@@ -1555,6 +1685,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALL,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   51: {
     index: 51,
@@ -1567,6 +1698,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGEST,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   52: {
     index: 52,
@@ -1579,6 +1711,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.MEDIUM,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   53: {
     index: 53,
@@ -1591,6 +1724,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.MEDIUM,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   54: {
     index: 54,
@@ -1603,6 +1737,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.MEDIUM,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   55: {
     index: 55,
@@ -1615,6 +1750,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALL,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   56: {
     index: 56,
@@ -1627,6 +1763,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALL,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   57: {
     index: 57,
@@ -1639,6 +1776,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.MEDIUM,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   58: {
     index: 58,
@@ -1651,6 +1789,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.EXTRA_LARGE,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   59: {
     index: 59,
@@ -1663,6 +1802,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGE,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   60: {
     index: 60,
@@ -1675,6 +1815,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.MEDIUM,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   61: {
     index: 61,
@@ -1687,6 +1828,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGE,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   62: {
     index: 62,
@@ -1699,6 +1841,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.MEDIUM,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   63: {
     index: 63,
@@ -1711,6 +1854,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.NARROW,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   64: {
     index: 64,
@@ -1723,6 +1867,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.NARROW,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   65: {
     index: 65,
@@ -1735,6 +1880,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGEST,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   66: {
     index: 66,
@@ -1750,6 +1896,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGEST,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   67: {
     index: 67,
@@ -1762,6 +1909,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.EXTRA_LARGE,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   68: {
     index: 68,
@@ -1774,6 +1922,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.EXTRA_LARGE,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   69: {
     index: 69,
@@ -1786,6 +1935,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGEST_FIN,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   70: {
     index: 70,
@@ -1798,6 +1948,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.EXTRA_LARGE,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   71: {
     index: 71,
@@ -1810,6 +1961,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGEST_FIN,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   72: {
     index: 72,
@@ -1822,6 +1974,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGEST_FIN,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   73: {
     index: 73,
@@ -1834,6 +1987,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGEST_FIN,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   74: {
     index: 74,
@@ -1846,6 +2000,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGEST_FIN,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   75: {
     index: 75,
@@ -1858,6 +2013,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGE_FIN,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   76: {
     index: 76,
@@ -1870,6 +2026,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGE,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   77: {
     index: 77,
@@ -1882,6 +2039,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGEST,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   78: {
     index: 78,
@@ -1894,6 +2052,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.SMALL,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
   79: {
     index: 79,
@@ -1906,6 +2065,7 @@ export const FISH_DATA: { [key: number]: Critter } = {
     size: FishSize.LARGEST,
     collected: false,
     haveModel: false,
+    haveModelSupplies: false,
   },
 };
 

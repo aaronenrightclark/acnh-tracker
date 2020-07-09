@@ -15,6 +15,7 @@ export interface Critter extends Collectible {
   timesActive: ActivityWindow[]; // empty signifies all-day activity
   location: BugLocation[] | FishLocation[];
   haveModel: boolean;
+  haveModelSupplies: boolean;
   size?: FishSize;
   notes?: string;
   playerNotes?: number;

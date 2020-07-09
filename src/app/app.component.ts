@@ -12,6 +12,7 @@ import {
   BugTrackerState,
 } from './bug-tracker-view/reducer/bug-tracker.reducer';
 import { Observable, Subscription, Subject } from 'rxjs';
+import { updateHaveBugModelSuppliesStateFromSessionAction } from './bug-tracker-view/actions/bug-tracker.actions';
 import {
   updateBugModelStateFromSessionAction,
   updateBugCollectionStateFromSessionAction,
@@ -144,6 +145,14 @@ export class AppComponent implements OnDestroy {
             })
           );
           break;
+        }
+        case TrackerCategory.BUG_MODEL_SUPPLIES: {
+          console.log('dispatching update bug model supplies');
+          this.store.dispatch(
+            updateHaveBugModelSuppliesStateFromSessionAction({
+              haveBugSuppliesData: this.sessionData[key],
+            })
+          );
         }
       }
     });

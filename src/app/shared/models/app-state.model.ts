@@ -11,9 +11,14 @@ export interface AppState {
 export enum TrackerCategory {
   BUG_COLLECTION,
   BUG_MODELS,
+  BUG_MODEL_SUPPLIES,
   FISH_COLLECTION,
   FISH_MODELS,
+  FISH_MODEL_SUPPLIES,
   SONGS,
+  SEA_CREATURE_COLLECTION,
+  SEA_CREATURE_MODELS,
+  SEA_CREATURE_SUPPLIES,
 }
 
 export interface SessionCategoryData {

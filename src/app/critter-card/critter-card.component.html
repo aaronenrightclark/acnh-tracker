@@ -14,9 +14,13 @@
         (click)="markCritterModelCollected()"
       />HAVE MODEL</span
     >
-    <!-- <input type="checkbox" formControlName="collected" />
-    <input type="checkbox" formControlName="haveModel" /> -->
-    <span><input type="checkbox" /></span>
+    <span
+      ><input
+        type="checkbox"
+        formControlName="haveModelSupplies"
+        (click)="markHaveCritterModelSupplies()"
+      />HAVE SUPPLIES</span
+    >
   </div>
   <div class="critter-image">
     <img [src]="imageSrc" />

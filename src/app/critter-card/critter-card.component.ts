@@ -1,11 +1,18 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  Inject,
+} from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import {
   Critter,
   BugLocation,
   FishLocation,
 } from '../shared/models/critter.model';
-import { DatePipe } from '@angular/common';
+import { DatePipe, APP_BASE_HREF } from '@angular/common';
 import { CritterType } from '../shared/models/critter.model';
 
 @Component({
@@ -18,16 +25,24 @@ export class CritterCardComponent implements OnInit {
 
   @Output() critterCollected: EventEmitter<Critter> = new EventEmitter();
   @Output() critterModelCollected: EventEmitter<Critter> = new EventEmitter();
+  @Output() haveCritterModelSupplies: EventEmitter<
+    Critter
+  > = new EventEmitter();
 
   collectionForm: FormGroup;
   imageSrc: string;
 
-  constructor(private formBuilder: FormBuilder, private datePipe: DatePipe) {}
+  constructor(
+    @Inject(APP_BASE_HREF) private baseHref: string,
+    private formBuilder: FormBuilder,
+    private datePipe: DatePipe
+  ) {}
 
   ngOnInit(): void {
     this.collectionForm = this.formBuilder.group({
       collected: [this.critter.collected],
       haveModel: [this.critter.haveModel],
+      haveModelSupplies: [this.critter.haveModelSupplies],
     });
 
     this.imageSrc = this.getImageSrc();
@@ -39,6 +54,10 @@ export class CritterCardComponent implements OnInit {
 
   markCritterModelCollected() {
     this.critterModelCollected.emit(this.critter);
+  }
+
+  markHaveCritterModelSupplies() {
+    this.haveCritterModelSupplies.emit(this.critter);
   }
 
   getLocation(): string {
@@ -111,8 +130,8 @@ export class CritterCardComponent implements OnInit {
         /\W/g,
         ''
       )}.png`;
-      return `/assets/critters/${critterType}/${fileName}`;
+      return this.baseHref + `assets/critters/${critterType}/${fileName}`;
     }
-    return '/assets/default.png';
+    return this.baseHref + 'assets/default.png';
   }
 }

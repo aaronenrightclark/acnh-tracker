@@ -14,6 +14,9 @@ export class CritterTrackerComponent implements OnInit {
 
   @Output() critterCollected: EventEmitter<Critter> = new EventEmitter();
   @Output() critterModelCollected: EventEmitter<Critter> = new EventEmitter();
+  @Output() haveCritterModelSupplies: EventEmitter<
+    Critter
+  > = new EventEmitter();
 
   constructor() {}
 
@@ -25,5 +28,9 @@ export class CritterTrackerComponent implements OnInit {
 
   markCritterModelCollected(critter) {
     this.critterModelCollected.emit(critter);
+  }
+
+  markHaveCritterModelSupplies(critter) {
+    this.haveCritterModelSupplies.emit(critter);
   }
 }

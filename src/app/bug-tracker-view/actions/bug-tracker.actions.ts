@@ -10,6 +10,10 @@ export const toggleBugModelObtainedAction = createAction(
   '[Bug Tracker] Toggle Model Obtained',
   props<{ critter: Critter }>()
 );
+export const toggleHaveBugModelSuppliesAction = createAction(
+  '[Bug Tracker] Have Model Supplies',
+  props<{ critter: Critter }>()
+);
 export const updateBugCollectionStateFromSessionAction = createAction(
   '[Bug Tracker] Update Collection State from Session',
   props<{ bugCollectionData: SessionCategoryData }>()
@@ -17,4 +21,8 @@ export const updateBugCollectionStateFromSessionAction = createAction(
 export const updateBugModelStateFromSessionAction = createAction(
   '[Bug Tracker] Update Model State from Session',
   props<{ bugModelData: SessionCategoryData }>()
+);
+export const updateHaveBugModelSuppliesStateFromSessionAction = createAction(
+  '[Bug Tracker] Update Have Model Supplies State from Session',
+  props<{ haveBugSuppliesData: SessionCategoryData }>()
 );

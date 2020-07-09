@@ -14,10 +14,12 @@ export interface SongTrackerState {
   songs: {
     [key: number]: Song;
   };
+  encoded: string;
 }
 
 const initialState: SongTrackerState = {
   songs: SONG_DATA,
+  encoded: '',
 };
 
 export const selectSongTrackerState = (state: AppState) =>

@@ -11,7 +11,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { LandingViewComponent } from './landing-view/landing-view.component';
 import { CritterCardComponent } from './critter-card/critter-card.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { CommonModule, DatePipe } from '@angular/common';
+import {
+  CommonModule,
+  DatePipe,
+  APP_BASE_HREF,
+  PlatformLocation,
+} from '@angular/common';
 import { bugTrackerReducer } from './bug-tracker-view/reducer/bug-tracker.reducer';
 import { SongTrackerViewComponent } from './song-tracker-view/song-tracker-view.component';
 import { SeaCreatureTrackerViewComponent } from './sea-creature-tracker-view/sea-creature-tracker-view.component';
@@ -19,6 +24,10 @@ import { CollectibleCardComponent } from './collectible-card/collectible-card.co
 import { CollectibleTrackerComponent } from './collectible-tracker/collectible-tracker.component';
 import { fishTrackerReducer } from './fish-tracker-view/reducer/fish-tracker.reducer';
 import { songTrackerReducer } from './song-tracker-view/reducers/song-tracker.reducer';
+
+export function getBaseHref(platformLocation: PlatformLocation) {
+  return platformLocation.getBaseHrefFromDOM();
+}
 
 @NgModule({
   declarations: [
@@ -47,7 +56,14 @@ import { songTrackerReducer } from './song-tracker-view/reducers/song-tracker.re
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25 }),
   ],
-  providers: [DatePipe],
+  providers: [
+    DatePipe,
+    {
+      provide: APP_BASE_HREF,
+      useFactory: getBaseHref,
+      deps: [PlatformLocation],
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
