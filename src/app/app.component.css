@@ -6,3 +6,8 @@
   border: 1px solid red;
   color: red;
 }
+
+.session-input {
+  width: 100%;
+  margin: 10px;
+}

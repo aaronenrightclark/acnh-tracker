@@ -50,6 +50,7 @@ export const selectBugs = createSelector(
   (state: BugTrackerState) => state.bugs
 );
 
+// TODO: genericise for use with any modelable collection state
 const getEncodedState = (bugs: { [key: number]: Critter }): string => {
   const sessionData = {};
   const collected = new Array<number>();

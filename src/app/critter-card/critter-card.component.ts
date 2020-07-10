@@ -13,7 +13,7 @@ import {
   FishLocation,
 } from '../shared/models/critter.model';
 import { DatePipe, APP_BASE_HREF } from '@angular/common';
-import { CritterType } from '../shared/models/critter.model';
+import { CritterType, FishSize } from '../shared/models/critter.model';
 
 @Component({
   selector: 'app-critter-card',
@@ -108,12 +108,21 @@ export class CritterCardComponent implements OnInit {
       : 'ALL DAY';
   }
 
+  shouldShowSize(): boolean {
+    return this.critter.size !== undefined;
+  }
+
+  getSize(): string {
+    return FishSize[this.critter.size];
+  }
+
   getImageSrc(): string {
     if (
       !!this.critter &&
       this.critter.index !== undefined &&
       !!this.critter.name &&
-      this.critter.type !== undefined
+      this.critter.type !== undefined &&
+      this.critter.type === CritterType.BUG
     ) {
       let critterType: string;
       switch (+this.critter.type) {
@@ -121,10 +130,11 @@ export class CritterCardComponent implements OnInit {
           critterType = 'bugs';
           break;
         }
-        case CritterType.FISH: {
-          critterType = 'fish';
-          break;
-        }
+        // TODO: enable after renaming fish assets
+        // case CritterType.FISH: {
+        //   critterType = 'fish';
+        //   break;
+        // }
       }
       const fileName = `${this.critter.index}-${this.critter.name.replace(
         /\W/g,

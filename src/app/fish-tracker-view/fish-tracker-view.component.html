@@ -1,1 +1,8 @@
-<p>fish-tracker-view works!</p>
+<div class="fish-tracker-container">
+  <app-critter-tracker
+    [critters]="critters$ | async"
+    (critterCollected)="toggleFishCollected($event)"
+    (critterModelCollected)="toggleFishModelCollected($event)"
+    (haveCritterModelSupplies)="toggleHaveFishModelSupplies($event)"
+  ></app-critter-tracker>
+</div>

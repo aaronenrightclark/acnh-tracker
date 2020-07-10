@@ -1,6 +1,7 @@
 <h1>ACNH Tracker</h1>
 <div *ngIf="encodedSessionData">
   <input
+    class="session-input"
     type="text"
     [ngClass]="sessionDataInputClasses"
     [(ngModel)]="encodedSessionData"

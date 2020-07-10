@@ -30,6 +30,7 @@
     <div>L: {{ getLocation() }}</div>
     <div>M: {{ getMonths() }}</div>
     <div>T: {{ getTimes() }}</div>
+    <div *ngIf="shouldShowSize()">S: {{ getSize() }}</div>
     <div>$: {{ critter.price }}</div>
     <div>#: {{ critter.index }}</div>
   </div>

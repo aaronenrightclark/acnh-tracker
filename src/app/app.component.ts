@@ -11,8 +11,13 @@ import {
   selectBugTrackerState,
   BugTrackerState,
 } from './bug-tracker-view/reducer/bug-tracker.reducer';
-import { Observable, Subscription, Subject } from 'rxjs';
+import { Observable, Subscription, Subject, combineLatest } from 'rxjs';
 import { updateHaveBugModelSuppliesStateFromSessionAction } from './bug-tracker-view/actions/bug-tracker.actions';
+import {
+  updateFishCollectionStateFromSessionAction,
+  updateFishModelStateFromSessionAction,
+  updateHaveFishModelSuppliesStateFromSessionAction,
+} from './fish-tracker-view/actions/fish-tracker.actions';
 import {
   updateBugModelStateFromSessionAction,
   updateBugCollectionStateFromSessionAction,
@@ -77,9 +82,14 @@ export class AppComponent implements OnDestroy {
     );
 
     this.subscriptions.push(
-      this.bugs$.subscribe((bugTrackerState: BugTrackerState) => {
-        this.encodedSessionData = bugTrackerState.encoded;
-      })
+      combineLatest([this.bugs$, this.fish$]).subscribe(
+        ([bugTrackerState, fishTrackerState]) => {
+          this.encodedSessionData = [
+            bugTrackerState.encoded,
+            fishTrackerState.encoded,
+          ].join('.');
+        }
+      )
     );
   }
 
@@ -153,6 +163,34 @@ export class AppComponent implements OnDestroy {
               haveBugSuppliesData: this.sessionData[key],
             })
           );
+          break;
+        }
+        case TrackerCategory.FISH_COLLECTION: {
+          console.log('dispatching update fish collection');
+          this.store.dispatch(
+            updateFishCollectionStateFromSessionAction({
+              fishCollectionData: this.sessionData[key],
+            })
+          );
+          break;
+        }
+        case TrackerCategory.FISH_MODELS: {
+          console.log('dispatching update fish model');
+          this.store.dispatch(
+            updateFishModelStateFromSessionAction({
+              fishModelData: this.sessionData[key],
+            })
+          );
+          break;
+        }
+        case TrackerCategory.FISH_MODEL_SUPPLIES: {
+          console.log('dispatching update fish model supplies');
+          this.store.dispatch(
+            updateHaveFishModelSuppliesStateFromSessionAction({
+              haveFishSuppliesData: this.sessionData[key],
+            })
+          );
+          break;
         }
       }
     });
