@@ -5,7 +5,7 @@ import {
   ActionReducer,
   createSelector,
 } from '@ngrx/store';
-import { Critter } from '../../shared/models/critter.model';
+import { Creature } from '../../shared/models/collectible.model';
 import { FISH_DATA } from '../../shared/models/constants';
 import {
   AppState,
@@ -26,7 +26,7 @@ import {
 } from '../../shared/services/collection-encoding.service';
 
 export interface FishTrackerState {
-  fish: { [key: string]: Critter };
+  fish: { [key: string]: Creature };
   encoded: string;
 }
 
@@ -48,7 +48,7 @@ export const selectFish = createSelector(
 );
 
 // TODO: genericise for use with any modelable collection state
-const getEncodedState = (fish: { [key: number]: Critter }): string => {
+const getEncodedState = (fish: { [key: number]: Creature }): string => {
   const sessionData = {};
   const collected = new Array<number>();
   const uncollected = new Array<number>();
@@ -87,47 +87,45 @@ const _fishTrackerReducer: ActionReducer<
   Action
 > = createReducer(
   initialState,
-  on(toggleFishCollectedAction, (state, { critter }) => {
-    console.log('toggling fish collected: ' + JSON.stringify(critter));
+  on(toggleFishCollectedAction, (state, { fish }) => {
+    console.log('toggling fish collected: ' + JSON.stringify(fish));
     const updated = {
       ...state,
       fish: {
         ...state.fish,
-        [critter.index]: {
-          ...state.fish[critter.index],
-          collected: !state.fish[critter.index].collected,
+        [fish.index]: {
+          ...state.fish[fish.index],
+          collected: !state.fish[fish.index].collected,
         },
       },
     } as FishTrackerState;
     updated.encoded = getEncodedState(updated.fish);
     return updated;
   }),
-  on(toggleFishModelObtainedAction, (state, { critter }) => {
-    console.log('toggling fish model obtained: ' + JSON.stringify(critter));
+  on(toggleFishModelObtainedAction, (state, { fish }) => {
+    console.log('toggling fish model obtained: ' + JSON.stringify(fish));
     const updated = {
       ...state,
       fish: {
         ...state.fish,
-        [critter.index]: {
-          ...state.fish[critter.index],
-          haveModel: !state.fish[critter.index].haveModel,
+        [fish.index]: {
+          ...state.fish[fish.index],
+          haveModel: !state.fish[fish.index].haveModel,
         },
       },
     } as FishTrackerState;
     updated.encoded = getEncodedState(updated.fish);
     return updated;
   }),
-  on(toggleHaveFishModelSuppliesAction, (state, { critter }) => {
-    console.log(
-      'toggling have fish model supplies: ' + JSON.stringify(critter)
-    );
+  on(toggleHaveFishModelSuppliesAction, (state, { fish }) => {
+    console.log('toggling have fish model supplies: ' + JSON.stringify(fish));
     const updated = {
       ...state,
       fish: {
         ...state.fish,
-        [critter.index]: {
-          ...state.fish[critter.index],
-          haveModelSupplies: !state.fish[critter.index].haveModelSupplies,
+        [fish.index]: {
+          ...state.fish[fish.index],
+          haveModelSupplies: !state.fish[fish.index].haveModelSupplies,
         },
       },
     } as FishTrackerState;
@@ -165,7 +163,7 @@ export function getUpdatedFishStateForProperty(
   for (const key of Object.keys(state.fish)) {
     updated.fish[key] = {
       ...state.fish[key],
-    } as Critter;
+    } as Creature;
     updated.fish[key][propName] = data.inclusive
       ? data.indices.indexOf(+key) > -1
       : data.indices.indexOf(+key) < 0;

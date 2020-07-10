@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Collectible, Song } from '../shared/models/critter.model';
+import { Collectible, Song } from '../shared/models/collectible.model';
 
 @Component({
   selector: 'app-collectible-card',

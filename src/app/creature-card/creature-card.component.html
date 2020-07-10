@@ -1,37 +1,37 @@
-<div class="critter-card">
+<div class="creature-card">
   <div class="collection-checks" [formGroup]="collectionForm">
     <span
       ><input
         type="checkbox"
         formControlName="collected"
-        (click)="markCritterCollected()"
+        (click)="markCreatureCollected()"
       />COLLECTED</span
     >
     <span
       ><input
         type="checkbox"
         formControlName="haveModel"
-        (click)="markCritterModelCollected()"
+        (click)="markCreatureModelCollected()"
       />HAVE MODEL</span
     >
     <span
       ><input
         type="checkbox"
         formControlName="haveModelSupplies"
-        (click)="markHaveCritterModelSupplies()"
+        (click)="markHaveCreatureModelSupplies()"
       />HAVE SUPPLIES</span
     >
   </div>
-  <div class="critter-image">
+  <div class="creature-image">
     <img [src]="imageSrc" />
   </div>
-  <div class="critter-info">
-    <div>{{ critter.name }}</div>
+  <div class="creature-info">
+    <div>{{ creature.name }}</div>
     <div>L: {{ getLocation() }}</div>
     <div>M: {{ getMonths() }}</div>
     <div>T: {{ getTimes() }}</div>
     <div *ngIf="shouldShowSize()">S: {{ getSize() }}</div>
-    <div>$: {{ critter.price }}</div>
-    <div>#: {{ critter.index }}</div>
+    <div>$: {{ creature.price }}</div>
+    <div>#: {{ creature.index }}</div>
   </div>
 </div>

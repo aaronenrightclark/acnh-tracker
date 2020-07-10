@@ -10,7 +10,7 @@ import {
   toggleBugModelObtainedAction,
 } from '../actions/bug-tracker.actions';
 import { BUG_DATA } from '../../shared/models/constants';
-import { Critter } from '../../shared/models/critter.model';
+import { Creature } from '../../shared/models/collectible.model';
 import {
   AppState,
   TrackerCategory,
@@ -30,7 +30,7 @@ import {
 } from '../actions/bug-tracker.actions';
 
 export interface BugTrackerState {
-  bugs: { [key: number]: Critter };
+  bugs: { [key: number]: Creature };
   encoded: string;
 }
 
@@ -51,7 +51,7 @@ export const selectBugs = createSelector(
 );
 
 // TODO: genericise for use with any modelable collection state
-const getEncodedState = (bugs: { [key: number]: Critter }): string => {
+const getEncodedState = (bugs: { [key: number]: Creature }): string => {
   const sessionData = {};
   const collected = new Array<number>();
   const uncollected = new Array<number>();
@@ -90,45 +90,45 @@ const _bugTrackerReducer: ActionReducer<
   Action
 > = createReducer(
   initialState,
-  on(toggleBugCollectedAction, (state, { critter }) => {
-    console.log('toggling bug collected: ' + JSON.stringify(critter));
+  on(toggleBugCollectedAction, (state, { bug }) => {
+    console.log('toggling bug collected: ' + JSON.stringify(bug));
     const updated = {
       ...state,
       bugs: {
         ...state.bugs,
-        [critter.index]: {
-          ...state.bugs[critter.index],
-          collected: !state.bugs[critter.index].collected,
+        [bug.index]: {
+          ...state.bugs[bug.index],
+          collected: !state.bugs[bug.index].collected,
         },
       },
     } as BugTrackerState;
     updated.encoded = getEncodedState(updated.bugs);
     return updated;
   }),
-  on(toggleBugModelObtainedAction, (state, { critter }) => {
-    console.log('toggling bug model obtained: ' + JSON.stringify(critter));
+  on(toggleBugModelObtainedAction, (state, { bug }) => {
+    console.log('toggling bug model obtained: ' + JSON.stringify(bug));
     const updated = {
       ...state,
       bugs: {
         ...state.bugs,
-        [critter.index]: {
-          ...state.bugs[critter.index],
-          haveModel: !state.bugs[critter.index].haveModel,
+        [bug.index]: {
+          ...state.bugs[bug.index],
+          haveModel: !state.bugs[bug.index].haveModel,
         },
       },
     } as BugTrackerState;
     updated.encoded = getEncodedState(updated.bugs);
     return updated;
   }),
-  on(toggleHaveBugModelSuppliesAction, (state, { critter }) => {
-    console.log('toggling have bug model supplies: ' + JSON.stringify(critter));
+  on(toggleHaveBugModelSuppliesAction, (state, { bug }) => {
+    console.log('toggling have bug model supplies: ' + JSON.stringify(bug));
     const updated = {
       ...state,
       bugs: {
         ...state.bugs,
-        [critter.index]: {
-          ...state.bugs[critter.index],
-          haveModelSupplies: !state.bugs[critter.index].haveModelSupplies,
+        [bug.index]: {
+          ...state.bugs[bug.index],
+          haveModelSupplies: !state.bugs[bug.index].haveModelSupplies,
         },
       },
     } as BugTrackerState;
@@ -166,7 +166,7 @@ export function getUpdatedBugStateForProperty(
   for (const key of Object.keys(state.bugs)) {
     updated.bugs[key] = {
       ...state.bugs[key],
-    } as Critter;
+    } as Creature;
     updated.bugs[key][propName] = data.inclusive
       ? data.indices.indexOf(+key) > -1
       : data.indices.indexOf(+key) < 0;

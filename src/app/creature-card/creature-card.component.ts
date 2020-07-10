@@ -8,25 +8,28 @@ import {
 } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import {
-  Critter,
+  Creature,
   BugLocation,
   FishLocation,
-} from '../shared/models/critter.model';
+} from '../shared/models/collectible.model';
 import { DatePipe, APP_BASE_HREF } from '@angular/common';
-import { CritterType, FishSize } from '../shared/models/critter.model';
+import {
+  CreatureType,
+  SilhouetteSize,
+} from '../shared/models/collectible.model';
 
 @Component({
-  selector: 'app-critter-card',
-  templateUrl: './critter-card.component.html',
-  styleUrls: ['./critter-card.component.css'],
+  selector: 'app-creature-card',
+  templateUrl: './creature-card.component.html',
+  styleUrls: ['./creature-card.component.css'],
 })
-export class CritterCardComponent implements OnInit {
-  @Input() critter: Critter;
+export class CreatureCardComponent implements OnInit {
+  @Input() creature: Creature;
 
-  @Output() critterCollected: EventEmitter<Critter> = new EventEmitter();
-  @Output() critterModelCollected: EventEmitter<Critter> = new EventEmitter();
-  @Output() haveCritterModelSupplies: EventEmitter<
-    Critter
+  @Output() creatureCollected: EventEmitter<Creature> = new EventEmitter();
+  @Output() creatureModelCollected: EventEmitter<Creature> = new EventEmitter();
+  @Output() haveCreatureModelSupplies: EventEmitter<
+    Creature
   > = new EventEmitter();
 
   collectionForm: FormGroup;
@@ -40,30 +43,30 @@ export class CritterCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.collectionForm = this.formBuilder.group({
-      collected: [this.critter.collected],
-      haveModel: [this.critter.haveModel],
-      haveModelSupplies: [this.critter.haveModelSupplies],
+      collected: [this.creature.collected],
+      haveModel: [this.creature.haveModel],
+      haveModelSupplies: [this.creature.haveModelSupplies],
     });
 
     this.imageSrc = this.getImageSrc();
   }
 
-  markCritterCollected() {
-    this.critterCollected.emit(this.critter);
+  markCreatureCollected() {
+    this.creatureCollected.emit(this.creature);
   }
 
-  markCritterModelCollected() {
-    this.critterModelCollected.emit(this.critter);
+  markCreatureModelCollected() {
+    this.creatureModelCollected.emit(this.creature);
   }
 
-  markHaveCritterModelSupplies() {
-    this.haveCritterModelSupplies.emit(this.critter);
+  markHaveCreatureModelSupplies() {
+    this.haveCreatureModelSupplies.emit(this.creature);
   }
 
   getLocation(): string {
-    return (this.critter.location as any[])
+    return (this.creature.location as any[])
       .map((loc) => {
-        return this.critter.type === CritterType.BUG
+        return this.creature.type === CreatureType.BUG
           ? BugLocation[+loc]
           : FishLocation[+loc];
       })
@@ -71,8 +74,8 @@ export class CritterCardComponent implements OnInit {
   }
 
   getMonths(): string {
-    return this.critter.monthsActive.length
-      ? this.critter.monthsActive
+    return this.creature.monthsActive.length
+      ? this.creature.monthsActive
           .map((activityWindow) => {
             const start = new Date();
             const end = new Date();
@@ -90,8 +93,8 @@ export class CritterCardComponent implements OnInit {
   }
 
   getTimes(): string {
-    return this.critter.timesActive.length
-      ? this.critter.timesActive
+    return this.creature.timesActive.length
+      ? this.creature.timesActive
           .map((activityWindow) => {
             const start = new Date();
             const end = new Date();
@@ -109,38 +112,38 @@ export class CritterCardComponent implements OnInit {
   }
 
   shouldShowSize(): boolean {
-    return this.critter.size !== undefined;
+    return this.creature.size !== undefined;
   }
 
   getSize(): string {
-    return FishSize[this.critter.size];
+    return SilhouetteSize[this.creature.size];
   }
 
   getImageSrc(): string {
     if (
-      !!this.critter &&
-      this.critter.index !== undefined &&
-      !!this.critter.name &&
-      this.critter.type !== undefined &&
-      this.critter.type === CritterType.BUG
+      !!this.creature &&
+      this.creature.index !== undefined &&
+      !!this.creature.name &&
+      this.creature.type !== undefined &&
+      this.creature.type === CreatureType.BUG
     ) {
-      let critterType: string;
-      switch (+this.critter.type) {
-        case CritterType.BUG: {
-          critterType = 'bugs';
+      let creatureType: string;
+      switch (+this.creature.type) {
+        case CreatureType.BUG: {
+          creatureType = 'bugs';
           break;
         }
         // TODO: enable after renaming fish assets
-        // case CritterType.FISH: {
-        //   critterType = 'fish';
+        // case CreatureType.FISH: {
+        //   creatureType = 'fish';
         //   break;
         // }
       }
-      const fileName = `${this.critter.index}-${this.critter.name.replace(
+      const fileName = `${this.creature.index}-${this.creature.name.replace(
         /\W/g,
         ''
       )}.png`;
-      return this.baseHref + `assets/critters/${critterType}/${fileName}`;
+      return this.baseHref + `assets/creatures/${creatureType}/${fileName}`;
     }
     return this.baseHref + 'assets/default.png';
   }

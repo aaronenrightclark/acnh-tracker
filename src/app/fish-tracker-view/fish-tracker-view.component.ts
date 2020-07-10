@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { selectFish } from './reducer/fish-tracker.reducer';
-import { Critter } from '../shared/models/critter.model';
+import { Creature } from '../shared/models/collectible.model';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../shared/models/app-state.model';
@@ -17,10 +17,10 @@ import {
   styleUrls: ['./fish-tracker-view.component.css'],
 })
 export class FishTrackerViewComponent implements OnInit {
-  critters$: Observable<{ [key: number]: Critter }>;
+  creatures$: Observable<{ [key: number]: Creature }>;
 
   constructor(private store: Store<AppState>) {
-    this.critters$ = this.store.pipe(
+    this.creatures$ = this.store.pipe(
       map((state) => selectFish(state)),
       filter((value) => !!value)
     );
@@ -28,15 +28,15 @@ export class FishTrackerViewComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  toggleFishCollected(fish: Critter) {
-    this.store.dispatch(toggleFishCollectedAction({ critter: fish }));
+  toggleFishCollected(fish: Creature) {
+    this.store.dispatch(toggleFishCollectedAction({ fish }));
   }
 
-  toggleFishModelCollected(fish: Critter) {
-    this.store.dispatch(toggleFishModelObtainedAction({ critter: fish }));
+  toggleFishModelCollected(fish: Creature) {
+    this.store.dispatch(toggleFishModelObtainedAction({ fish }));
   }
 
-  toggleHaveFishModelSupplies(fish: Critter) {
-    this.store.dispatch(toggleHaveFishModelSuppliesAction({ critter: fish }));
+  toggleHaveFishModelSupplies(fish: Creature) {
+    this.store.dispatch(toggleHaveFishModelSuppliesAction({ fish }));
   }
 }

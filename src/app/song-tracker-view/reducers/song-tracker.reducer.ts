@@ -1,4 +1,4 @@
-import { Song } from '../../shared/models/critter.model';
+import { Song } from '../../shared/models/collectible.model';
 import { SONG_DATA } from '../../shared/models/constants';
 import { AppState } from '../../shared/models/app-state.model';
 import { toggleSongCollectedAction } from '../actions/song-tracker.actions';

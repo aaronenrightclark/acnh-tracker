@@ -4,7 +4,7 @@ import { AppState } from '../shared/models/app-state.model';
 import { selectSongs } from './reducers/song-tracker.reducer';
 import { map, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Song } from '../shared/models/critter.model';
+import { Song } from '../shared/models/collectible.model';
 import { toggleSongCollectedAction } from './actions/song-tracker.actions';
 
 @Component({

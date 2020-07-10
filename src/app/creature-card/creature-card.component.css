@@ -1,4 +1,4 @@
-.critter-card {
+.creature-card {
   display: flex;
   flex-direction: row;
   border: 1px solid black;
@@ -13,7 +13,7 @@
   flex-direction: column;
 }
 
-.critter-image img {
+.creature-image img {
   max-width: 64px;
   height: auto;
 }

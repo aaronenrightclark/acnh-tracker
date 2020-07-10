@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Critter } from '../shared/models/critter.model';
+import { Creature } from '../shared/models/collectible.model';
 import { selectBugs } from './reducer/bug-tracker.reducer';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -17,10 +17,10 @@ import {
   styleUrls: ['./bug-tracker-view.component.css'],
 })
 export class BugTrackerViewComponent implements OnInit {
-  critters$: Observable<{ [key: number]: Critter }>;
+  creatures$: Observable<{ [key: number]: Creature }>;
 
   constructor(private store: Store<AppState>) {
-    this.critters$ = this.store.pipe(
+    this.creatures$ = this.store.pipe(
       map((state) => selectBugs(state)),
       filter((value) => !!value)
     );
@@ -28,15 +28,15 @@ export class BugTrackerViewComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  toggleBugCollected(bug: Critter) {
-    this.store.dispatch(toggleBugCollectedAction({ critter: bug }));
+  toggleBugCollected(bug: Creature) {
+    this.store.dispatch(toggleBugCollectedAction({ bug }));
   }
 
-  toggleBugModelCollected(bug: Critter) {
-    this.store.dispatch(toggleBugModelObtainedAction({ critter: bug }));
+  toggleBugModelCollected(bug: Creature) {
+    this.store.dispatch(toggleBugModelObtainedAction({ bug }));
   }
 
-  toggleHaveBugModelSupplies(bug: Critter) {
-    this.store.dispatch(toggleHaveBugModelSuppliesAction({ critter: bug }));
+  toggleHaveBugModelSupplies(bug: Creature) {
+    this.store.dispatch(toggleHaveBugModelSuppliesAction({ bug }));
   }
 }

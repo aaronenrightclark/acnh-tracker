@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Collectible, Song } from '../shared/models/critter.model';
+import { Collectible, Song } from '../shared/models/collectible.model';
 
 @Component({
   selector: 'app-collectible-tracker',

@@ -9,14 +9,14 @@ export interface Song extends Collectible {
   mood: SongMood;
 }
 
-export interface Critter extends Collectible {
-  type: CritterType;
+export interface Creature extends Collectible {
+  type: CreatureType;
   monthsActive: ActivityWindow[]; // empty signifies all-year activity
   timesActive: ActivityWindow[]; // empty signifies all-day activity
   location: BugLocation[] | FishLocation[];
-  haveModel: boolean;
-  haveModelSupplies: boolean;
-  size?: FishSize;
+  haveModel?: boolean;
+  haveModelSupplies?: boolean;
+  size?: SilhouetteSize;
   notes?: string;
   playerNotes?: number;
 }
@@ -66,7 +66,7 @@ export enum FishLocation {
   POND_CLIFF,
 }
 
-export enum FishSize {
+export enum SilhouetteSize {
   SMALLEST,
   SMALL,
   MEDIUM,
@@ -78,7 +78,7 @@ export enum FishSize {
   NARROW,
 }
 
-export enum CritterType {
+export enum CreatureType {
   BUG,
   FISH,
 }

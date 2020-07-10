@@ -1,8 +1,8 @@
 <div class="bug-tracker-container">
-  <app-critter-tracker
-    [critters]="critters$ | async"
-    (critterCollected)="toggleBugCollected($event)"
-    (critterModelCollected)="toggleBugModelCollected($event)"
-    (haveCritterModelSupplies)="toggleHaveBugModelSupplies($event)"
-  ></app-critter-tracker>
+  <app-creature-tracker
+    [creatures]="creatures$ | async"
+    (creatureCollected)="toggleBugCollected($event)"
+    (creatureModelCollected)="toggleBugModelCollected($event)"
+    (haveCreatureModelSupplies)="toggleHaveBugModelSupplies($event)"
+  ></app-creature-tracker>
 </div>

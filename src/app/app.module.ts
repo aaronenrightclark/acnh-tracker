@@ -4,12 +4,12 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppComponent } from './app.component';
 import { HeaderNavComponent } from './header-nav/header-nav.component';
-import { CritterTrackerComponent } from './critter-tracker/critter-tracker.component';
+import { CreatureTrackerComponent } from './creature-tracker/creature-tracker.component';
 import { BugTrackerViewComponent } from './bug-tracker-view/bug-tracker-view.component';
 import { FishTrackerViewComponent } from './fish-tracker-view/fish-tracker-view.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LandingViewComponent } from './landing-view/landing-view.component';
-import { CritterCardComponent } from './critter-card/critter-card.component';
+import { CreatureCardComponent } from './creature-card/creature-card.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
   CommonModule,
@@ -25,7 +25,7 @@ import { CollectibleTrackerComponent } from './collectible-tracker/collectible-t
 import { fishTrackerReducer } from './fish-tracker-view/reducer/fish-tracker.reducer';
 import { songTrackerReducer } from './song-tracker-view/reducers/song-tracker.reducer';
 
-export function getBaseHref(platformLocation: PlatformLocation) {
+export function getBaseHref(platformLocation: PlatformLocation): string {
   return platformLocation.getBaseHrefFromDOM();
 }
 
@@ -33,11 +33,11 @@ export function getBaseHref(platformLocation: PlatformLocation) {
   declarations: [
     AppComponent,
     HeaderNavComponent,
-    CritterTrackerComponent,
+    CreatureTrackerComponent,
     BugTrackerViewComponent,
     FishTrackerViewComponent,
     LandingViewComponent,
-    CritterCardComponent,
+    CreatureCardComponent,
     SongTrackerViewComponent,
     SeaCreatureTrackerViewComponent,
     CollectibleCardComponent,

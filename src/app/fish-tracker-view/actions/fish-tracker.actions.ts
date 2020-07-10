@@ -1,18 +1,18 @@
 import { createAction, props } from '@ngrx/store';
-import { Critter } from '../../shared/models/critter.model';
+import { Creature } from '../../shared/models/collectible.model';
 import { SessionCategoryData } from '../../shared/models/app-state.model';
 
 export const toggleFishCollectedAction = createAction(
   '[Fish Tracker] Toggle Collected',
-  props<{ critter: Critter }>()
+  props<{ fish: Creature }>()
 );
 export const toggleFishModelObtainedAction = createAction(
   '[Fish Tracker] Toggle Model Obtained',
-  props<{ critter: Critter }>()
+  props<{ fish: Creature }>()
 );
 export const toggleHaveFishModelSuppliesAction = createAction(
   '[Fish Tracker] Have Model Supplies',
-  props<{ critter: Critter }>()
+  props<{ fish: Creature }>()
 );
 export const updateFishCollectionStateFromSessionAction = createAction(
   '[Fish Tracker] Update Collection State from Session',

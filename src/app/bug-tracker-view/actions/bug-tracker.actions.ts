@@ -1,18 +1,18 @@
 import { createAction, props } from '@ngrx/store';
-import { Critter } from '../../shared/models/critter.model';
+import { Creature } from '../../shared/models/collectible.model';
 import { SessionCategoryData } from '../../shared/models/app-state.model';
 
 export const toggleBugCollectedAction = createAction(
   '[Bug Tracker] Toggle Collected',
-  props<{ critter: Critter }>()
+  props<{ bug: Creature }>()
 );
 export const toggleBugModelObtainedAction = createAction(
   '[Bug Tracker] Toggle Model Obtained',
-  props<{ critter: Critter }>()
+  props<{ bug: Creature }>()
 );
 export const toggleHaveBugModelSuppliesAction = createAction(
   '[Bug Tracker] Have Model Supplies',
-  props<{ critter: Critter }>()
+  props<{ bug: Creature }>()
 );
 export const updateBugCollectionStateFromSessionAction = createAction(
   '[Bug Tracker] Update Collection State from Session',
