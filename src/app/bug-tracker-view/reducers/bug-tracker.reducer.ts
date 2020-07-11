@@ -135,22 +135,14 @@ const _bugTrackerReducer: ActionReducer<
     updated.encoded = getEncodedState(updated.bugs);
     return updated;
   }),
-  on(
-    updateBugCollectionStateFromSessionAction,
-    (state, { bugCollectionData }) =>
-      getUpdatedBugStateForProperty(state, bugCollectionData, 'collected')
+  on(updateBugCollectionStateFromSessionAction, (state, { data }) =>
+    getUpdatedBugStateForProperty(state, data, 'collected')
   ),
-  on(updateBugModelStateFromSessionAction, (state, { bugModelData }) =>
-    getUpdatedBugStateForProperty(state, bugModelData, 'haveModel')
+  on(updateBugModelStateFromSessionAction, (state, { data }) =>
+    getUpdatedBugStateForProperty(state, data, 'haveModel')
   ),
-  on(
-    updateHaveBugModelSuppliesStateFromSessionAction,
-    (state, { haveBugSuppliesData }) =>
-      getUpdatedBugStateForProperty(
-        state,
-        haveBugSuppliesData,
-        'haveModelSupplies'
-      )
+  on(updateHaveBugModelSuppliesStateFromSessionAction, (state, { data }) =>
+    getUpdatedBugStateForProperty(state, data, 'haveModelSupplies')
   )
 );
 

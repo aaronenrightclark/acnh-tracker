@@ -16,13 +16,13 @@ export const toggleHaveFishModelSuppliesAction = createAction(
 );
 export const updateFishCollectionStateFromSessionAction = createAction(
   '[Fish Tracker] Update Collection State from Session',
-  props<{ fishCollectionData: SessionCategoryData }>()
+  props<{ data: SessionCategoryData }>()
 );
 export const updateFishModelStateFromSessionAction = createAction(
   '[Fish Tracker] Update Model State from Session',
-  props<{ fishModelData: SessionCategoryData }>()
+  props<{ data: SessionCategoryData }>()
 );
 export const updateHaveFishModelSuppliesStateFromSessionAction = createAction(
   '[Fish Tracker] Update Have Model Supplies State from Session',
-  props<{ haveFishSuppliesData: SessionCategoryData }>()
+  props<{ data: SessionCategoryData }>()
 );

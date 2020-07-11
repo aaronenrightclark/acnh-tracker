@@ -13,6 +13,7 @@ import {
   FishLocation,
 } from '../shared/models/collectible.model';
 import { DatePipe, APP_BASE_HREF } from '@angular/common';
+import { SwimStyle } from '../shared/models/collectible.model';
 import {
   CreatureType,
   SilhouetteSize,
@@ -111,12 +112,12 @@ export class CreatureCardComponent implements OnInit {
       : 'ALL DAY';
   }
 
-  shouldShowSize(): boolean {
-    return this.creature.size !== undefined;
-  }
-
   getSize(): string {
     return SilhouetteSize[this.creature.size];
+  }
+
+  getSwimStyle(): string {
+    return SwimStyle[this.creature.swimStyle];
   }
 
   getImageSrc(): string {

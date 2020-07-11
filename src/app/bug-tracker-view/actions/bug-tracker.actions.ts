@@ -16,13 +16,13 @@ export const toggleHaveBugModelSuppliesAction = createAction(
 );
 export const updateBugCollectionStateFromSessionAction = createAction(
   '[Bug Tracker] Update Collection State from Session',
-  props<{ bugCollectionData: SessionCategoryData }>()
+  props<{ data: SessionCategoryData }>()
 );
 export const updateBugModelStateFromSessionAction = createAction(
   '[Bug Tracker] Update Model State from Session',
-  props<{ bugModelData: SessionCategoryData }>()
+  props<{ data: SessionCategoryData }>()
 );
 export const updateHaveBugModelSuppliesStateFromSessionAction = createAction(
   '[Bug Tracker] Update Have Model Supplies State from Session',
-  props<{ haveBugSuppliesData: SessionCategoryData }>()
+  props<{ data: SessionCategoryData }>()
 );

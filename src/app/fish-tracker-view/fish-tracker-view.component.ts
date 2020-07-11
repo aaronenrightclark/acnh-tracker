@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { selectFish } from './reducer/fish-tracker.reducer';
+import { selectFish } from './reducers/fish-tracker.reducer';
 import { Creature } from '../shared/models/collectible.model';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';

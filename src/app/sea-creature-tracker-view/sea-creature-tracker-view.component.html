@@ -1,1 +1,6 @@
-<p>sea-creature-tracker-view works!</p>
+<div class="sea-creature-tracker-container">
+  <app-creature-tracker
+    [creatures]="creatures$ | async"
+    (creatureCollected)="toggleSeaCreatureCollected($event)"
+  ></app-creature-tracker>
+</div>

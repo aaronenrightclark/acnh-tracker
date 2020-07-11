@@ -13,10 +13,11 @@ export interface Creature extends Collectible {
   type: CreatureType;
   monthsActive: ActivityWindow[]; // empty signifies all-year activity
   timesActive: ActivityWindow[]; // empty signifies all-day activity
-  location: BugLocation[] | FishLocation[];
+  location?: BugLocation[] | FishLocation[];
   haveModel?: boolean;
   haveModelSupplies?: boolean;
   size?: SilhouetteSize;
+  swimStyle?: SwimStyle;
   notes?: string;
   playerNotes?: number;
 }
@@ -24,6 +25,19 @@ export interface Creature extends Collectible {
 export interface ActivityWindow {
   start: number;
   end: number;
+}
+
+export enum SwimStyle {
+  STATIONARY,
+  SLOW_SHORT,
+  SLOW_LONG,
+  SLOW_CONSISTENT,
+  MODERATE_SHORT,
+  MODERATE_LONG,
+  MODERATE_CONSISTENT,
+  FAST_SHORT,
+  FAST_LONG,
+  FAST_CONSISTENT,
 }
 
 export enum SongMood {
@@ -81,4 +95,5 @@ export enum SilhouetteSize {
 export enum CreatureType {
   BUG,
   FISH,
+  SEA_CREATURE,
 }

@@ -17,13 +17,14 @@ import {
   APP_BASE_HREF,
   PlatformLocation,
 } from '@angular/common';
-import { bugTrackerReducer } from './bug-tracker-view/reducer/bug-tracker.reducer';
+import { bugTrackerReducer } from './bug-tracker-view/reducers/bug-tracker.reducer';
 import { SongTrackerViewComponent } from './song-tracker-view/song-tracker-view.component';
 import { SeaCreatureTrackerViewComponent } from './sea-creature-tracker-view/sea-creature-tracker-view.component';
 import { CollectibleCardComponent } from './collectible-card/collectible-card.component';
 import { CollectibleTrackerComponent } from './collectible-tracker/collectible-tracker.component';
-import { fishTrackerReducer } from './fish-tracker-view/reducer/fish-tracker.reducer';
+import { fishTrackerReducer } from './fish-tracker-view/reducers/fish-tracker.reducer';
 import { songTrackerReducer } from './song-tracker-view/reducers/song-tracker.reducer';
+import { seaCreatureTrackerReducer } from './sea-creature-tracker-view/reducers/sea-creature-tracker.reducer';
 
 export function getBaseHref(platformLocation: PlatformLocation): string {
   return platformLocation.getBaseHrefFromDOM();
@@ -52,6 +53,7 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
     StoreModule.forRoot({
       bugTrackerState: bugTrackerReducer,
       fishTrackerState: fishTrackerReducer,
+      seaCreatureTrackerState: seaCreatureTrackerReducer,
       songTrackerState: songTrackerReducer,
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25 }),

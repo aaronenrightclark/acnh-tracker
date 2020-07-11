@@ -1,7 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 
+import { Observable, Subscription, Subject, combineLatest } from 'rxjs';
 import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { updateSeaCreatureCollectionStateFromSessionAction } from './sea-creature-tracker-view/actions/sea-creature-tracker.actions';
+import { updateSongCollectionStateFromSessionAction } from './song-tracker-view/actions/song-tracker.actions';
 import {
   AppState,
   SessionData,
@@ -10,26 +13,29 @@ import {
 import {
   selectBugTrackerState,
   BugTrackerState,
-} from './bug-tracker-view/reducer/bug-tracker.reducer';
-import { Observable, Subscription, Subject, combineLatest } from 'rxjs';
-import { updateHaveBugModelSuppliesStateFromSessionAction } from './bug-tracker-view/actions/bug-tracker.actions';
+} from './bug-tracker-view/reducers/bug-tracker.reducer';
+import {
+  updateBugCollectionStateFromSessionAction,
+  updateBugModelStateFromSessionAction,
+  updateHaveBugModelSuppliesStateFromSessionAction,
+} from './bug-tracker-view/actions/bug-tracker.actions';
 import {
   updateFishCollectionStateFromSessionAction,
   updateFishModelStateFromSessionAction,
   updateHaveFishModelSuppliesStateFromSessionAction,
 } from './fish-tracker-view/actions/fish-tracker.actions';
 import {
-  updateBugModelStateFromSessionAction,
-  updateBugCollectionStateFromSessionAction,
-} from './bug-tracker-view/actions/bug-tracker.actions';
-import {
   selectFishTrackerState,
   FishTrackerState,
-} from './fish-tracker-view/reducer/fish-tracker.reducer';
+} from './fish-tracker-view/reducers/fish-tracker.reducer';
 import {
   selectSongTrackerState,
   SongTrackerState,
 } from './song-tracker-view/reducers/song-tracker.reducer';
+import {
+  SeaCreatureTrackerState,
+  selectSeaCreatureTrackerState,
+} from './sea-creature-tracker-view/reducers/sea-creature-tracker.reducer';
 
 @Component({
   selector: 'app-root',
@@ -41,6 +47,7 @@ export class AppComponent implements OnDestroy {
 
   bugs$: Observable<BugTrackerState>;
   fish$: Observable<FishTrackerState>;
+  seaCreatures$: Observable<SeaCreatureTrackerState>;
   songs$: Observable<SongTrackerState>;
 
   sessionData: SessionData = {};
@@ -57,6 +64,9 @@ export class AppComponent implements OnDestroy {
     this.fish$ = this.store.pipe(
       map((state: AppState) => selectFishTrackerState(state))
     );
+    this.seaCreatures$ = this.store.pipe(
+      map((state: AppState) => selectSeaCreatureTrackerState(state))
+    );
     this.songs$ = this.store.pipe(
       map((state: AppState) => selectSongTrackerState(state))
     );
@@ -65,7 +75,6 @@ export class AppComponent implements OnDestroy {
       this.sessionDataInput
         .pipe(debounceTime(1000), distinctUntilChanged())
         .subscribe((input) => {
-          console.log('encodedSessionData: ' + input);
           this.encodedSessionData = input.replace(/\s/g, '');
           const validEntry = this.validateSessionDataEntry();
           this.sessionDataInputClasses = {
@@ -73,20 +82,30 @@ export class AppComponent implements OnDestroy {
             invalid: !validEntry,
           };
           if (validEntry) {
-            console.log('getting decoded');
             this.sessionData = this.getDecodedSession();
-            console.log('dispatching session data');
             this.dispatchSessionData();
           }
         })
     );
 
     this.subscriptions.push(
-      combineLatest([this.bugs$, this.fish$]).subscribe(
-        ([bugTrackerState, fishTrackerState]) => {
+      combineLatest([
+        this.bugs$,
+        this.fish$,
+        this.seaCreatures$,
+        this.songs$,
+      ]).subscribe(
+        ([
+          bugTrackerState,
+          fishTrackerState,
+          seaCreatureTrackerState,
+          songTrackerState,
+        ]) => {
           this.encodedSessionData = [
             bugTrackerState.encoded,
             fishTrackerState.encoded,
+            seaCreatureTrackerState.encoded,
+            songTrackerState.encoded,
           ].join('.');
         }
       )
@@ -132,66 +151,22 @@ export class AppComponent implements OnDestroy {
   }
 
   dispatchSessionData(): void {
-    console.log(
-      'dispatching for session data: ' + JSON.stringify(this.sessionData)
-    );
+    const supportedCollections = {
+      [TrackerCategory.BUG_COLLECTION]: updateBugCollectionStateFromSessionAction,
+      [TrackerCategory.BUG_MODELS]: updateBugModelStateFromSessionAction,
+      [TrackerCategory.BUG_MODEL_SUPPLIES]: updateHaveBugModelSuppliesStateFromSessionAction,
+      [TrackerCategory.FISH_COLLECTION]: updateFishCollectionStateFromSessionAction,
+      [TrackerCategory.FISH_MODELS]: updateFishModelStateFromSessionAction,
+      [TrackerCategory.FISH_MODEL_SUPPLIES]: updateHaveFishModelSuppliesStateFromSessionAction,
+      [TrackerCategory.SEA_CREATURE_COLLECTION]: updateSeaCreatureCollectionStateFromSessionAction,
+      [TrackerCategory.SONGS]: updateSongCollectionStateFromSessionAction,
+    };
+
     Object.keys(this.sessionData).forEach((key) => {
-      console.log('dispatching session data for key: ' + +key);
-      switch (+key) {
-        case TrackerCategory.BUG_COLLECTION: {
-          console.log('dispatching update bug collection');
-          this.store.dispatch(
-            updateBugCollectionStateFromSessionAction({
-              bugCollectionData: this.sessionData[key],
-            })
-          );
-          break;
-        }
-        case TrackerCategory.BUG_MODELS: {
-          console.log('dispatching update bug model');
-          this.store.dispatch(
-            updateBugModelStateFromSessionAction({
-              bugModelData: this.sessionData[key],
-            })
-          );
-          break;
-        }
-        case TrackerCategory.BUG_MODEL_SUPPLIES: {
-          console.log('dispatching update bug model supplies');
-          this.store.dispatch(
-            updateHaveBugModelSuppliesStateFromSessionAction({
-              haveBugSuppliesData: this.sessionData[key],
-            })
-          );
-          break;
-        }
-        case TrackerCategory.FISH_COLLECTION: {
-          console.log('dispatching update fish collection');
-          this.store.dispatch(
-            updateFishCollectionStateFromSessionAction({
-              fishCollectionData: this.sessionData[key],
-            })
-          );
-          break;
-        }
-        case TrackerCategory.FISH_MODELS: {
-          console.log('dispatching update fish model');
-          this.store.dispatch(
-            updateFishModelStateFromSessionAction({
-              fishModelData: this.sessionData[key],
-            })
-          );
-          break;
-        }
-        case TrackerCategory.FISH_MODEL_SUPPLIES: {
-          console.log('dispatching update fish model supplies');
-          this.store.dispatch(
-            updateHaveFishModelSuppliesStateFromSessionAction({
-              haveFishSuppliesData: this.sessionData[key],
-            })
-          );
-          break;
-        }
+      if (supportedCollections[key]) {
+        this.store.dispatch(
+          supportedCollections[key]({ data: this.sessionData[key] })
+        );
       }
     });
   }

@@ -1,10 +1,12 @@
-import { BugTrackerState } from '../../bug-tracker-view/reducer/bug-tracker.reducer';
+import { BugTrackerState } from '../../bug-tracker-view/reducers/bug-tracker.reducer';
 import { SongTrackerState } from '../../song-tracker-view/reducers/song-tracker.reducer';
-import { FishTrackerState } from '../../fish-tracker-view/reducer/fish-tracker.reducer';
+import { FishTrackerState } from '../../fish-tracker-view/reducers/fish-tracker.reducer';
+import { SeaCreatureTrackerState } from '../../sea-creature-tracker-view/reducers/sea-creature-tracker.reducer';
 
 export interface AppState {
   bugTrackerState: BugTrackerState;
   fishTrackerState: FishTrackerState;
+  seaCreatureTrackerState: SeaCreatureTrackerState;
   songTrackerState: SongTrackerState;
 }
 
@@ -15,10 +17,8 @@ export enum TrackerCategory {
   FISH_COLLECTION,
   FISH_MODELS,
   FISH_MODEL_SUPPLIES,
-  SONGS,
   SEA_CREATURE_COLLECTION,
-  SEA_CREATURE_MODELS,
-  SEA_CREATURE_SUPPLIES,
+  SONGS,
 }
 
 export interface SessionCategoryData {

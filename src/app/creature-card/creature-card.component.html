@@ -7,14 +7,14 @@
         (click)="markCreatureCollected()"
       />COLLECTED</span
     >
-    <span
+    <span *ngIf="creature.haveModel !== undefined"
       ><input
         type="checkbox"
         formControlName="haveModel"
         (click)="markCreatureModelCollected()"
       />HAVE MODEL</span
     >
-    <span
+    <span *ngIf="creature.haveModelSupplies !== undefined"
       ><input
         type="checkbox"
         formControlName="haveModelSupplies"
@@ -27,10 +27,11 @@
   </div>
   <div class="creature-info">
     <div>{{ creature.name }}</div>
-    <div>L: {{ getLocation() }}</div>
+    <div *ngIf="creature.location !== undefined">L: {{ getLocation() }}</div>
     <div>M: {{ getMonths() }}</div>
     <div>T: {{ getTimes() }}</div>
-    <div *ngIf="shouldShowSize()">S: {{ getSize() }}</div>
+    <div *ngIf="creature.size !== undefined">Sz: {{ getSize() }}</div>
+    <div *ngIf="creature.swimStyle !== undefined">St: {{ getSwimStyle() }}</div>
     <div>$: {{ creature.price }}</div>
     <div>#: {{ creature.index }}</div>
   </div>

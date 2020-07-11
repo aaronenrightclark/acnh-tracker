@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Creature } from '../shared/models/collectible.model';
-import { selectBugs } from './reducer/bug-tracker.reducer';
+import { selectBugs } from './reducers/bug-tracker.reducer';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { AppState } from '../shared/models/app-state.model';

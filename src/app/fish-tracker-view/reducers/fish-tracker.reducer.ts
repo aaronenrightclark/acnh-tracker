@@ -132,22 +132,14 @@ const _fishTrackerReducer: ActionReducer<
     updated.encoded = getEncodedState(updated.fish);
     return updated;
   }),
-  on(
-    updateFishCollectionStateFromSessionAction,
-    (state, { fishCollectionData }) =>
-      getUpdatedFishStateForProperty(state, fishCollectionData, 'collected')
+  on(updateFishCollectionStateFromSessionAction, (state, { data }) =>
+    getUpdatedFishStateForProperty(state, data, 'collected')
   ),
-  on(updateFishModelStateFromSessionAction, (state, { fishModelData }) =>
-    getUpdatedFishStateForProperty(state, fishModelData, 'haveModel')
+  on(updateFishModelStateFromSessionAction, (state, { data }) =>
+    getUpdatedFishStateForProperty(state, data, 'haveModel')
   ),
-  on(
-    updateHaveFishModelSuppliesStateFromSessionAction,
-    (state, { haveFishSuppliesData }) =>
-      getUpdatedFishStateForProperty(
-        state,
-        haveFishSuppliesData,
-        'haveModelSupplies'
-      )
+  on(updateHaveFishModelSuppliesStateFromSessionAction, (state, { data }) =>
+    getUpdatedFishStateForProperty(state, data, 'haveModelSupplies')
   )
 );
 
