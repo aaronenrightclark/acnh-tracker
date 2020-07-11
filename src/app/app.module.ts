@@ -25,6 +25,15 @@ import { CollectibleTrackerComponent } from './collectible-tracker/collectible-t
 import { fishTrackerReducer } from './fish-tracker-view/reducers/fish-tracker.reducer';
 import { songTrackerReducer } from './song-tracker-view/reducers/song-tracker.reducer';
 import { seaCreatureTrackerReducer } from './sea-creature-tracker-view/reducers/sea-creature-tracker.reducer';
+import { HemisphereToggleComponent } from './hemisphere-toggle/hemisphere-toggle.component';
+import { CollectedFilterToggleComponent } from './collected-filter-toggle/collected-filter-toggle.component';
+import { CollectionFiltersComponent } from './collection-filters/collection-filters.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatListModule } from '@angular/material/list';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 export function getBaseHref(platformLocation: PlatformLocation): string {
   return platformLocation.getBaseHrefFromDOM();
@@ -43,6 +52,9 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
     SeaCreatureTrackerViewComponent,
     CollectibleCardComponent,
     CollectibleTrackerComponent,
+    HemisphereToggleComponent,
+    CollectedFilterToggleComponent,
+    CollectionFiltersComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +69,12 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
       songTrackerState: songTrackerReducer,
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25 }),
+    BrowserAnimationsModule,
+    MatButtonToggleModule,
+    MatCheckboxModule,
+    MatListModule,
+    MatInputModule,
+    MatFormFieldModule,
   ],
   providers: [
     DatePipe,

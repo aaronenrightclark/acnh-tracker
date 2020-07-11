@@ -1,12 +1,19 @@
-<h1>ACNH Tracker</h1>
-<div *ngIf="encodedSessionData">
-  <input
-    class="session-input"
-    type="text"
-    [ngClass]="sessionDataInputClasses"
-    [(ngModel)]="encodedSessionData"
-    (ngModelChange)="updateSessionDataEntry($event)"
-  />
+<div class="app-container mat-typography mat-app-background light-theme">
+  <h1>ACNH Tracker</h1>
+  <form *ngIf="encodedSessionData">
+    <mat-form-field class="session-input-form">
+      <mat-label>Session Data:</mat-label>
+      <input
+        matInput
+        class="session-input"
+        type="text"
+        [ngClass]="sessionDataInputClasses"
+        [(ngModel)]="encodedSessionData"
+        name="encodedSessionData"
+        (ngModelChange)="updateSessionDataEntry($event)"
+      />
+    </mat-form-field>
+  </form>
+  <header-nav></header-nav>
+  <router-outlet></router-outlet>
 </div>
-<header-nav></header-nav>
-<router-outlet></router-outlet>

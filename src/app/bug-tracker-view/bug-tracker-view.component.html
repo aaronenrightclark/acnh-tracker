@@ -1,8 +1,14 @@
-<div class="bug-tracker-container">
-  <app-creature-tracker
-    [creatures]="creatures$ | async"
-    (creatureCollected)="toggleBugCollected($event)"
-    (creatureModelCollected)="toggleBugModelCollected($event)"
-    (haveCreatureModelSupplies)="toggleHaveBugModelSupplies($event)"
-  ></app-creature-tracker>
+<div class="bug-tracker-view-container">
+  <div class="global-filter-container">
+    <app-hemisphere-toggle></app-hemisphere-toggle>
+    <app-collected-filter-toggle></app-collected-filter-toggle>
+  </div>
+  <div class="bug-tracker-container">
+    <app-creature-tracker
+      [creatures]="creatures$ | async"
+      (creatureCollected)="toggleBugCollected($event)"
+      (creatureModelCollected)="toggleBugModelCollected($event)"
+      (haveCreatureModelSupplies)="toggleHaveBugModelSupplies($event)"
+    ></app-creature-tracker>
+  </div>
 </div>

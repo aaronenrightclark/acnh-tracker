@@ -1,25 +1,26 @@
 <div class="creature-card">
   <div class="collection-checks" [formGroup]="collectionForm">
     <span
-      ><input
-        type="checkbox"
+      ><mat-checkbox
         formControlName="collected"
         (click)="markCreatureCollected()"
-      />COLLECTED</span
+        >COLLECTED</mat-checkbox
+      ></span
     >
     <span *ngIf="creature.haveModel !== undefined"
-      ><input
-        type="checkbox"
+      ><mat-checkbox
         formControlName="haveModel"
         (click)="markCreatureModelCollected()"
-      />HAVE MODEL</span
+        >HAVE MODEL</mat-checkbox
+      ></span
     >
     <span *ngIf="creature.haveModelSupplies !== undefined"
-      ><input
+      ><mat-checkbox
         type="checkbox"
         formControlName="haveModelSupplies"
         (click)="markHaveCreatureModelSupplies()"
-      />HAVE SUPPLIES</span
+        >HAVE SUPPLIES</mat-checkbox
+      ></span
     >
   </div>
   <div class="creature-image">

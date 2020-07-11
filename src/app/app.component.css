@@ -1,3 +1,11 @@
+.app-container {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 960px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
 .valid {
   border: 1px solid black;
 }
@@ -7,7 +15,14 @@
   color: red;
 }
 
-.session-input {
+mat-form-field.session-input-form {
+  display: flex;
+  flex-direction: column;
   width: 100%;
+}
+
+.session-input {
+  box-sizing: border-box;
   margin: 10px;
+  text-align: center;
 }

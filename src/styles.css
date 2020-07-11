@@ -1,4 +1,5 @@
-/* You can add global styles to this file, and also import other style files */
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+
 @font-face {
   font-family: "Rodin Camille Pro B";
   src: url("./assets/fonts/FOT-RodinCamille Pro B.otf") format("opentype");
@@ -9,9 +10,18 @@
   src: url("./assets/fonts/FOT-Seurat Pro B.otf") format("opentype");
 }
 
-* {
+/* * {
   background-color: #dbd670;
   background-image: url("./assets/cream-dust.png");
   font-family: "Seurat Pro B";
   font-style: italic;
+} */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
