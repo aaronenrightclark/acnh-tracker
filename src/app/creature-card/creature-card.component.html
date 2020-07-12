@@ -1,27 +1,27 @@
-<div class="creature-card">
+<mat-card class="creature-card" [formGroup]="collectionForm">
   <div class="collection-checks" [formGroup]="collectionForm">
-    <span
-      ><mat-checkbox
+    <span>
+      <mat-checkbox
         formControlName="collected"
         (click)="markCreatureCollected()"
         >COLLECTED</mat-checkbox
-      ></span
-    >
-    <span *ngIf="creature.haveModel !== undefined"
-      ><mat-checkbox
+      >
+    </span>
+    <span *ngIf="creature.haveModel !== undefined">
+      <mat-checkbox
         formControlName="haveModel"
         (click)="markCreatureModelCollected()"
         >HAVE MODEL</mat-checkbox
-      ></span
-    >
-    <span *ngIf="creature.haveModelSupplies !== undefined"
-      ><mat-checkbox
+      >
+    </span>
+    <span *ngIf="creature.haveModelSupplies !== undefined">
+      <mat-checkbox
         type="checkbox"
         formControlName="haveModelSupplies"
         (click)="markHaveCreatureModelSupplies()"
         >HAVE SUPPLIES</mat-checkbox
-      ></span
-    >
+      >
+    </span>
   </div>
   <div class="creature-image">
     <img [src]="imageSrc" />
@@ -36,4 +36,4 @@
     <div>$: {{ creature.price }}</div>
     <div>#: {{ creature.index }}</div>
   </div>
-</div>
+</mat-card>

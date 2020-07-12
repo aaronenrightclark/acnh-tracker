@@ -1,4 +1,12 @@
+.bug-tracker-view-container {
+  display: flex;
+}
+
 .global-filter-container {
   display: flex;
-  justify-content: space-evenly;
+}
+
+mat-sidenav {
+  height: 100%;
+  overflow-y: hidden;
 }

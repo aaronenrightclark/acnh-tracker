@@ -7,11 +7,10 @@
 }
 
 .valid {
-  border: 1px solid black;
+  color: darkgreen;
 }
 
 .invalid {
-  border: 1px solid red;
   color: red;
 }
 

@@ -29,3 +29,8 @@ export interface SessionCategoryData {
 export type SessionData = {
   [key in TrackerCategory]?: SessionCategoryData;
 };
+
+export enum Hemisphere {
+  NORTH,
+  SOUTH,
+}

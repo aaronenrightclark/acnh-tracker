@@ -34,6 +34,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatListModule } from '@angular/material/list';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 export function getBaseHref(platformLocation: PlatformLocation): string {
   return platformLocation.getBaseHrefFromDOM();
@@ -75,6 +77,8 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
     MatListModule,
     MatInputModule,
     MatFormFieldModule,
+    MatCardModule,
+    MatSidenavModule,
   ],
   providers: [
     DatePipe,

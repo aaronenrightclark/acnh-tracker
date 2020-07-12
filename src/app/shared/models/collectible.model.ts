@@ -97,3 +97,9 @@ export enum CreatureType {
   FISH,
   SEA_CREATURE,
 }
+
+export enum CollectionSubset {
+  ALL,
+  COLLECTED,
+  UNCOLLECTED,
+}

@@ -10,7 +10,10 @@ import {
   toggleBugModelObtainedAction,
 } from '../actions/bug-tracker.actions';
 import { BUG_DATA } from '../../shared/models/constants';
-import { Creature } from '../../shared/models/collectible.model';
+import {
+  Creature,
+  CollectionSubset,
+} from '../../shared/models/collectible.model';
 import {
   AppState,
   TrackerCategory,
@@ -31,11 +34,17 @@ import {
 
 export interface BugTrackerState {
   bugs: { [key: number]: Creature };
+  collectionSubset: CollectionSubset;
+  modelSubset: CollectionSubset;
+  suppliesSubset: CollectionSubset;
   encoded: string;
 }
 
 const initialState: BugTrackerState = {
   bugs: BUG_DATA,
+  collectionSubset: CollectionSubset.ALL,
+  modelSubset: CollectionSubset.ALL,
+  suppliesSubset: CollectionSubset.ALL,
   encoded: getDefaultEncoding([
     TrackerCategory.BUG_COLLECTION,
     TrackerCategory.BUG_MODELS,
