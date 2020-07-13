@@ -5,8 +5,3 @@
 .global-filter-container {
   display: flex;
 }
-
-mat-sidenav {
-  height: 100%;
-  overflow-y: hidden;
-}

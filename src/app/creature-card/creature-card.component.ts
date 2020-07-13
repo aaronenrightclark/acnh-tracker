@@ -14,6 +14,7 @@ import {
 } from '../shared/models/collectible.model';
 import { DatePipe, APP_BASE_HREF } from '@angular/common';
 import { SwimStyle } from '../shared/models/collectible.model';
+import { Hemisphere } from '../shared/models/app-state.model';
 import {
   CreatureType,
   SilhouetteSize,
@@ -26,6 +27,7 @@ import {
 })
 export class CreatureCardComponent implements OnInit {
   @Input() creature: Creature;
+  @Input() hemisphere: Hemisphere;
 
   @Output() creatureCollected: EventEmitter<Creature> = new EventEmitter();
   @Output() creatureModelCollected: EventEmitter<Creature> = new EventEmitter();
@@ -80,8 +82,9 @@ export class CreatureCardComponent implements OnInit {
           .map((activityWindow) => {
             const start = new Date();
             const end = new Date();
-            start.setMonth(activityWindow.start);
-            end.setMonth(activityWindow.end);
+            const offset = this.hemisphere === Hemisphere.NORTH ? 0 : 6;
+            start.setMonth(activityWindow.start + offset);
+            end.setMonth(activityWindow.end + offset);
             return activityWindow.start === activityWindow.end
               ? this.datePipe.transform(start, 'MMM')
               : `${this.datePipe.transform(

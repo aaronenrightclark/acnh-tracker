@@ -1,9 +1,13 @@
-<div class="creature-tracker-container">
+<div *ngIf="_creatures.length" class="creature-tracker-container">
   <app-creature-card
     *ngFor="let creature of _creatures"
     [creature]="creature"
+    [hemisphere]="hemisphere"
     (creatureCollected)="markCreatureCollected($event)"
     (creatureModelCollected)="markCreatureModelCollected($event)"
     (haveCreatureModelSupplies)="markHaveCreatureModelSupplies($event)"
   ></app-creature-card>
+</div>
+<div *ngIf="!_creatures.length">
+  NO CREATURES
 </div>

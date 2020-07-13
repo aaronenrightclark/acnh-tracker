@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppComponent } from './app.component';
 import { HeaderNavComponent } from './header-nav/header-nav.component';
@@ -36,6 +37,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { bugTrackerFilterReducer } from './bug-tracker-view/reducers/bug-tracker-filter.reducer';
+import { BugTrackerEffects } from './bug-tracker-view/effects/bug-tracker.effects';
+import { MatButtonModule } from '@angular/material/button';
+import { sharedTrackerReducer } from './shared/reducers/shared.reducer';
 
 export function getBaseHref(platformLocation: PlatformLocation): string {
   return platformLocation.getBaseHrefFromDOM();
@@ -66,10 +72,13 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
     ReactiveFormsModule,
     StoreModule.forRoot({
       bugTrackerState: bugTrackerReducer,
+      bugTrackerFilterState: bugTrackerFilterReducer,
       fishTrackerState: fishTrackerReducer,
       seaCreatureTrackerState: seaCreatureTrackerReducer,
       songTrackerState: songTrackerReducer,
+      sharedTrackerState: sharedTrackerReducer,
     }),
+    EffectsModule.forRoot([BugTrackerEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25 }),
     BrowserAnimationsModule,
     MatButtonToggleModule,
@@ -79,6 +88,8 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
     MatFormFieldModule,
     MatCardModule,
     MatSidenavModule,
+    MatAutocompleteModule,
+    MatButtonModule,
   ],
   providers: [
     DatePipe,

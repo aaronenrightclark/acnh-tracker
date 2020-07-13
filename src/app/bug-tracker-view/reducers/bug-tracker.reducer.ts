@@ -37,6 +37,7 @@ export interface BugTrackerState {
   collectionSubset: CollectionSubset;
   modelSubset: CollectionSubset;
   suppliesSubset: CollectionSubset;
+
   encoded: string;
 }
 

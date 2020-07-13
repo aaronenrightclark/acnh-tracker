@@ -1,3 +1,28 @@
 <div class="collection-filters-container">
-  <app-hemisphere-toggle></app-hemisphere-toggle>
+  <form>
+    <mat-form-field class="name-filter-input">
+      <mat-label>Filter Names:</mat-label>
+      <input
+        matInput
+        class="name-input"
+        type="text"
+        placeholder="Search by name"
+        #trigger="matAutocompleteTrigger"
+        (keydown.enter)="$event.target.blur(); trigger.closePanel()"
+        [formControl]="control"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let collectibleName of filteredCollectibleNames | async"
+          [value]="collectibleName"
+        >
+          {{ collectibleName }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+  <app-hemisphere-toggle
+    (hemisphereToggleValue)="setHemisphereToggleValue($event)"
+  ></app-hemisphere-toggle>
 </div>

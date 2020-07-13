@@ -2,12 +2,16 @@ import { BugTrackerState } from '../../bug-tracker-view/reducers/bug-tracker.red
 import { SongTrackerState } from '../../song-tracker-view/reducers/song-tracker.reducer';
 import { FishTrackerState } from '../../fish-tracker-view/reducers/fish-tracker.reducer';
 import { SeaCreatureTrackerState } from '../../sea-creature-tracker-view/reducers/sea-creature-tracker.reducer';
+import { BugTrackerFilterState } from '../../bug-tracker-view/reducers/bug-tracker-filter.reducer';
+import { SharedTrackerState } from '../reducers/shared.reducer';
 
 export interface AppState {
   bugTrackerState: BugTrackerState;
+  bugTrackerFilterState: BugTrackerFilterState;
   fishTrackerState: FishTrackerState;
   seaCreatureTrackerState: SeaCreatureTrackerState;
   songTrackerState: SongTrackerState;
+  sharedTrackerState: SharedTrackerState;
 }
 
 export enum TrackerCategory {

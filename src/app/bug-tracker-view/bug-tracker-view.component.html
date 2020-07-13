@@ -1,18 +1,22 @@
-<mat-sidenav-container class="bug-tracker-view-container">
-  <mat-sidenav mode="side" opened class="left-content">
-    <app-collection-filters></app-collection-filters>
+<div class="bug-tracker-view-container">
+  <aside class="left-content">
+    <button mat-stroked-button (click)="resetFilters()">RESET FILTERS</button>
+    <app-collection-filters
+      [collectibles]="creatures$ | async"
+      (partialName)="onFilterByName($event)"
+      (hemisphereToggleValue)="setHemisphereToggleValue($event)"
+    ></app-collection-filters>
     <app-collected-filter-toggle></app-collected-filter-toggle>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <div class="right-content">
-      <div class="bug-tracker-container">
-        <app-creature-tracker
-          [creatures]="creatures$ | async"
-          (creatureCollected)="toggleBugCollected($event)"
-          (creatureModelCollected)="toggleBugModelCollected($event)"
-          (haveCreatureModelSupplies)="toggleHaveBugModelSupplies($event)"
-        ></app-creature-tracker>
-      </div>
+  </aside>
+  <section class="right-content">
+    <div class="bug-tracker-container">
+      <app-creature-tracker
+        [creatures]="creatures$ | async"
+        [hemisphere]="hemisphere$ | async"
+        (creatureCollected)="toggleBugCollected($event)"
+        (creatureModelCollected)="toggleBugModelCollected($event)"
+        (haveCreatureModelSupplies)="toggleHaveBugModelSupplies($event)"
+      ></app-creature-tracker>
     </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  </section>
+</div>
