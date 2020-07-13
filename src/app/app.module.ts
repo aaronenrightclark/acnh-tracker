@@ -42,6 +42,7 @@ import { bugTrackerFilterReducer } from './bug-tracker-view/reducers/bug-tracker
 import { BugTrackerEffects } from './bug-tracker-view/effects/bug-tracker.effects';
 import { MatButtonModule } from '@angular/material/button';
 import { sharedTrackerReducer } from './shared/reducers/shared.reducer';
+import { fishTrackerFilterReducer } from './fish-tracker-view/reducers/fish-tracker-filter.reducer';
 
 export function getBaseHref(platformLocation: PlatformLocation): string {
   return platformLocation.getBaseHrefFromDOM();
@@ -74,6 +75,7 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
       bugTrackerState: bugTrackerReducer,
       bugTrackerFilterState: bugTrackerFilterReducer,
       fishTrackerState: fishTrackerReducer,
+      fishTrackerFilterState: fishTrackerFilterReducer,
       seaCreatureTrackerState: seaCreatureTrackerReducer,
       songTrackerState: songTrackerReducer,
       sharedTrackerState: sharedTrackerReducer,

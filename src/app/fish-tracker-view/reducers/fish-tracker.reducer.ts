@@ -13,17 +13,10 @@ import {
   SessionCategoryData,
 } from '../../shared/models/app-state.model';
 import {
-  toggleFishCollectedAction,
-  toggleFishModelObtainedAction,
-  toggleHaveFishModelSuppliesAction,
-  updateFishCollectionStateFromSessionAction,
-  updateFishModelStateFromSessionAction,
-  updateHaveFishModelSuppliesStateFromSessionAction,
-} from '../actions/fish-tracker.actions';
-import {
   getDefaultEncoding,
   encodeSessionData,
 } from '../../shared/services/collection-encoding.service';
+import { FishTrackerActions } from '../actions';
 
 export interface FishTrackerState {
   fish: { [key: string]: Creature };
@@ -87,7 +80,7 @@ const _fishTrackerReducer: ActionReducer<
   Action
 > = createReducer(
   initialState,
-  on(toggleFishCollectedAction, (state, { fish }) => {
+  on(FishTrackerActions.toggleFishCollectedAction, (state, { fish }) => {
     const updated = {
       ...state,
       fish: {
@@ -101,7 +94,7 @@ const _fishTrackerReducer: ActionReducer<
     updated.encoded = getEncodedState(updated.fish);
     return updated;
   }),
-  on(toggleFishModelObtainedAction, (state, { fish }) => {
+  on(FishTrackerActions.toggleFishModelObtainedAction, (state, { fish }) => {
     const updated = {
       ...state,
       fish: {
@@ -115,28 +108,37 @@ const _fishTrackerReducer: ActionReducer<
     updated.encoded = getEncodedState(updated.fish);
     return updated;
   }),
-  on(toggleHaveFishModelSuppliesAction, (state, { fish }) => {
-    const updated = {
-      ...state,
-      fish: {
-        ...state.fish,
-        [fish.index]: {
-          ...state.fish[fish.index],
-          haveModelSupplies: !state.fish[fish.index].haveModelSupplies,
+  on(
+    FishTrackerActions.toggleHaveFishModelSuppliesAction,
+    (state, { fish }) => {
+      const updated = {
+        ...state,
+        fish: {
+          ...state.fish,
+          [fish.index]: {
+            ...state.fish[fish.index],
+            haveModelSupplies: !state.fish[fish.index].haveModelSupplies,
+          },
         },
-      },
-    } as FishTrackerState;
-    updated.encoded = getEncodedState(updated.fish);
-    return updated;
-  }),
-  on(updateFishCollectionStateFromSessionAction, (state, { data }) =>
-    getUpdatedFishStateForProperty(state, data, 'collected')
+      } as FishTrackerState;
+      updated.encoded = getEncodedState(updated.fish);
+      return updated;
+    }
   ),
-  on(updateFishModelStateFromSessionAction, (state, { data }) =>
-    getUpdatedFishStateForProperty(state, data, 'haveModel')
+  on(
+    FishTrackerActions.updateFishCollectionStateFromSessionAction,
+    (state, { data }) =>
+      getUpdatedFishStateForProperty(state, data, 'collected')
   ),
-  on(updateHaveFishModelSuppliesStateFromSessionAction, (state, { data }) =>
-    getUpdatedFishStateForProperty(state, data, 'haveModelSupplies')
+  on(
+    FishTrackerActions.updateFishModelStateFromSessionAction,
+    (state, { data }) =>
+      getUpdatedFishStateForProperty(state, data, 'haveModel')
+  ),
+  on(
+    FishTrackerActions.updateHaveFishModelSuppliesStateFromSessionAction,
+    (state, { data }) =>
+      getUpdatedFishStateForProperty(state, data, 'haveModelSupplies')
   )
 );
 

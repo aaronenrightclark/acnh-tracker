@@ -19,7 +19,7 @@ import { SharedTrackerActions } from '../shared/actions';
 import { CollectionStatusFilterType } from '../shared/models/filter.model';
 import { BugTrackerFilterActions } from './actions';
 import { selectBugNameFilter } from './reducers/bug-tracker-filter.reducer';
-import { selectCollectionStatusFilter } from './reducers/bug-tracker-filter.reducer';
+import { selectBugCollectionStatusFilter } from './reducers/bug-tracker-filter.reducer';
 
 @Component({
   selector: 'app-bug-tracker-view',
@@ -46,17 +46,17 @@ export class BugTrackerViewComponent implements OnInit {
     this.hemisphere$ = this.store.pipe(map((state) => selectHemisphere(state)));
     this.nameFilter$ = this.store.pipe(select(selectBugNameFilter));
     this.collectionStatusFilter$ = this.store.pipe(
-      select(selectCollectionStatusFilter, {
+      select(selectBugCollectionStatusFilter, {
         filterType: CollectionStatusFilterType.COLLECTIBLE,
       })
     );
     this.modelStatusFilter$ = this.store.pipe(
-      select(selectCollectionStatusFilter, {
+      select(selectBugCollectionStatusFilter, {
         filterType: CollectionStatusFilterType.MODEL,
       })
     );
     this.modelSuppliesStatusFilter$ = this.store.pipe(
-      select(selectCollectionStatusFilter, {
+      select(selectBugCollectionStatusFilter, {
         filterType: CollectionStatusFilterType.MODEL_SUPPLIES,
       })
     );
@@ -91,12 +91,12 @@ export class BugTrackerViewComponent implements OnInit {
     );
   }
 
-  setCollectionStatusStatusFilter(
+  setBugCollectionStatusStatusFilter(
     collectionType: CollectionStatusFilterType,
     subset: CollectionSubset
   ) {
     this.store.dispatch(
-      BugTrackerFilterActions.setCollectionStatusFilterAction({
+      BugTrackerFilterActions.setBugCollectionStatusFilterAction({
         collectionType,
         subset,
       })

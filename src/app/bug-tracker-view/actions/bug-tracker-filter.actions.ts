@@ -6,11 +6,7 @@ export const filterBugsByNameAction = createAction(
   '[Bug Tracker] Filter by Name',
   props<{ partialName: string }>()
 );
-// export const updateBugNameFilterStateAction = createAction(
-//   '[Bug Tracker] Update Name Filter State',
-//   props<{ filtered: number[] }>()
-// );
-export const setCollectionStatusFilterAction = createAction(
+export const setBugCollectionStatusFilterAction = createAction(
   '[Bug Tracker] Set Collection Status',
   props<{
     collectionType: CollectionStatusFilterType;

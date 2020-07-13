@@ -5,47 +5,26 @@ import {
   ActionReducer,
   createSelector,
 } from '@ngrx/store';
-import {
-  toggleBugCollectedAction,
-  toggleBugModelObtainedAction,
-} from '../actions/bug-tracker.actions';
 import { BUG_DATA } from '../../shared/models/constants';
-import {
-  Creature,
-  CollectionSubset,
-} from '../../shared/models/collectible.model';
+import { Creature } from '../../shared/models/collectible.model';
 import {
   AppState,
   TrackerCategory,
   SessionCategoryData,
 } from '../../shared/models/app-state.model';
 import {
-  toggleHaveBugModelSuppliesAction,
-  updateHaveBugModelSuppliesStateFromSessionAction,
-} from '../actions/bug-tracker.actions';
-import {
   getDefaultEncoding,
   encodeSessionData,
 } from '../../shared/services/collection-encoding.service';
-import {
-  updateBugCollectionStateFromSessionAction,
-  updateBugModelStateFromSessionAction,
-} from '../actions/bug-tracker.actions';
+import { BugTrackerActions } from '../actions';
 
 export interface BugTrackerState {
   bugs: { [key: number]: Creature };
-  collectionSubset: CollectionSubset;
-  modelSubset: CollectionSubset;
-  suppliesSubset: CollectionSubset;
-
   encoded: string;
 }
 
 const initialState: BugTrackerState = {
   bugs: BUG_DATA,
-  collectionSubset: CollectionSubset.ALL,
-  modelSubset: CollectionSubset.ALL,
-  suppliesSubset: CollectionSubset.ALL,
   encoded: getDefaultEncoding([
     TrackerCategory.BUG_COLLECTION,
     TrackerCategory.BUG_MODELS,
@@ -100,7 +79,7 @@ const _bugTrackerReducer: ActionReducer<
   Action
 > = createReducer(
   initialState,
-  on(toggleBugCollectedAction, (state, { bug }) => {
+  on(BugTrackerActions.toggleBugCollectedAction, (state, { bug }) => {
     const updated = {
       ...state,
       bugs: {
@@ -114,7 +93,7 @@ const _bugTrackerReducer: ActionReducer<
     updated.encoded = getEncodedState(updated.bugs);
     return updated;
   }),
-  on(toggleBugModelObtainedAction, (state, { bug }) => {
+  on(BugTrackerActions.toggleBugModelObtainedAction, (state, { bug }) => {
     const updated = {
       ...state,
       bugs: {
@@ -128,7 +107,7 @@ const _bugTrackerReducer: ActionReducer<
     updated.encoded = getEncodedState(updated.bugs);
     return updated;
   }),
-  on(toggleHaveBugModelSuppliesAction, (state, { bug }) => {
+  on(BugTrackerActions.toggleHaveBugModelSuppliesAction, (state, { bug }) => {
     const updated = {
       ...state,
       bugs: {
@@ -142,14 +121,18 @@ const _bugTrackerReducer: ActionReducer<
     updated.encoded = getEncodedState(updated.bugs);
     return updated;
   }),
-  on(updateBugCollectionStateFromSessionAction, (state, { data }) =>
-    getUpdatedBugStateForProperty(state, data, 'collected')
+  on(
+    BugTrackerActions.updateBugCollectionStateFromSessionAction,
+    (state, { data }) => getUpdatedBugStateForProperty(state, data, 'collected')
   ),
-  on(updateBugModelStateFromSessionAction, (state, { data }) =>
-    getUpdatedBugStateForProperty(state, data, 'haveModel')
+  on(
+    BugTrackerActions.updateBugModelStateFromSessionAction,
+    (state, { data }) => getUpdatedBugStateForProperty(state, data, 'haveModel')
   ),
-  on(updateHaveBugModelSuppliesStateFromSessionAction, (state, { data }) =>
-    getUpdatedBugStateForProperty(state, data, 'haveModelSupplies')
+  on(
+    BugTrackerActions.updateHaveBugModelSuppliesStateFromSessionAction,
+    (state, { data }) =>
+      getUpdatedBugStateForProperty(state, data, 'haveModelSupplies')
   )
 );
 

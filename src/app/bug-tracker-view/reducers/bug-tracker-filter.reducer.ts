@@ -34,7 +34,7 @@ export const selectBugFilters = createSelector(
   }
 );
 
-export const selectCollectionStatusFilter = createSelector(
+export const selectBugCollectionStatusFilter = createSelector(
   selectBugFilters,
   (
     filters: BugTrackerFilters,
@@ -54,7 +54,6 @@ const _bugTrackerFilterReducer = createReducer(
   on(
     BugTrackerFilterActions.filterBugsByNameAction,
     (state, { partialName }) => {
-      console.log('updating state for partial name: ' + partialName);
       return {
         ...state,
         filters: {
@@ -65,7 +64,7 @@ const _bugTrackerFilterReducer = createReducer(
     }
   ),
   on(
-    BugTrackerFilterActions.setCollectionStatusFilterAction,
+    BugTrackerFilterActions.setBugCollectionStatusFilterAction,
     (state, { collectionType, subset }) => {
       return {
         ...state,

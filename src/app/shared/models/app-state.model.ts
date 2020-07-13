@@ -4,11 +4,13 @@ import { FishTrackerState } from '../../fish-tracker-view/reducers/fish-tracker.
 import { SeaCreatureTrackerState } from '../../sea-creature-tracker-view/reducers/sea-creature-tracker.reducer';
 import { BugTrackerFilterState } from '../../bug-tracker-view/reducers/bug-tracker-filter.reducer';
 import { SharedTrackerState } from '../reducers/shared.reducer';
+import { FishTrackerFilterState } from '../../fish-tracker-view/reducers/fish-tracker-filter.reducer';
 
 export interface AppState {
   bugTrackerState: BugTrackerState;
   bugTrackerFilterState: BugTrackerFilterState;
   fishTrackerState: FishTrackerState;
+  fishTrackerFilterState: FishTrackerFilterState;
   seaCreatureTrackerState: SeaCreatureTrackerState;
   songTrackerState: SongTrackerState;
   sharedTrackerState: SharedTrackerState;
