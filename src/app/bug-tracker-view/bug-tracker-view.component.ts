@@ -1,22 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Creature } from '../shared/models/collectible.model';
+import { Store, select } from '@ngrx/store';
+import { Creature, CollectionSubset } from '../shared/models/collectible.model';
 import { selectBugs } from './reducers/bug-tracker.reducer';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { AppState, Hemisphere } from '../shared/models/app-state.model';
-import { toggleHaveBugModelSuppliesAction } from './actions/bug-tracker.actions';
 import {
   filterBugsByNameAction,
   resetBugFilterStateAction,
 } from './actions/bug-tracker-filter.actions';
-import { selectFilterIntersection } from './reducers/bug-tracker-filter.reducer';
 import { selectHemisphere } from '../shared/reducers/shared.reducer';
 import {
   toggleBugCollectedAction,
   toggleBugModelObtainedAction,
+  toggleHaveBugModelSuppliesAction,
 } from './actions/bug-tracker.actions';
 import { SharedTrackerActions } from '../shared/actions';
+import { CollectionStatusFilterType } from '../shared/models/filter.model';
+import { BugTrackerFilterActions } from './actions';
+import { selectBugNameFilter } from './reducers/bug-tracker-filter.reducer';
+import { selectCollectionStatusFilter } from './reducers/bug-tracker-filter.reducer';
 
 @Component({
   selector: 'app-bug-tracker-view',
@@ -24,44 +27,44 @@ import { SharedTrackerActions } from '../shared/actions';
   styleUrls: ['./bug-tracker-view.component.css'],
 })
 export class BugTrackerViewComponent implements OnInit {
+  CollectionStatusFilterType = CollectionStatusFilterType;
+
   creatures$: Observable<{ [key: number]: Creature }>;
   hemisphere$: Observable<Hemisphere>;
+  collectionStatusFilter$: Observable<CollectionSubset>;
+  modelStatusFilter$: Observable<CollectionSubset>;
+  modelSuppliesStatusFilter$: Observable<CollectionSubset>;
+  nameFilter$: Observable<string>;
+
+  reset = true;
 
   constructor(private store: Store<AppState>) {
-    this.creatures$ = combineLatest([
-      this.store.pipe(
-        map((state) => selectBugs(state)),
-        filter((value) => !!value)
-      ),
-      this.store.pipe(map((state) => selectFilterIntersection(state))),
-    ]).pipe(
-      map(([bugs, filterIntersection]) => {
-        if (filterIntersection) {
-          const filteredBugs = {} as { [key: string]: Creature };
-          filterIntersection.forEach((index) => {
-            if (bugs[index]) {
-              filteredBugs[index] = bugs[index];
-            }
-          });
-          console.log(
-            'returning filtered bugs: ' + JSON.stringify(filteredBugs)
-          );
-          return filteredBugs;
-        } else {
-          return bugs;
-        }
-      })
+    this.creatures$ = this.store.pipe(
+      map((state) => selectBugs(state)),
+      filter((value) => !!value)
     );
     this.hemisphere$ = this.store.pipe(map((state) => selectHemisphere(state)));
+    this.nameFilter$ = this.store.pipe(select(selectBugNameFilter));
+    this.collectionStatusFilter$ = this.store.pipe(
+      select(selectCollectionStatusFilter, {
+        filterType: CollectionStatusFilterType.COLLECTIBLE,
+      })
+    );
+    this.modelStatusFilter$ = this.store.pipe(
+      select(selectCollectionStatusFilter, {
+        filterType: CollectionStatusFilterType.MODEL,
+      })
+    );
+    this.modelSuppliesStatusFilter$ = this.store.pipe(
+      select(selectCollectionStatusFilter, {
+        filterType: CollectionStatusFilterType.MODEL_SUPPLIES,
+      })
+    );
   }
 
   ngOnInit(): void {}
 
-  // onFilterByName(indices: number[]) {
-  //   console.log('filtered indices: ' + JSON.stringify(indices));
-  // }
   onFilterByName(partialName: string) {
-    console.log('dispatching filter action for partialName: ' + partialName);
     this.store.dispatch(filterBugsByNameAction({ partialName }));
   }
 
@@ -79,11 +82,24 @@ export class BugTrackerViewComponent implements OnInit {
 
   resetFilters() {
     this.store.dispatch(resetBugFilterStateAction());
+    this.reset = !this.reset; // value irrelevant, just triggers function
   }
 
   setHemisphereToggleValue(hemisphere: Hemisphere) {
     this.store.dispatch(
       SharedTrackerActions.setHemisphereToggleValue({ hemisphere })
+    );
+  }
+
+  setCollectionStatusStatusFilter(
+    collectionType: CollectionStatusFilterType,
+    subset: CollectionSubset
+  ) {
+    this.store.dispatch(
+      BugTrackerFilterActions.setCollectionStatusFilterAction({
+        collectionType,
+        subset,
+      })
     );
   }
 }

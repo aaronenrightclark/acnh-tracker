@@ -101,7 +101,6 @@ const _bugTrackerReducer: ActionReducer<
 > = createReducer(
   initialState,
   on(toggleBugCollectedAction, (state, { bug }) => {
-    console.log('toggling bug collected: ' + JSON.stringify(bug));
     const updated = {
       ...state,
       bugs: {
@@ -116,7 +115,6 @@ const _bugTrackerReducer: ActionReducer<
     return updated;
   }),
   on(toggleBugModelObtainedAction, (state, { bug }) => {
-    console.log('toggling bug model obtained: ' + JSON.stringify(bug));
     const updated = {
       ...state,
       bugs: {
@@ -131,7 +129,6 @@ const _bugTrackerReducer: ActionReducer<
     return updated;
   }),
   on(toggleHaveBugModelSuppliesAction, (state, { bug }) => {
-    console.log('toggling have bug model supplies: ' + JSON.stringify(bug));
     const updated = {
       ...state,
       bugs: {
@@ -161,9 +158,6 @@ export function getUpdatedBugStateForProperty(
   data: SessionCategoryData,
   propName: string
 ): BugTrackerState {
-  console.log(
-    `updating ${propName} state from session data: ` + JSON.stringify(data)
-  );
   const updated = JSON.parse(JSON.stringify(state)) as BugTrackerState;
   for (const key of Object.keys(state.bugs)) {
     updated.bugs[key] = {

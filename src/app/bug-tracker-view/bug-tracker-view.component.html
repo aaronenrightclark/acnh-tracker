@@ -3,16 +3,50 @@
     <button mat-stroked-button (click)="resetFilters()">RESET FILTERS</button>
     <app-collection-filters
       [collectibles]="creatures$ | async"
+      [resetNameFilterInput]="reset"
       (partialName)="onFilterByName($event)"
       (hemisphereToggleValue)="setHemisphereToggleValue($event)"
     ></app-collection-filters>
-    <app-collected-filter-toggle></app-collected-filter-toggle>
+    <app-collected-filter-toggle
+      [filterType]="CollectionStatusFilterType.COLLECTIBLE"
+      [resetCollectionStatusFilterType]="reset"
+      (collectionStatus)="
+        this.setCollectionStatusStatusFilter(
+          CollectionStatusFilterType.COLLECTIBLE,
+          $event
+        )
+      "
+    ></app-collected-filter-toggle>
+    <app-collected-filter-toggle
+      [filterType]="CollectionStatusFilterType.MODEL"
+      [resetCollectionStatusFilterType]="reset"
+      (collectionStatus)="
+        this.setCollectionStatusStatusFilter(
+          CollectionStatusFilterType.MODEL,
+          $event
+        )
+      "
+    ></app-collected-filter-toggle>
+    <app-collected-filter-toggle
+      [filterType]="CollectionStatusFilterType.MODEL_SUPPLIES"
+      [resetCollectionStatusFilterType]="reset"
+      (collectionStatus)="
+        this.setCollectionStatusStatusFilter(
+          CollectionStatusFilterType.MODEL_SUPPLIES,
+          $event
+        )
+      "
+    ></app-collected-filter-toggle>
   </aside>
   <section class="right-content">
     <div class="bug-tracker-container">
       <app-creature-tracker
         [creatures]="creatures$ | async"
         [hemisphere]="hemisphere$ | async"
+        [partialName]="nameFilter$ | async"
+        [creatureCollectionSubset]="collectionStatusFilter$ | async"
+        [modelCollectionSubset]="modelStatusFilter$ | async"
+        [modelSuppliesCollectionSubset]="modelSuppliesStatusFilter$ | async"
         (creatureCollected)="toggleBugCollected($event)"
         (creatureModelCollected)="toggleBugModelCollected($event)"
         (haveCreatureModelSupplies)="toggleHaveBugModelSupplies($event)"

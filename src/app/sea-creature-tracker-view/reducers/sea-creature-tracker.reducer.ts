@@ -60,7 +60,6 @@ const _seaCreatureTrackerReducer: ActionReducer<
 > = createReducer(
   initialState,
   on(toggleSeaCreatureCollectedAction, (state, { creature }) => {
-    console.log('toggling sea creature collected: ' + JSON.stringify(creature));
     const updated = {
       ...state,
       seaCreatures: {
@@ -84,9 +83,6 @@ export function getUpdatedSeaCreatureStateForProperty(
   data: SessionCategoryData,
   propName: string
 ): SeaCreatureTrackerState {
-  console.log(
-    `updating ${propName} state from session data: ` + JSON.stringify(data)
-  );
   const updated = JSON.parse(JSON.stringify(state)) as SeaCreatureTrackerState;
   for (const key of Object.keys(state.seaCreatures)) {
     updated.seaCreatures[key] = {

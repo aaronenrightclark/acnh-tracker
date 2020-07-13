@@ -88,7 +88,6 @@ const _fishTrackerReducer: ActionReducer<
 > = createReducer(
   initialState,
   on(toggleFishCollectedAction, (state, { fish }) => {
-    console.log('toggling fish collected: ' + JSON.stringify(fish));
     const updated = {
       ...state,
       fish: {
@@ -103,7 +102,6 @@ const _fishTrackerReducer: ActionReducer<
     return updated;
   }),
   on(toggleFishModelObtainedAction, (state, { fish }) => {
-    console.log('toggling fish model obtained: ' + JSON.stringify(fish));
     const updated = {
       ...state,
       fish: {
@@ -118,7 +116,6 @@ const _fishTrackerReducer: ActionReducer<
     return updated;
   }),
   on(toggleHaveFishModelSuppliesAction, (state, { fish }) => {
-    console.log('toggling have fish model supplies: ' + JSON.stringify(fish));
     const updated = {
       ...state,
       fish: {
@@ -148,9 +145,6 @@ export function getUpdatedFishStateForProperty(
   data: SessionCategoryData,
   propName: string
 ): FishTrackerState {
-  console.log(
-    `updating ${propName} state from session data: ` + JSON.stringify(data)
-  );
   const updated = JSON.parse(JSON.stringify(state)) as FishTrackerState;
   for (const key of Object.keys(state.fish)) {
     updated.fish[key] = {

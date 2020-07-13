@@ -24,6 +24,9 @@ import { Hemisphere } from '../shared/models/app-state.model';
 })
 export class CollectionFiltersComponent implements OnInit, OnDestroy {
   @Input() collectibles: { [key: number]: Collectible };
+  @Input() set resetNameFilterInput(resetInput: boolean) {
+    this.control.setValue('');
+  }
   @Output() partialName = new EventEmitter<string>();
   @Output() hemisphereToggleValue = new EventEmitter<Hemisphere>();
 
@@ -45,7 +48,6 @@ export class CollectionFiltersComponent implements OnInit, OnDestroy {
       this.control.valueChanges
         .pipe(debounceTime(200), distinctUntilChanged())
         .subscribe((name) => {
-          console.log('control value change: ' + name);
           this.partialName.emit(name);
         })
     );
@@ -67,7 +69,6 @@ export class CollectionFiltersComponent implements OnInit, OnDestroy {
   }
 
   updateNameFilterInput(entry: string): void {
-    console.log('updating name filter input: ' + entry);
     this.nameFilterInput.next(entry);
   }
 

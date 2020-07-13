@@ -1,11 +1,30 @@
 <div class="collected-status-toggle-container">
+  <span>{{ CollectionStatusFilterType[this.filterType] | uppercase }}</span>
   <mat-button-toggle-group
     vertical
     name="collected-status"
-    aria-label="Collected Status"
+    [(ngModel)]="selected"
+    [attr.aria-label]="
+      CollectionStatusFilterType[this.filterType] + ' collected status'
+    "
   >
-    <mat-button-toggle value="all">ALL</mat-button-toggle>
-    <mat-button-toggle value="collected">COLLECTED</mat-button-toggle>
-    <mat-button-toggle value="uncollected">UNCOLLECTED</mat-button-toggle>
+    <mat-button-toggle
+      [value]="CollectionSubset.ALL"
+      [checked]="selected === CollectionSubset.ALL"
+      (click)="setCollectionStatusFilter(CollectionSubset.ALL)"
+      >{{ CollectionSubset[CollectionSubset.ALL] }}</mat-button-toggle
+    >
+    <mat-button-toggle
+      [value]="CollectionSubset.COLLECTED"
+      [checked]="selected === CollectionSubset.COLLECTED"
+      (click)="setCollectionStatusFilter(CollectionSubset.COLLECTED)"
+      >{{ CollectionSubset[CollectionSubset.COLLECTED] }}</mat-button-toggle
+    >
+    <mat-button-toggle
+      [value]="CollectionSubset.UNCOLLECTED"
+      [checked]="selected === CollectionSubset.UNCOLLECTED"
+      (click)="setCollectionStatusFilter(CollectionSubset.UNCOLLECTED)"
+      >{{ CollectionSubset[CollectionSubset.UNCOLLECTED] }}</mat-button-toggle
+    >
   </mat-button-toggle-group>
 </div>

@@ -16,7 +16,6 @@ export class HemisphereToggleComponent implements OnInit {
   ngOnInit(): void {}
 
   setHemisphereToggleValue(hemisphere: Hemisphere) {
-    console.log('emitting hemisphere toggle: ' + hemisphere);
     this.hemisphereToggleValue.emit(hemisphere);
   }
 }

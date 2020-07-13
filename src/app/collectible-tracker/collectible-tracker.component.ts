@@ -11,10 +11,6 @@ export class CollectibleTrackerComponent implements OnInit {
   @Input() set collectibles(collectibles: {
     [key: string]: Collectible | Song;
   }) {
-    console.log(
-      'collectible-tracker-component: collectibles: ' +
-        JSON.stringify(collectibles)
-    );
     this._collectibles = Object.keys(collectibles).map(
       (key) => collectibles[key]
     );

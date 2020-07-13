@@ -62,7 +62,6 @@ const _songTrackerReducer: ActionReducer<
 > = createReducer(
   initialState,
   on(toggleSongCollectedAction, (state, { song }) => {
-    console.log('toggling song collected: ' + JSON.stringify(song));
     return {
       ...state,
       songs: {
@@ -84,9 +83,6 @@ export function getUpdatedSongStateForProperty(
   data: SessionCategoryData,
   propName: string
 ): SongTrackerState {
-  console.log(
-    `updating ${propName} state from session data: ` + JSON.stringify(data)
-  );
   const updated = JSON.parse(JSON.stringify(state)) as SongTrackerState;
   for (const key of Object.keys(state.songs)) {
     updated.songs[key] = {

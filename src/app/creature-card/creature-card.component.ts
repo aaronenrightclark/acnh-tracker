@@ -16,7 +16,7 @@ import { DatePipe, APP_BASE_HREF } from '@angular/common';
 import { SwimStyle } from '../shared/models/collectible.model';
 import { Hemisphere } from '../shared/models/app-state.model';
 import {
-  CreatureType,
+  CollectibleType,
   SilhouetteSize,
 } from '../shared/models/collectible.model';
 
@@ -69,7 +69,7 @@ export class CreatureCardComponent implements OnInit {
   getLocation(): string {
     return (this.creature.location as any[])
       .map((loc) => {
-        return this.creature.type === CreatureType.BUG
+        return this.creature.type === CollectibleType.BUG
           ? BugLocation[+loc]
           : FishLocation[+loc];
       })
@@ -129,11 +129,11 @@ export class CreatureCardComponent implements OnInit {
       this.creature.index !== undefined &&
       !!this.creature.name &&
       this.creature.type !== undefined &&
-      this.creature.type === CreatureType.BUG
+      this.creature.type === CollectibleType.BUG
     ) {
       let creatureType: string;
       switch (+this.creature.type) {
-        case CreatureType.BUG: {
+        case CollectibleType.BUG: {
           creatureType = 'bugs';
           break;
         }

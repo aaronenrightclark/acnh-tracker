@@ -12,31 +12,4 @@ import { BugTrackerFilterActions } from '../actions';
 })
 export class BugTrackerEffects {
   constructor(private actions$: Actions, private store: Store<AppState>) {}
-
-  filterByName$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(BugTrackerFilterActions.filterBugsByNameAction),
-      concatMap((action) =>
-        of(action).pipe(
-          withLatestFrom(this.store.pipe(map((state) => selectBugs(state))))
-        )
-      ),
-      map(([action, bugs]) => {
-        console.log('filtering by name: ' + action.partialName);
-        const filtered = Object.keys(bugs)
-          .filter((key) =>
-            bugs[key].name
-              .toLowerCase()
-              .replace(/(\s|')/g, '')
-              .includes(action.partialName.toLowerCase().replace(/(\s|')/g, ''))
-          )
-          .map((key) => +key);
-        return BugTrackerFilterActions.updateBugNameFilterStateAction({
-          filtered,
-        });
-      })
-    )
-  );
-
-  filterByBugsCollected$;
 }

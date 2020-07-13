@@ -78,7 +78,7 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
       songTrackerState: songTrackerReducer,
       sharedTrackerState: sharedTrackerReducer,
     }),
-    EffectsModule.forRoot([BugTrackerEffects]),
+    // EffectsModule.forRoot([BugTrackerEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25 }),
     BrowserAnimationsModule,
     MatButtonToggleModule,

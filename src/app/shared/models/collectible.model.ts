@@ -10,7 +10,7 @@ export interface Song extends Collectible {
 }
 
 export interface Creature extends Collectible {
-  type: CreatureType;
+  type: CollectibleType;
   monthsActive: ActivityWindow[]; // empty signifies all-year activity
   timesActive: ActivityWindow[]; // empty signifies all-day activity
   location?: BugLocation[] | FishLocation[];
@@ -92,10 +92,11 @@ export enum SilhouetteSize {
   NARROW,
 }
 
-export enum CreatureType {
+export enum CollectibleType {
   BUG,
   FISH,
   SEA_CREATURE,
+  SONG,
 }
 
 export enum CollectionSubset {

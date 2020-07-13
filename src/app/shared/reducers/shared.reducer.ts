@@ -15,13 +15,14 @@ export const selectSharedTrackerState = (state: AppState) =>
 
 export const selectHemisphere = createSelector(
   selectSharedTrackerState,
-  (state: SharedTrackerState) => state.hemisphere
+  (state: SharedTrackerState) => {
+    return state.hemisphere;
+  }
 );
 
 const _sharedTrackerReducer = createReducer(
   initialState,
   on(SharedTrackerActions.setHemisphereToggleValue, (state, { hemisphere }) => {
-    console.log('setting hemisphere: ' + JSON.stringify(hemisphere));
     return {
       ...state,
       hemisphere,
