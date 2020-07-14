@@ -1,11 +1,21 @@
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
-import { AppState } from '../shared/models/app-state.model';
+import { AppState, Hemisphere } from '../shared/models/app-state.model';
 import { selectSongs } from './reducers/song-tracker.reducer';
 import { map, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Song } from '../shared/models/collectible.model';
-import { toggleSongCollectedAction } from './actions/song-tracker.actions';
+import {
+  Collectible,
+  CollectionSubset,
+} from '../shared/models/collectible.model';
+import { CollectionStatusFilterType } from '../shared/models/filter.model';
+import { SongTrackerFilterActions, SongTrackerActions } from './actions';
+import { SharedTrackerActions } from '../shared/actions';
+import { selectHemisphere } from '../shared/reducers/shared.reducer';
+import {
+  selectSongNameFilter,
+  selectSongCollectionStatusFilter,
+} from './reducers/song-tracker-filter.reducer';
 
 @Component({
   selector: 'app-song-tracker-view',
@@ -13,18 +23,63 @@ import { toggleSongCollectedAction } from './actions/song-tracker.actions';
   styleUrls: ['./song-tracker-view.component.css'],
 })
 export class SongTrackerViewComponent implements OnInit {
-  songs$: Observable<{ [key: number]: Song }>;
+  CollectionStatusFilterType = CollectionStatusFilterType;
+
+  songs$: Observable<{ [key: number]: Collectible }>;
+  hemisphere$: Observable<Hemisphere>;
+  collectionStatusFilter$: Observable<CollectionSubset>;
+  nameFilter$: Observable<string>;
+
+  reset = true;
 
   constructor(private store: Store<AppState>) {
     this.songs$ = this.store.pipe(
       map((state) => selectSongs(state)),
       filter((value) => !!value)
     );
+    this.hemisphere$ = this.store.pipe(map((state) => selectHemisphere(state)));
+    this.nameFilter$ = this.store.pipe(select(selectSongNameFilter));
+    this.collectionStatusFilter$ = this.store.pipe(
+      select(selectSongCollectionStatusFilter, {
+        filterType: CollectionStatusFilterType.COLLECTIBLE,
+      })
+    );
   }
 
   ngOnInit(): void {}
 
-  toggleSongCollected(song: Song) {
-    this.store.dispatch(toggleSongCollectedAction({ song }));
+  onFilterByName(partialName: string) {
+    this.store.dispatch(
+      SongTrackerFilterActions.filterSongsByNameAction({ partialName })
+    );
+  }
+
+  toggleSongCollected(collectible: Collectible) {
+    this.store.dispatch(
+      SongTrackerActions.toggleSongCollectedAction({ collectible })
+    );
+  }
+
+  resetFilters() {
+    this.store.dispatch(SongTrackerFilterActions.resetSongFilterStateAction());
+    this.reset = !this.reset; // value irrelevant, just triggers function
+  }
+
+  setHemisphereToggleValue(hemisphere: Hemisphere) {
+    this.store.dispatch(
+      SharedTrackerActions.setHemisphereToggleValue({ hemisphere })
+    );
+  }
+
+  setSongCollectionStatusStatusFilter(
+    collectionType: CollectionStatusFilterType,
+    subset: CollectionSubset
+  ) {
+    this.store.dispatch(
+      SongTrackerFilterActions.setSongCollectionStatusFilterAction({
+        collectionType,
+        subset,
+      })
+    );
   }
 }

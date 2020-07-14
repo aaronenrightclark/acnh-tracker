@@ -1,4 +1,4 @@
-.creature-card {
+.collectible-card {
   display: flex;
   flex-direction: row;
   padding: 5px;
@@ -10,7 +10,7 @@
   flex-direction: column;
 }
 
-.creature-image img {
+.collectible-image img {
   max-width: 64px;
   height: auto;
 }

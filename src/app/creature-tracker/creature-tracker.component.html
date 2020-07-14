@@ -1,13 +1,13 @@
-<div *ngIf="_creatures.length" class="creature-tracker-container">
-  <app-creature-card
-    *ngFor="let creature of filteredCreatures"
-    [creature]="creature"
+<div *ngIf="_collectibles.length" class="collectible-tracker-container">
+  <app-collectible-card
+    *ngFor="let collectible of filteredCollectibles"
+    [collectible]="collectible"
     [hemisphere]="hemisphere"
-    (creatureCollected)="markCreatureCollected($event)"
-    (creatureModelCollected)="markCreatureModelCollected($event)"
-    (haveCreatureModelSupplies)="markHaveCreatureModelSupplies($event)"
-  ></app-creature-card>
+    (collectibleCollected)="markCollectibleCollected($event)"
+    (collectibleModelCollected)="markCollectibleModelCollected($event)"
+    (haveCollectibleModelSupplies)="markHaveCollectibleModelSupplies($event)"
+  ></app-collectible-card>
 </div>
-<div *ngIf="!filteredCreatures.length">
-  NO CREATURES
+<div *ngIf="!filteredCollectibles.length">
+  NO COLLECTIBLES
 </div>

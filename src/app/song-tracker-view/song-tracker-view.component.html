@@ -1,6 +1,33 @@
-<div class="song-tracker-container">
-  <app-collectible-tracker
-    [collectibles]="songs$ | async"
-    (collectibleCollected)="toggleSongCollected($event)"
-  ></app-collectible-tracker>
+<div class="song-tracker-view-container">
+  <aside class="left-content">
+    <button mat-stroked-button (click)="resetFilters()">RESET FILTERS</button>
+    <app-collection-filters
+      [collectibles]="songs$ | async"
+      [resetNameFilterInput]="reset"
+      (partialName)="onFilterByName($event)"
+      (hemisphereToggleValue)="setHemisphereToggleValue($event)"
+    >
+    </app-collection-filters>
+    <app-collected-filter-toggle
+      [filterType]="CollectionStatusFilterType.COLLECTIBLE"
+      [resetCollectionStatusFilterType]="reset"
+      (collectionStatus)="
+        this.setSongCollectionStatusStatusFilter(
+          CollectionStatusFilterType.COLLECTIBLE,
+          $event
+        )
+      "
+    ></app-collected-filter-toggle>
+  </aside>
+  <section class="right-content">
+    <div class="song-tracker-container">
+      <app-creature-tracker
+        [collectibles]="songs$ | async"
+        [hemisphere]="hemisphere$ | async"
+        [partialName]="nameFilter$ | async"
+        [collectibleCollectionSubset]="collectionStatusFilter$ | async"
+        (collectibleCollected)="toggleSongCollected($event)"
+      ></app-creature-tracker>
+    </div>
+  </section>
 </div>

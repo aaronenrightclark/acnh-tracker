@@ -5,15 +5,13 @@ import { Observable, Subscription, Subject, combineLatest } from 'rxjs';
 import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { updateSeaCreatureCollectionStateFromSessionAction } from './sea-creature-tracker-view/actions/sea-creature-tracker.actions';
 import { updateSongCollectionStateFromSessionAction } from './song-tracker-view/actions/song-tracker.actions';
+import { CollectibleTrackerState } from './shared/models/app-state.model';
 import {
   AppState,
   SessionData,
   TrackerCategory,
 } from './shared/models/app-state.model';
-import {
-  selectBugTrackerState,
-  BugTrackerState,
-} from './bug-tracker-view/reducers/bug-tracker.reducer';
+import { selectBugTrackerState } from './bug-tracker-view/reducers/bug-tracker.reducer';
 import {
   updateBugCollectionStateFromSessionAction,
   updateBugModelStateFromSessionAction,
@@ -24,18 +22,9 @@ import {
   updateFishModelStateFromSessionAction,
   updateHaveFishModelSuppliesStateFromSessionAction,
 } from './fish-tracker-view/actions/fish-tracker.actions';
-import {
-  selectFishTrackerState,
-  FishTrackerState,
-} from './fish-tracker-view/reducers/fish-tracker.reducer';
-import {
-  selectSongTrackerState,
-  SongTrackerState,
-} from './song-tracker-view/reducers/song-tracker.reducer';
-import {
-  SeaCreatureTrackerState,
-  selectSeaCreatureTrackerState,
-} from './sea-creature-tracker-view/reducers/sea-creature-tracker.reducer';
+import { selectFishTrackerState } from './fish-tracker-view/reducers/fish-tracker.reducer';
+import { selectSongTrackerState } from './song-tracker-view/reducers/song-tracker.reducer';
+import { selectSeaCreatureTrackerState } from './sea-creature-tracker-view/reducers/sea-creature-tracker.reducer';
 
 @Component({
   selector: 'app-root',
@@ -45,10 +34,10 @@ import {
 export class AppComponent implements OnDestroy {
   title = 'acnh-tracker';
 
-  bugs$: Observable<BugTrackerState>;
-  fish$: Observable<FishTrackerState>;
-  seaCreatures$: Observable<SeaCreatureTrackerState>;
-  songs$: Observable<SongTrackerState>;
+  bugs$: Observable<CollectibleTrackerState>;
+  fish$: Observable<CollectibleTrackerState>;
+  seaCreatures$: Observable<CollectibleTrackerState>;
+  songs$: Observable<CollectibleTrackerState>;
 
   sessionData: SessionData = {};
   encodedSessionData: string = '';

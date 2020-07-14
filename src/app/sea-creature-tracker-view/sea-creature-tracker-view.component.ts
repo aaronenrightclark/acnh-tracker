@@ -1,11 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { selectSeaCreatures } from './reducers/sea-creature-tracker.reducer';
 import { Observable } from 'rxjs';
-import { Creature } from '../shared/models/collectible.model';
-import { Store } from '@ngrx/store';
-import { AppState } from '../shared/models/app-state.model';
+import {
+  CollectionSubset,
+  Collectible,
+} from '../shared/models/collectible.model';
+import { Store, select } from '@ngrx/store';
+import { AppState, Hemisphere } from '../shared/models/app-state.model';
 import { map, filter } from 'rxjs/operators';
-import { toggleSeaCreatureCollectedAction } from './actions/sea-creature-tracker.actions';
+import { CollectionStatusFilterType } from '../shared/models/filter.model';
+import { selectHemisphere } from '../shared/reducers/shared.reducer';
+import {
+  selectSeaCreatureNameFilter,
+  selectSeaCreatureCollectionStatusFilter,
+} from './reducers/sea-creature-tracker-filter.reducer';
+import {
+  SeaCreatureTrackerActions,
+  SeaCreatureTrackerFilterActions,
+} from './actions';
+import { SharedTrackerActions } from '../shared/actions';
 
 @Component({
   selector: 'app-sea-creature-tracker-view',
@@ -13,18 +26,83 @@ import { toggleSeaCreatureCollectedAction } from './actions/sea-creature-tracker
   styleUrls: ['./sea-creature-tracker-view.component.css'],
 })
 export class SeaCreatureTrackerViewComponent implements OnInit {
-  creatures$: Observable<{ [key: number]: Creature }>;
+  CollectionStatusFilterType = CollectionStatusFilterType;
+
+  seaCreatures$: Observable<{ [key: number]: Collectible }>;
+  hemisphere$: Observable<Hemisphere>;
+  collectionStatusFilter$: Observable<CollectionSubset>;
+  modelStatusFilter$: Observable<CollectionSubset>;
+  modelSuppliesStatusFilter$: Observable<CollectionSubset>;
+  nameFilter$: Observable<string>;
+
+  reset = true;
 
   constructor(private store: Store<AppState>) {
-    this.creatures$ = this.store.pipe(
+    this.seaCreatures$ = this.store.pipe(
       map((state) => selectSeaCreatures(state)),
       filter((value) => !!value)
+    );
+    this.hemisphere$ = this.store.pipe(map((state) => selectHemisphere(state)));
+    this.nameFilter$ = this.store.pipe(select(selectSeaCreatureNameFilter));
+    this.collectionStatusFilter$ = this.store.pipe(
+      select(selectSeaCreatureCollectionStatusFilter, {
+        filterType: CollectionStatusFilterType.COLLECTIBLE,
+      })
+    );
+    this.modelStatusFilter$ = this.store.pipe(
+      select(selectSeaCreatureCollectionStatusFilter, {
+        filterType: CollectionStatusFilterType.MODEL,
+      })
+    );
+    this.modelSuppliesStatusFilter$ = this.store.pipe(
+      select(selectSeaCreatureCollectionStatusFilter, {
+        filterType: CollectionStatusFilterType.MODEL_SUPPLIES,
+      })
     );
   }
 
   ngOnInit(): void {}
 
-  toggleSeaCreatureCollected(creature: Creature) {
-    this.store.dispatch(toggleSeaCreatureCollectedAction({ creature }));
+  onFilterByName(partialName: string) {
+    this.store.dispatch(
+      SeaCreatureTrackerFilterActions.filterSeaCreaturesByNameAction({
+        partialName,
+      })
+    );
+  }
+
+  toggleSeaCreatureCollected(collectible: Collectible) {
+    this.store.dispatch(
+      SeaCreatureTrackerActions.toggleSeaCreatureCollectedAction({
+        collectible,
+      })
+    );
+  }
+
+  resetFilters() {
+    this.store.dispatch(
+      SeaCreatureTrackerFilterActions.resetSeaCreatureFilterStateAction()
+    );
+    this.reset = !this.reset; // value irrelevant, just triggers function
+  }
+
+  setHemisphereToggleValue(hemisphere: Hemisphere) {
+    this.store.dispatch(
+      SharedTrackerActions.setHemisphereToggleValue({ hemisphere })
+    );
+  }
+
+  setSeaCreatureCollectionStatusStatusFilter(
+    collectionType: CollectionStatusFilterType,
+    subset: CollectionSubset
+  ) {
+    this.store.dispatch(
+      SeaCreatureTrackerFilterActions.setSeaCreatureCollectionStatusFilterAction(
+        {
+          collectionType,
+          subset,
+        }
+      )
+    );
   }
 }

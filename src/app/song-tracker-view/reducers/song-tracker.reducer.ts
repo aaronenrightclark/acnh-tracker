@@ -1,14 +1,14 @@
-import { Song, Collectible } from '../../shared/models/collectible.model';
+import {
+  Collectible,
+  COLLECTIBLE_KEY_COLLECTED,
+} from '../../shared/models/collectible.model';
 import { SONG_DATA } from '../../shared/models/constants';
+import { CollectibleTrackerState } from '../../shared/models/app-state.model';
 import {
   AppState,
   TrackerCategory,
   SessionCategoryData,
 } from '../../shared/models/app-state.model';
-import {
-  toggleSongCollectedAction,
-  updateSongCollectionStateFromSessionAction,
-} from '../actions/song-tracker.actions';
 import {
   getDefaultEncoding,
   encodeSessionData,
@@ -20,16 +20,11 @@ import {
   ActionReducer,
   createSelector,
 } from '@ngrx/store';
+import { SongTrackerActions } from '../actions';
+import { getEncodedCollectibleState } from '../../shared/helpers/reducer.helper';
 
-export interface SongTrackerState {
-  songs: {
-    [key: number]: Song;
-  };
-  encoded: string;
-}
-
-const initialState: SongTrackerState = {
-  songs: SONG_DATA,
+const initialState: CollectibleTrackerState = {
+  collectibles: SONG_DATA,
   encoded: getDefaultEncoding([TrackerCategory.SONGS]),
 };
 
@@ -38,16 +33,22 @@ export const selectSongTrackerState = (state: AppState) =>
 
 export const selectSongs = createSelector(
   selectSongTrackerState,
-  (state: SongTrackerState) => state.songs
+  (state: CollectibleTrackerState) => state.collectibles
 );
 
-// TODO: genericise for use with any collection state
-const getEncodedState = (bugs: { [key: number]: Collectible }): string => {
+// TODO: genericise for use with any modelable collection state
+const getEncodedState = (collectibles: {
+  [key: number]: Collectible;
+}): string => {
   const sessionData = {};
   const collected = new Array<number>();
   const uncollected = new Array<number>();
-  Object.keys(bugs).forEach((key) => {
-    bugs[key].collected ? collected.push(+key) : uncollected.push(+key);
+  const haveModels = new Array<number>();
+  const missingModels = new Array<number>();
+  const haveModelSupplies = new Array<number>();
+  const missingModelSupplies = new Array<number>();
+  Object.keys(collectibles).forEach((key) => {
+    collectibles[key].collected ? collected.push(+key) : uncollected.push(+key);
     sessionData[TrackerCategory.SONGS] = {
       inclusive: collected.length <= uncollected.length,
       indices: collected.length <= uncollected.length ? collected : uncollected,
@@ -57,45 +58,51 @@ const getEncodedState = (bugs: { [key: number]: Collectible }): string => {
 };
 
 const _songTrackerReducer: ActionReducer<
-  SongTrackerState,
+  CollectibleTrackerState,
   Action
 > = createReducer(
   initialState,
-  on(toggleSongCollectedAction, (state, { song }) => {
-    return {
+  on(SongTrackerActions.toggleSongCollectedAction, (state, { collectible }) => {
+    const updated = {
       ...state,
-      songs: {
-        ...state.songs,
-        [song.index]: {
-          ...state.songs[song.index],
-          collected: !state.songs[song.index].collected,
+      collectibles: {
+        ...state.collectibles,
+        [collectible.index]: {
+          ...state.collectibles[collectible.index],
+          collected: !state.collectibles[collectible.index].collected,
         },
       },
-    };
+    } as CollectibleTrackerState;
+    updated.encoded = getEncodedCollectibleState(updated.collectibles, {
+      collection: TrackerCategory.SONGS,
+    });
+    return updated;
   }),
-  on(updateSongCollectionStateFromSessionAction, (state, { data }) =>
-    getUpdatedSongStateForProperty(state, data, 'collected')
+  on(
+    SongTrackerActions.updateSongCollectionStateFromSessionAction,
+    (state, { data }) =>
+      getUpdatedSongStateForProperty(state, data, COLLECTIBLE_KEY_COLLECTED)
   )
 );
 
 export function getUpdatedSongStateForProperty(
-  state: SongTrackerState,
+  state: CollectibleTrackerState,
   data: SessionCategoryData,
   propName: string
-): SongTrackerState {
-  const updated = JSON.parse(JSON.stringify(state)) as SongTrackerState;
-  for (const key of Object.keys(state.songs)) {
-    updated.songs[key] = {
-      ...state.songs[key],
+): CollectibleTrackerState {
+  const updated = JSON.parse(JSON.stringify(state)) as CollectibleTrackerState;
+  for (const key of Object.keys(state.collectibles)) {
+    updated.collectibles[key] = {
+      ...state.collectibles[key],
     } as Collectible;
-    updated.songs[key][propName] = data.inclusive
+    updated.collectibles[key][propName] = data.inclusive
       ? data.indices.indexOf(+key) > -1
       : data.indices.indexOf(+key) < 0;
   }
-  updated.encoded = getEncodedState(updated.songs);
+  updated.encoded = getEncodedState(updated.collectibles);
   return updated;
 }
 
-export function songTrackerReducer(state, action): SongTrackerState {
+export function songTrackerReducer(state, action): CollectibleTrackerState {
   return _songTrackerReducer(state, action);
 }

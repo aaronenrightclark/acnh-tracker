@@ -1,23 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Creature, CollectionSubset } from '../shared/models/collectible.model';
+import {
+  CollectionSubset,
+  Collectible,
+} from '../shared/models/collectible.model';
 import { selectBugs } from './reducers/bug-tracker.reducer';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { AppState, Hemisphere } from '../shared/models/app-state.model';
-import {
-  filterBugsByNameAction,
-  resetBugFilterStateAction,
-} from './actions/bug-tracker-filter.actions';
 import { selectHemisphere } from '../shared/reducers/shared.reducer';
-import {
-  toggleBugCollectedAction,
-  toggleBugModelObtainedAction,
-  toggleHaveBugModelSuppliesAction,
-} from './actions/bug-tracker.actions';
 import { SharedTrackerActions } from '../shared/actions';
 import { CollectionStatusFilterType } from '../shared/models/filter.model';
-import { BugTrackerFilterActions } from './actions';
+import { BugTrackerFilterActions, BugTrackerActions } from './actions';
 import { selectBugNameFilter } from './reducers/bug-tracker-filter.reducer';
 import { selectBugCollectionStatusFilter } from './reducers/bug-tracker-filter.reducer';
 
@@ -29,7 +23,7 @@ import { selectBugCollectionStatusFilter } from './reducers/bug-tracker-filter.r
 export class BugTrackerViewComponent implements OnInit {
   CollectionStatusFilterType = CollectionStatusFilterType;
 
-  creatures$: Observable<{ [key: number]: Creature }>;
+  bugs$: Observable<{ [key: number]: Collectible }>;
   hemisphere$: Observable<Hemisphere>;
   collectionStatusFilter$: Observable<CollectionSubset>;
   modelStatusFilter$: Observable<CollectionSubset>;
@@ -39,7 +33,7 @@ export class BugTrackerViewComponent implements OnInit {
   reset = true;
 
   constructor(private store: Store<AppState>) {
-    this.creatures$ = this.store.pipe(
+    this.bugs$ = this.store.pipe(
       map((state) => selectBugs(state)),
       filter((value) => !!value)
     );
@@ -65,23 +59,31 @@ export class BugTrackerViewComponent implements OnInit {
   ngOnInit(): void {}
 
   onFilterByName(partialName: string) {
-    this.store.dispatch(filterBugsByNameAction({ partialName }));
+    this.store.dispatch(
+      BugTrackerFilterActions.filterBugsByNameAction({ partialName })
+    );
   }
 
-  toggleBugCollected(bug: Creature) {
-    this.store.dispatch(toggleBugCollectedAction({ bug }));
+  toggleBugCollected(collectible: Collectible) {
+    this.store.dispatch(
+      BugTrackerActions.toggleBugCollectedAction({ collectible })
+    );
   }
 
-  toggleBugModelCollected(bug: Creature) {
-    this.store.dispatch(toggleBugModelObtainedAction({ bug }));
+  toggleBugModelCollected(collectible: Collectible) {
+    this.store.dispatch(
+      BugTrackerActions.toggleBugModelObtainedAction({ collectible })
+    );
   }
 
-  toggleHaveBugModelSupplies(bug: Creature) {
-    this.store.dispatch(toggleHaveBugModelSuppliesAction({ bug }));
+  toggleHaveBugModelSupplies(collectible: Collectible) {
+    this.store.dispatch(
+      BugTrackerActions.toggleHaveBugModelSuppliesAction({ collectible })
+    );
   }
 
   resetFilters() {
-    this.store.dispatch(resetBugFilterStateAction());
+    this.store.dispatch(BugTrackerFilterActions.resetBugFilterStateAction());
     this.reset = !this.reset; // value irrelevant, just triggers function
   }
 

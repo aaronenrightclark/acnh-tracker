@@ -1,4 +1,4 @@
-import { props, createAction, union } from '@ngrx/store';
+import { props, createAction } from '@ngrx/store';
 import { CollectionSubset } from '../../shared/models/collectible.model';
 import { CollectionStatusFilterType } from '../../shared/models/filter.model';
 

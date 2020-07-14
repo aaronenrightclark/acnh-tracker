@@ -1,25 +1,23 @@
+export const COLLECTIBLE_KEY_COLLECTED = 'collected';
+export const COLLECTIBLE_KEY_HAVE_MODEL = 'haveModel';
+export const COLLECTIBLE_KEY_HAVE_MODEL_SUPPLIES = 'haveModelSupplies';
+
 export interface Collectible {
   index: number;
   name: string;
   price: number;
-  collected: boolean;
-}
-
-export interface Song extends Collectible {
-  mood: SongMood;
-}
-
-export interface Creature extends Collectible {
   type: CollectibleType;
-  monthsActive: ActivityWindow[]; // empty signifies all-year activity
-  timesActive: ActivityWindow[]; // empty signifies all-day activity
+  [COLLECTIBLE_KEY_COLLECTED]: boolean;
+  [COLLECTIBLE_KEY_HAVE_MODEL]?: boolean;
+  [COLLECTIBLE_KEY_HAVE_MODEL_SUPPLIES]?: boolean;
+  monthsActive?: ActivityWindow[]; // empty signifies all-year activity
+  timesActive?: ActivityWindow[]; // empty signifies all-day activity
   location?: BugLocation[] | FishLocation[];
-  haveModel?: boolean;
-  haveModelSupplies?: boolean;
   size?: SilhouetteSize;
   swimStyle?: SwimStyle;
   notes?: string;
   playerNotes?: number;
+  mood?: SongMood;
 }
 
 export interface ActivityWindow {

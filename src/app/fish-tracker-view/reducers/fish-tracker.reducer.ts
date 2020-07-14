@@ -5,7 +5,6 @@ import {
   ActionReducer,
   createSelector,
 } from '@ngrx/store';
-import { Creature } from '../../shared/models/collectible.model';
 import { FISH_DATA } from '../../shared/models/constants';
 import {
   AppState,
@@ -17,14 +16,16 @@ import {
   encodeSessionData,
 } from '../../shared/services/collection-encoding.service';
 import { FishTrackerActions } from '../actions';
+import { CollectibleTrackerState } from '../../shared/models/app-state.model';
+import {
+  Collectible,
+  COLLECTIBLE_KEY_COLLECTED,
+  COLLECTIBLE_KEY_HAVE_MODEL,
+  COLLECTIBLE_KEY_HAVE_MODEL_SUPPLIES,
+} from '../../shared/models/collectible.model';
 
-export interface FishTrackerState {
-  fish: { [key: string]: Creature };
-  encoded: string;
-}
-
-const initialState: FishTrackerState = {
-  fish: FISH_DATA,
+const initialState: CollectibleTrackerState = {
+  collectibles: FISH_DATA,
   encoded: getDefaultEncoding([
     TrackerCategory.FISH_COLLECTION,
     TrackerCategory.FISH_MODELS,
@@ -37,11 +38,13 @@ export const selectFishTrackerState = (state: AppState) =>
 
 export const selectFish = createSelector(
   selectFishTrackerState,
-  (state: FishTrackerState) => state.fish
+  (state: CollectibleTrackerState) => state.collectibles
 );
 
 // TODO: genericise for use with any modelable collection state
-const getEncodedState = (fish: { [key: number]: Creature }): string => {
+const getEncodedState = (collectibles: {
+  [key: number]: Collectible;
+}): string => {
   const sessionData = {};
   const collected = new Array<number>();
   const uncollected = new Array<number>();
@@ -49,10 +52,12 @@ const getEncodedState = (fish: { [key: number]: Creature }): string => {
   const missingModels = new Array<number>();
   const haveModelSupplies = new Array<number>();
   const missingModelSupplies = new Array<number>();
-  Object.keys(fish).forEach((key) => {
-    fish[key].collected ? collected.push(+key) : uncollected.push(+key);
-    fish[key].haveModel ? haveModels.push(+key) : missingModels.push(+key);
-    fish[key].haveModelSupplies
+  Object.keys(collectibles).forEach((key) => {
+    collectibles[key].collected ? collected.push(+key) : uncollected.push(+key);
+    collectibles[key].haveModel
+      ? haveModels.push(+key)
+      : missingModels.push(+key);
+    collectibles[key].haveModelSupplies
       ? haveModelSupplies.push(+key)
       : missingModelSupplies.push(+key);
     sessionData[TrackerCategory.FISH_COLLECTION] = {
@@ -76,90 +81,98 @@ const getEncodedState = (fish: { [key: number]: Creature }): string => {
 };
 
 const _fishTrackerReducer: ActionReducer<
-  FishTrackerState,
+  CollectibleTrackerState,
   Action
 > = createReducer(
   initialState,
-  on(FishTrackerActions.toggleFishCollectedAction, (state, { fish }) => {
+  on(FishTrackerActions.toggleFishCollectedAction, (state, { collectible }) => {
     const updated = {
       ...state,
-      fish: {
-        ...state.fish,
-        [fish.index]: {
-          ...state.fish[fish.index],
-          collected: !state.fish[fish.index].collected,
+      collectibles: {
+        ...state.collectibles,
+        [collectible.index]: {
+          ...state.collectibles[collectible.index],
+          collected: !state.collectibles[collectible.index].collected,
         },
       },
-    } as FishTrackerState;
-    updated.encoded = getEncodedState(updated.fish);
-    return updated;
-  }),
-  on(FishTrackerActions.toggleFishModelObtainedAction, (state, { fish }) => {
-    const updated = {
-      ...state,
-      fish: {
-        ...state.fish,
-        [fish.index]: {
-          ...state.fish[fish.index],
-          haveModel: !state.fish[fish.index].haveModel,
-        },
-      },
-    } as FishTrackerState;
-    updated.encoded = getEncodedState(updated.fish);
+    } as CollectibleTrackerState;
+    updated.encoded = getEncodedState(updated.collectibles);
     return updated;
   }),
   on(
-    FishTrackerActions.toggleHaveFishModelSuppliesAction,
-    (state, { fish }) => {
+    FishTrackerActions.toggleFishModelObtainedAction,
+    (state, { collectible }) => {
       const updated = {
         ...state,
-        fish: {
-          ...state.fish,
-          [fish.index]: {
-            ...state.fish[fish.index],
-            haveModelSupplies: !state.fish[fish.index].haveModelSupplies,
+        collectibles: {
+          ...state.collectibles,
+          [collectible.index]: {
+            ...state.collectibles[collectible.index],
+            haveModel: !state.collectibles[collectible.index].haveModel,
           },
         },
-      } as FishTrackerState;
-      updated.encoded = getEncodedState(updated.fish);
+      } as CollectibleTrackerState;
+      updated.encoded = getEncodedState(updated.collectibles);
+      return updated;
+    }
+  ),
+  on(
+    FishTrackerActions.toggleHaveFishModelSuppliesAction,
+    (state, { collectible }) => {
+      const updated = {
+        ...state,
+        collectibles: {
+          ...state.collectibles,
+          [collectible.index]: {
+            ...state.collectibles[collectible.index],
+            haveModelSupplies: !state.collectibles[collectible.index]
+              .haveModelSupplies,
+          },
+        },
+      } as CollectibleTrackerState;
+      updated.encoded = getEncodedState(updated.collectibles);
       return updated;
     }
   ),
   on(
     FishTrackerActions.updateFishCollectionStateFromSessionAction,
     (state, { data }) =>
-      getUpdatedFishStateForProperty(state, data, 'collected')
+      getUpdatedFishStateForProperty(state, data, COLLECTIBLE_KEY_COLLECTED)
   ),
   on(
     FishTrackerActions.updateFishModelStateFromSessionAction,
     (state, { data }) =>
-      getUpdatedFishStateForProperty(state, data, 'haveModel')
+      getUpdatedFishStateForProperty(state, data, COLLECTIBLE_KEY_HAVE_MODEL)
   ),
   on(
     FishTrackerActions.updateHaveFishModelSuppliesStateFromSessionAction,
     (state, { data }) =>
-      getUpdatedFishStateForProperty(state, data, 'haveModelSupplies')
+      getUpdatedFishStateForProperty(
+        state,
+        data,
+        COLLECTIBLE_KEY_HAVE_MODEL_SUPPLIES
+      )
   )
 );
 
 export function getUpdatedFishStateForProperty(
-  state: FishTrackerState,
+  state: CollectibleTrackerState,
   data: SessionCategoryData,
   propName: string
-): FishTrackerState {
-  const updated = JSON.parse(JSON.stringify(state)) as FishTrackerState;
-  for (const key of Object.keys(state.fish)) {
-    updated.fish[key] = {
-      ...state.fish[key],
-    } as Creature;
-    updated.fish[key][propName] = data.inclusive
+): CollectibleTrackerState {
+  const updated = JSON.parse(JSON.stringify(state)) as CollectibleTrackerState;
+  for (const key of Object.keys(state.collectibles)) {
+    updated.collectibles[key] = {
+      ...state.collectibles[key],
+    } as Collectible;
+    updated.collectibles[key][propName] = data.inclusive
       ? data.indices.indexOf(+key) > -1
       : data.indices.indexOf(+key) < 0;
   }
-  updated.encoded = getEncodedState(updated.fish);
+  updated.encoded = getEncodedState(updated.collectibles);
   return updated;
 }
 
-export function fishTrackerReducer(state, action): FishTrackerState {
+export function fishTrackerReducer(state, action): CollectibleTrackerState {
   return _fishTrackerReducer(state, action);
 }

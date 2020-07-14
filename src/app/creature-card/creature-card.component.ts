@@ -8,31 +8,37 @@ import {
 } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import {
-  Creature,
   BugLocation,
   FishLocation,
+  SongMood,
+  SilhouetteSize,
+  CollectibleType,
 } from '../shared/models/collectible.model';
 import { DatePipe, APP_BASE_HREF } from '@angular/common';
-import { SwimStyle } from '../shared/models/collectible.model';
+import { SwimStyle, Collectible } from '../shared/models/collectible.model';
 import { Hemisphere } from '../shared/models/app-state.model';
-import {
-  CollectibleType,
-  SilhouetteSize,
-} from '../shared/models/collectible.model';
 
 @Component({
-  selector: 'app-creature-card',
+  selector: 'app-collectible-card',
   templateUrl: './creature-card.component.html',
   styleUrls: ['./creature-card.component.css'],
 })
 export class CreatureCardComponent implements OnInit {
-  @Input() creature: Creature;
+  SwimStyle = SwimStyle;
+  SongMood = SongMood;
+  SilhouetteSize = SilhouetteSize;
+
+  @Input() collectible: Collectible;
   @Input() hemisphere: Hemisphere;
 
-  @Output() creatureCollected: EventEmitter<Creature> = new EventEmitter();
-  @Output() creatureModelCollected: EventEmitter<Creature> = new EventEmitter();
-  @Output() haveCreatureModelSupplies: EventEmitter<
-    Creature
+  @Output() collectibleCollected: EventEmitter<
+    Collectible
+  > = new EventEmitter();
+  @Output() collectibleModelCollected: EventEmitter<
+    Collectible
+  > = new EventEmitter();
+  @Output() haveCollectibleModelSupplies: EventEmitter<
+    Collectible
   > = new EventEmitter();
 
   collectionForm: FormGroup;
@@ -46,30 +52,31 @@ export class CreatureCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.collectionForm = this.formBuilder.group({
-      collected: [this.creature.collected],
-      haveModel: [this.creature.haveModel],
-      haveModelSupplies: [this.creature.haveModelSupplies],
+      collected: [this.collectible.collected],
+      haveModel: [this.collectible.haveModel],
+      haveModelSupplies: [this.collectible.haveModelSupplies],
     });
 
     this.imageSrc = this.getImageSrc();
   }
 
-  markCreatureCollected() {
-    this.creatureCollected.emit(this.creature);
+  markCollectibleCollected() {
+    console.log('marking collectible collected');
+    this.collectibleCollected.emit(this.collectible);
   }
 
-  markCreatureModelCollected() {
-    this.creatureModelCollected.emit(this.creature);
+  markCollectibleModelCollected() {
+    this.collectibleModelCollected.emit(this.collectible);
   }
 
-  markHaveCreatureModelSupplies() {
-    this.haveCreatureModelSupplies.emit(this.creature);
+  markHaveCollectibleModelSupplies() {
+    this.haveCollectibleModelSupplies.emit(this.collectible);
   }
 
   getLocation(): string {
-    return (this.creature.location as any[])
+    return (this.collectible.location as any[])
       .map((loc) => {
-        return this.creature.type === CollectibleType.BUG
+        return this.collectible.type === CollectibleType.BUG
           ? BugLocation[+loc]
           : FishLocation[+loc];
       })
@@ -77,8 +84,8 @@ export class CreatureCardComponent implements OnInit {
   }
 
   getMonths(): string {
-    return this.creature.monthsActive.length
-      ? this.creature.monthsActive
+    return this.collectible.monthsActive.length
+      ? this.collectible.monthsActive
           .map((activityWindow) => {
             const start = new Date();
             const end = new Date();
@@ -97,8 +104,8 @@ export class CreatureCardComponent implements OnInit {
   }
 
   getTimes(): string {
-    return this.creature.timesActive.length
-      ? this.creature.timesActive
+    return this.collectible.timesActive.length
+      ? this.collectible.timesActive
           .map((activityWindow) => {
             const start = new Date();
             const end = new Date();
@@ -115,39 +122,32 @@ export class CreatureCardComponent implements OnInit {
       : 'ALL DAY';
   }
 
-  getSize(): string {
-    return SilhouetteSize[this.creature.size];
-  }
-
-  getSwimStyle(): string {
-    return SwimStyle[this.creature.swimStyle];
-  }
-
   getImageSrc(): string {
     if (
-      !!this.creature &&
-      this.creature.index !== undefined &&
-      !!this.creature.name &&
-      this.creature.type !== undefined &&
-      this.creature.type === CollectibleType.BUG
+      !!this.collectible &&
+      this.collectible.index !== undefined &&
+      !!this.collectible.name &&
+      this.collectible.type !== undefined &&
+      this.collectible.type === CollectibleType.BUG
     ) {
-      let creatureType: string;
-      switch (+this.creature.type) {
+      let collectibleType: string;
+      switch (+this.collectible.type) {
         case CollectibleType.BUG: {
-          creatureType = 'bugs';
+          collectibleType = 'bugs';
           break;
         }
         // TODO: enable after renaming fish assets
-        // case CreatureType.FISH: {
-        //   creatureType = 'fish';
+        // case CollectibleType.FISH: {
+        //   collectibleType = 'fish';
         //   break;
         // }
       }
-      const fileName = `${this.creature.index}-${this.creature.name.replace(
-        /\W/g,
-        ''
-      )}.png`;
-      return this.baseHref + `assets/creatures/${creatureType}/${fileName}`;
+      const fileName = `${
+        this.collectible.index
+      }-${this.collectible.name.replace(/\W/g, '')}.png`;
+      return (
+        this.baseHref + `assets/collectibles/${collectibleType}/${fileName}`
+      );
     }
     return this.baseHref + 'assets/default.png';
   }

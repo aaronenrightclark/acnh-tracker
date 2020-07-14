@@ -1,51 +1,49 @@
-import { CollectionStatusFilterType } from '../../shared/models/filter.model';
-import { CollectionSubset } from '../../shared/models/collectible.model';
 import {
-  AppState,
   CollectibleTrackerFilterState,
+  AppState,
   CollectibleTrackerFilters,
 } from '../../shared/models/app-state.model';
+import { CollectionStatusFilterType } from '../../shared/models/filter.model';
+import { CollectionSubset } from '../../shared/models/collectible.model';
 import { createSelector, createReducer, on } from '@ngrx/store';
-import { FishTrackerFilterActions } from '../actions';
+import { SongTrackerFilterActions } from '../actions';
 
 export const initialState: CollectibleTrackerFilterState = {
   filters: {
     [CollectionStatusFilterType.COLLECTIBLE]: CollectionSubset.ALL,
-    [CollectionStatusFilterType.MODEL]: CollectionSubset.ALL,
-    [CollectionStatusFilterType.MODEL_SUPPLIES]: CollectionSubset.ALL,
     partialName: '',
   },
 };
 
-export const selectFishTrackerFilterState = (state: AppState) =>
-  state.fishTrackerFilterState;
+export const selectSongTrackerFilterState = (state: AppState) =>
+  state.songTrackerFilterState;
 
-export const selectFishFilters = createSelector(
-  selectFishTrackerFilterState,
+export const selectSongFilters = createSelector(
+  selectSongTrackerFilterState,
   (state: CollectibleTrackerFilterState) => {
     return state.filters;
   }
 );
 
-export const selectFishCollectionStatusFilter = createSelector(
-  selectFishFilters,
+export const selectSongCollectionStatusFilter = createSelector(
+  selectSongFilters,
   (
     filters: CollectibleTrackerFilters,
     props: { filterType: CollectionStatusFilterType }
   ) => filters[props.filterType]
 );
 
-export const selectFishNameFilter = createSelector(
-  selectFishFilters,
+export const selectSongNameFilter = createSelector(
+  selectSongFilters,
   (filters: CollectibleTrackerFilters) => {
     return filters.partialName;
   }
 );
 
-const _fishTrackerFilterReducer = createReducer(
+const _songTrackerFilterReducer = createReducer(
   initialState,
   on(
-    FishTrackerFilterActions.filterFishByNameAction,
+    SongTrackerFilterActions.filterSongsByNameAction,
     (state, { partialName }) => {
       return {
         ...state,
@@ -57,7 +55,7 @@ const _fishTrackerFilterReducer = createReducer(
     }
   ),
   on(
-    FishTrackerFilterActions.setFishCollectionStatusFilterAction,
+    SongTrackerFilterActions.setSongCollectionStatusFilterAction,
     (state, { collectionType, subset }) => {
       return {
         ...state,
@@ -68,14 +66,14 @@ const _fishTrackerFilterReducer = createReducer(
       };
     }
   ),
-  on(FishTrackerFilterActions.resetFishFilterStateAction, (state) => {
+  on(SongTrackerFilterActions.resetSongFilterStateAction, (state) => {
     return initialState;
   })
 );
 
-export function fishTrackerFilterReducer(
+export function songTrackerFilterReducer(
   state,
   action
 ): CollectibleTrackerFilterState {
-  return _fishTrackerFilterReducer(state, action);
+  return _songTrackerFilterReducer(state, action);
 }

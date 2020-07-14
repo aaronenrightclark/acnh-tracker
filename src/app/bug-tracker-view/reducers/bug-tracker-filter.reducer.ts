@@ -1,21 +1,14 @@
-import { AppState } from '../../shared/models/app-state.model';
+import {
+  AppState,
+  CollectibleTrackerFilterState,
+} from '../../shared/models/app-state.model';
 import { createSelector, createReducer, on } from '@ngrx/store';
 import { BugTrackerFilterActions } from '../actions';
 import { CollectionSubset } from '../../shared/models/collectible.model';
 import { CollectionStatusFilterType } from 'src/app/shared/models/filter.model';
+import { CollectibleTrackerFilters } from '../../shared/models/app-state.model';
 
-export interface BugTrackerFilterState {
-  filters: BugTrackerFilters;
-}
-
-export interface BugTrackerFilters {
-  [CollectionStatusFilterType.COLLECTIBLE]: CollectionSubset;
-  [CollectionStatusFilterType.MODEL]: CollectionSubset;
-  [CollectionStatusFilterType.MODEL_SUPPLIES]: CollectionSubset;
-  partialName: string;
-}
-
-export const initialState: BugTrackerFilterState = {
+export const initialState: CollectibleTrackerFilterState = {
   filters: {
     [CollectionStatusFilterType.COLLECTIBLE]: CollectionSubset.ALL,
     [CollectionStatusFilterType.MODEL]: CollectionSubset.ALL,
@@ -29,7 +22,7 @@ export const selectBugTrackerFilterState = (state: AppState) =>
 
 export const selectBugFilters = createSelector(
   selectBugTrackerFilterState,
-  (state: BugTrackerFilterState) => {
+  (state: CollectibleTrackerFilterState) => {
     return state.filters;
   }
 );
@@ -37,14 +30,14 @@ export const selectBugFilters = createSelector(
 export const selectBugCollectionStatusFilter = createSelector(
   selectBugFilters,
   (
-    filters: BugTrackerFilters,
+    filters: CollectibleTrackerFilters,
     props: { filterType: CollectionStatusFilterType }
   ) => filters[props.filterType]
 );
 
 export const selectBugNameFilter = createSelector(
   selectBugFilters,
-  (filters: BugTrackerFilters) => {
+  (filters: CollectibleTrackerFilters) => {
     return filters.partialName;
   }
 );
@@ -80,6 +73,9 @@ const _bugTrackerFilterReducer = createReducer(
   })
 );
 
-export function bugTrackerFilterReducer(state, action): BugTrackerFilterState {
+export function bugTrackerFilterReducer(
+  state,
+  action
+): CollectibleTrackerFilterState {
   return _bugTrackerFilterReducer(state, action);
 }

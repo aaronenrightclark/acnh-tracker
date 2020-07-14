@@ -1,39 +1,48 @@
-<mat-card class="creature-card" [formGroup]="collectionForm">
+<mat-card class="collectible-card" [formGroup]="collectionForm">
   <div class="collection-checks" [formGroup]="collectionForm">
     <span>
       <mat-checkbox
         formControlName="collected"
-        (click)="markCreatureCollected()"
+        (click)="markCollectibleCollected()"
         >COLLECTED</mat-checkbox
       >
     </span>
-    <span *ngIf="creature.haveModel !== undefined">
+    <span *ngIf="collectible.haveModel !== undefined">
       <mat-checkbox
         formControlName="haveModel"
-        (click)="markCreatureModelCollected()"
+        (click)="markCollectibleModelCollected()"
         >HAVE MODEL</mat-checkbox
       >
     </span>
-    <span *ngIf="creature.haveModelSupplies !== undefined">
+    <span *ngIf="collectible.haveModelSupplies !== undefined">
       <mat-checkbox
         type="checkbox"
         formControlName="haveModelSupplies"
-        (click)="markHaveCreatureModelSupplies()"
+        (click)="markHaveCollectibleModelSupplies()"
         >HAVE SUPPLIES</mat-checkbox
       >
     </span>
   </div>
-  <div class="creature-image">
+  <div class="collectible-image">
     <img [src]="imageSrc" />
   </div>
-  <div class="creature-info">
-    <div>{{ creature.name }}</div>
-    <div *ngIf="creature.location !== undefined">L: {{ getLocation() }}</div>
-    <div>M: {{ getMonths() }}</div>
-    <div>T: {{ getTimes() }}</div>
-    <div *ngIf="creature.size !== undefined">Sz: {{ getSize() }}</div>
-    <div *ngIf="creature.swimStyle !== undefined">St: {{ getSwimStyle() }}</div>
-    <div>$: {{ creature.price }}</div>
-    <div>#: {{ creature.index }}</div>
+  <div class="collectible-info">
+    <div>{{ collectible.name }}</div>
+    <div *ngIf="collectible.location !== undefined">L: {{ getLocation() }}</div>
+    <div *ngIf="collectible.monthsActive !== undefined">
+      Mo: {{ getMonths() }}
+    </div>
+    <div *ngIf="collectible.timesActive !== undefined">T: {{ getTimes() }}</div>
+    <div *ngIf="collectible.size !== undefined">
+      Sz: {{ SilhouetteSize[collectible.size] }}
+    </div>
+    <div *ngIf="collectible.swimStyle !== undefined">
+      St: {{ SwimStyle[collectible.swimStyle] }}
+    </div>
+    <div>$: {{ collectible.price }}</div>
+    <div>#: {{ collectible.index }}</div>
+    <div *ngIf="collectible.mood !== undefined">
+      Md: {{ SongMood[collectible.mood] }}
+    </div>
   </div>
 </mat-card>

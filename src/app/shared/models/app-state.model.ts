@@ -1,18 +1,32 @@
-import { BugTrackerState } from '../../bug-tracker-view/reducers/bug-tracker.reducer';
-import { SongTrackerState } from '../../song-tracker-view/reducers/song-tracker.reducer';
-import { FishTrackerState } from '../../fish-tracker-view/reducers/fish-tracker.reducer';
-import { SeaCreatureTrackerState } from '../../sea-creature-tracker-view/reducers/sea-creature-tracker.reducer';
-import { BugTrackerFilterState } from '../../bug-tracker-view/reducers/bug-tracker-filter.reducer';
 import { SharedTrackerState } from '../reducers/shared.reducer';
-import { FishTrackerFilterState } from '../../fish-tracker-view/reducers/fish-tracker-filter.reducer';
+import { Collectible, CollectionSubset } from './collectible.model';
+import { CollectionStatusFilterType } from './filter.model';
+
+export interface CollectibleTrackerState {
+  collectibles: { [key: string]: Collectible };
+  encoded: string;
+}
+
+export interface CollectibleTrackerFilters {
+  partialName: string;
+  [CollectionStatusFilterType.COLLECTIBLE]: CollectionSubset;
+  [CollectionStatusFilterType.MODEL]?: CollectionSubset;
+  [CollectionStatusFilterType.MODEL_SUPPLIES]?: CollectionSubset;
+}
+
+export interface CollectibleTrackerFilterState {
+  filters: CollectibleTrackerFilters;
+}
 
 export interface AppState {
-  bugTrackerState: BugTrackerState;
-  bugTrackerFilterState: BugTrackerFilterState;
-  fishTrackerState: FishTrackerState;
-  fishTrackerFilterState: FishTrackerFilterState;
-  seaCreatureTrackerState: SeaCreatureTrackerState;
-  songTrackerState: SongTrackerState;
+  bugTrackerState: CollectibleTrackerState;
+  bugTrackerFilterState: CollectibleTrackerFilterState;
+  fishTrackerState: CollectibleTrackerState;
+  fishTrackerFilterState: CollectibleTrackerFilterState;
+  seaCreatureTrackerState: CollectibleTrackerState;
+  seaCreatureTrackerFilterState: CollectibleTrackerFilterState;
+  songTrackerState: CollectibleTrackerState;
+  songTrackerFilterState: CollectibleTrackerFilterState;
   sharedTrackerState: SharedTrackerState;
 }
 

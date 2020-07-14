@@ -7,8 +7,16 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { Creature, CollectionSubset } from '../shared/models/collectible.model';
+import {
+  CollectionSubset,
+  Collectible,
+} from '../shared/models/collectible.model';
 import { Hemisphere } from '../shared/models/app-state.model';
+import {
+  COLLECTIBLE_KEY_COLLECTED,
+  COLLECTIBLE_KEY_HAVE_MODEL,
+  COLLECTIBLE_KEY_HAVE_MODEL_SUPPLIES,
+} from '../shared/models/collectible.model';
 
 @Component({
   selector: 'app-creature-tracker',
@@ -16,43 +24,52 @@ import { Hemisphere } from '../shared/models/app-state.model';
   styleUrls: ['./creature-tracker.component.css'],
 })
 export class CreatureTrackerComponent implements OnInit, OnChanges {
-  _creatures: Creature[] = [];
-  @Input() set creatures(creatures: { [key: string]: Creature }) {
-    this._creatures = Object.keys(creatures).map((key) => creatures[key]);
+  _collectibles: Collectible[] = [];
+  @Input() set collectibles(collectibles: { [key: string]: Collectible }) {
+    this._collectibles = Object.keys(collectibles).map(
+      (key) => collectibles[key]
+    );
   }
   @Input() hemisphere: Hemisphere;
-  @Input() creatureCollectionSubset: CollectionSubset;
+  @Input() collectibleCollectionSubset: CollectionSubset;
   @Input() modelCollectionSubset: CollectionSubset;
   @Input() modelSuppliesCollectionSubset: CollectionSubset;
   @Input() partialName: string;
 
-  @Output() creatureCollected: EventEmitter<Creature> = new EventEmitter();
-  @Output() creatureModelCollected: EventEmitter<Creature> = new EventEmitter();
-  @Output() haveCreatureModelSupplies: EventEmitter<
-    Creature
+  @Output() collectibleCollected: EventEmitter<
+    Collectible
+  > = new EventEmitter();
+  @Output() collectibleModelCollected: EventEmitter<
+    Collectible
+  > = new EventEmitter();
+  @Output() haveCollectibleModelSupplies: EventEmitter<
+    Collectible
   > = new EventEmitter();
 
-  filteredCreatures: Creature[];
+  filteredCollectibles: Collectible[];
 
   constructor() {}
 
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.filteredCreatures = this._creatures
+    this.filteredCollectibles = this._collectibles
       .filter(
         this.filterByCollectionSubset(
-          this.creatureCollectionSubset,
-          'collected'
+          this.collectibleCollectionSubset,
+          COLLECTIBLE_KEY_COLLECTED
         )
       )
       .filter(
-        this.filterByCollectionSubset(this.modelCollectionSubset, 'haveModel')
+        this.filterByCollectionSubset(
+          this.modelCollectionSubset,
+          COLLECTIBLE_KEY_HAVE_MODEL
+        )
       )
       .filter(
         this.filterByCollectionSubset(
           this.modelSuppliesCollectionSubset,
-          'haveModelSupplies'
+          COLLECTIBLE_KEY_HAVE_MODEL_SUPPLIES
         )
       )
       .filter(this.filterByName());
@@ -62,23 +79,23 @@ export class CreatureTrackerComponent implements OnInit, OnChanges {
     collectionSubset: CollectionSubset,
     property: string
   ) {
-    return (creature: Creature) => {
+    return (collectible: Collectible) => {
       return (
         collectionSubset === CollectionSubset.ALL ||
-        creature[property] === undefined ||
+        collectible[property] === undefined ||
         (collectionSubset === CollectionSubset.COLLECTED &&
-          creature[property]) ||
+          collectible[property]) ||
         (collectionSubset === CollectionSubset.UNCOLLECTED &&
-          !creature[property])
+          !collectible[property])
       );
     };
   }
 
   filterByName() {
-    return (creature: Creature) => {
+    return (collectible: Collectible) => {
       return (
         !this.partialName ||
-        creature.name
+        collectible.name
           .toLowerCase()
           .replace(/(\s|')/g, '')
           .includes(this.partialName.toLowerCase().replace(/(\s|')/g, ''))
@@ -86,15 +103,15 @@ export class CreatureTrackerComponent implements OnInit, OnChanges {
     };
   }
 
-  markCreatureCollected(critter) {
-    this.creatureCollected.emit(critter);
+  markCollectibleCollected(collectible) {
+    this.collectibleCollected.emit(collectible);
   }
 
-  markCreatureModelCollected(critter) {
-    this.creatureModelCollected.emit(critter);
+  markCollectibleModelCollected(collectible) {
+    this.collectibleModelCollected.emit(collectible);
   }
 
-  markHaveCreatureModelSupplies(critter) {
-    this.haveCreatureModelSupplies.emit(critter);
+  markHaveCollectibleModelSupplies(collectible) {
+    this.haveCollectibleModelSupplies.emit(collectible);
   }
 }

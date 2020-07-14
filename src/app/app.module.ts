@@ -21,8 +21,6 @@ import {
 import { bugTrackerReducer } from './bug-tracker-view/reducers/bug-tracker.reducer';
 import { SongTrackerViewComponent } from './song-tracker-view/song-tracker-view.component';
 import { SeaCreatureTrackerViewComponent } from './sea-creature-tracker-view/sea-creature-tracker-view.component';
-import { CollectibleCardComponent } from './collectible-card/collectible-card.component';
-import { CollectibleTrackerComponent } from './collectible-tracker/collectible-tracker.component';
 import { fishTrackerReducer } from './fish-tracker-view/reducers/fish-tracker.reducer';
 import { songTrackerReducer } from './song-tracker-view/reducers/song-tracker.reducer';
 import { seaCreatureTrackerReducer } from './sea-creature-tracker-view/reducers/sea-creature-tracker.reducer';
@@ -43,6 +41,8 @@ import { BugTrackerEffects } from './bug-tracker-view/effects/bug-tracker.effect
 import { MatButtonModule } from '@angular/material/button';
 import { sharedTrackerReducer } from './shared/reducers/shared.reducer';
 import { fishTrackerFilterReducer } from './fish-tracker-view/reducers/fish-tracker-filter.reducer';
+import { seaCreatureTrackerFilterReducer } from './sea-creature-tracker-view/reducers/sea-creature-tracker-filter.reducer';
+import { songTrackerFilterReducer } from './song-tracker-view/reducers/song-tracker-filter.reducer';
 
 export function getBaseHref(platformLocation: PlatformLocation): string {
   return platformLocation.getBaseHrefFromDOM();
@@ -59,8 +59,6 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
     CreatureCardComponent,
     SongTrackerViewComponent,
     SeaCreatureTrackerViewComponent,
-    CollectibleCardComponent,
-    CollectibleTrackerComponent,
     HemisphereToggleComponent,
     CollectedFilterToggleComponent,
     CollectionFiltersComponent,
@@ -77,7 +75,9 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
       fishTrackerState: fishTrackerReducer,
       fishTrackerFilterState: fishTrackerFilterReducer,
       seaCreatureTrackerState: seaCreatureTrackerReducer,
+      seaCreatureTrackerFilterState: seaCreatureTrackerFilterReducer,
       songTrackerState: songTrackerReducer,
+      songTrackerFilterState: songTrackerFilterReducer,
       sharedTrackerState: sharedTrackerReducer,
     }),
     // EffectsModule.forRoot([BugTrackerEffects]),

@@ -2,7 +2,7 @@
   <aside class="left-content">
     <button mat-stroked-button (click)="resetFilters()">RESET FILTERS</button>
     <app-collection-filters
-      [collectibles]="creatures$ | async"
+      [collectibles]="bugs$ | async"
       [resetNameFilterInput]="reset"
       (partialName)="onFilterByName($event)"
       (hemisphereToggleValue)="setHemisphereToggleValue($event)"
@@ -41,15 +41,15 @@
   <section class="right-content">
     <div class="bug-tracker-container">
       <app-creature-tracker
-        [creatures]="creatures$ | async"
+        [collectibles]="bugs$ | async"
         [hemisphere]="hemisphere$ | async"
         [partialName]="nameFilter$ | async"
-        [creatureCollectionSubset]="collectionStatusFilter$ | async"
+        [collectibleCollectionSubset]="collectionStatusFilter$ | async"
         [modelCollectionSubset]="modelStatusFilter$ | async"
         [modelSuppliesCollectionSubset]="modelSuppliesStatusFilter$ | async"
-        (creatureCollected)="toggleBugCollected($event)"
-        (creatureModelCollected)="toggleBugModelCollected($event)"
-        (haveCreatureModelSupplies)="toggleHaveBugModelSupplies($event)"
+        (collectibleCollected)="toggleBugCollected($event)"
+        (collectibleModelCollected)="toggleBugModelCollected($event)"
+        (haveCollectibleModelSupplies)="toggleHaveBugModelSupplies($event)"
       ></app-creature-tracker>
     </div>
   </section>

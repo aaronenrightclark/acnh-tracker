@@ -1,15 +1,13 @@
 import { SongMood, SwimStyle } from './collectible.model';
 import {
   BugLocation,
-  Creature,
   FishLocation,
   SilhouetteSize,
   CollectibleType,
-  Song,
   Collectible,
 } from './collectible.model';
 
-export const BUG_DATA: { [key: number]: Creature } = {
+export const BUG_DATA: { [key: number]: Collectible } = {
   0: {
     index: 0,
     name: 'Common Butterfly',
@@ -1011,7 +1009,7 @@ export const BUG_DATA: { [key: number]: Creature } = {
   },
 };
 
-export const FISH_DATA: { [key: number]: Creature } = {
+export const FISH_DATA: { [key: number]: Collectible } = {
   0: {
     index: 0,
     name: 'Bitterling',
@@ -2069,7 +2067,7 @@ export const FISH_DATA: { [key: number]: Creature } = {
   },
 };
 
-export const SEA_CREATURE_DATA: { [key: number]: Creature } = {
+export const SEA_CREATURE_DATA: { [key: number]: Collectible } = {
   0: {
     index: 0,
     name: 'Seaweed',
@@ -2527,13 +2525,14 @@ export const SEA_CREATURE_DATA: { [key: number]: Creature } = {
   },
 };
 
-export const SONG_DATA: { [key: number]: Song } = {
+export const SONG_DATA: { [key: number]: Collectible } = {
   0: {
     index: 0,
     name: 'Agent K.K.',
     price: 800,
     collected: false,
     mood: SongMood.GRUMPY,
+    type: CollectibleType.SONG,
   },
   1: {
     index: 1,
@@ -2541,6 +2540,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.LAID_BACK,
+    type: CollectibleType.SONG,
   },
   2: {
     index: 2,
@@ -2548,6 +2548,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.REQUEST,
+    type: CollectibleType.SONG,
   },
   3: {
     index: 3,
@@ -2555,6 +2556,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GOOD,
+    type: CollectibleType.SONG,
   },
   4: {
     index: 4,
@@ -2562,6 +2564,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GOOD,
+    type: CollectibleType.SONG,
   },
   5: {
     index: 5,
@@ -2569,6 +2572,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.BLUE,
+    type: CollectibleType.SONG,
   },
   6: {
     index: 6,
@@ -2576,6 +2580,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GRUMPY,
+    type: CollectibleType.SONG,
   },
   7: {
     index: 7,
@@ -2583,6 +2588,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.REQUEST,
+    type: CollectibleType.SONG,
   },
   8: {
     index: 8,
@@ -2590,6 +2596,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.REQUEST,
+    type: CollectibleType.SONG,
   },
   9: {
     index: 9,
@@ -2597,6 +2604,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.LAID_BACK,
+    type: CollectibleType.SONG,
   },
   10: {
     index: 10,
@@ -2604,6 +2612,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GRUMPY,
+    type: CollectibleType.SONG,
   },
   11: {
     index: 11,
@@ -2611,6 +2620,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.HARD_TO_SAY,
+    type: CollectibleType.SONG,
   },
   12: {
     index: 12,
@@ -2618,6 +2628,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.LAID_BACK,
+    type: CollectibleType.SONG,
   },
   13: {
     index: 13,
@@ -2625,6 +2636,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GRUMPY,
+    type: CollectibleType.SONG,
   },
   14: {
     index: 14,
@@ -2632,6 +2644,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GRUMPY,
+    type: CollectibleType.SONG,
   },
   15: {
     index: 15,
@@ -2639,6 +2652,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.LAID_BACK,
+    type: CollectibleType.SONG,
   },
   16: {
     index: 16,
@@ -2646,6 +2660,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.BLUE,
+    type: CollectibleType.SONG,
   },
   17: {
     index: 17,
@@ -2653,6 +2668,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GRUMPY,
+    type: CollectibleType.SONG,
   },
   18: {
     index: 18,
@@ -2660,6 +2676,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.REQUEST,
+    type: CollectibleType.SONG,
   },
   19: {
     index: 19,
@@ -2667,6 +2684,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.HARD_TO_SAY,
+    type: CollectibleType.SONG,
   },
   20: {
     index: 20,
@@ -2674,6 +2692,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.LAID_BACK,
+    type: CollectibleType.SONG,
   },
   21: {
     index: 21,
@@ -2681,6 +2700,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GOOD,
+    type: CollectibleType.SONG,
   },
   22: {
     index: 22,
@@ -2688,6 +2708,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GRUMPY,
+    type: CollectibleType.SONG,
   },
   23: {
     index: 23,
@@ -2695,6 +2716,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.BLUE,
+    type: CollectibleType.SONG,
   },
   24: {
     index: 24,
@@ -2702,6 +2724,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.BLUE,
+    type: CollectibleType.SONG,
   },
   25: {
     index: 25,
@@ -2709,6 +2732,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GOOD,
+    type: CollectibleType.SONG,
   },
   26: {
     index: 26,
@@ -2716,6 +2740,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GRUMPY,
+    type: CollectibleType.SONG,
   },
   27: {
     index: 27,
@@ -2723,6 +2748,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.HARD_TO_SAY,
+    type: CollectibleType.SONG,
   },
   28: {
     index: 28,
@@ -2730,6 +2756,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.BLUE,
+    type: CollectibleType.SONG,
   },
   29: {
     index: 29,
@@ -2737,6 +2764,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GOOD,
+    type: CollectibleType.SONG,
   },
   30: {
     index: 30,
@@ -2744,6 +2772,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GOOD,
+    type: CollectibleType.SONG,
   },
   31: {
     index: 31,
@@ -2751,6 +2780,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.BLUE,
+    type: CollectibleType.SONG,
   },
   32: {
     index: 32,
@@ -2758,6 +2788,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.LAID_BACK,
+    type: CollectibleType.SONG,
   },
   33: {
     index: 33,
@@ -2765,6 +2796,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GRUMPY,
+    type: CollectibleType.SONG,
   },
   34: {
     index: 34,
@@ -2772,6 +2804,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.HARD_TO_SAY,
+    type: CollectibleType.SONG,
   },
   35: {
     index: 35,
@@ -2779,6 +2812,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.LAID_BACK,
+    type: CollectibleType.SONG,
   },
   36: {
     index: 36,
@@ -2786,6 +2820,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GOOD,
+    type: CollectibleType.SONG,
   },
   37: {
     index: 37,
@@ -2793,6 +2828,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.HARD_TO_SAY,
+    type: CollectibleType.SONG,
   },
   38: {
     index: 38,
@@ -2800,6 +2836,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.CHEERFUL_UPBEAT,
+    type: CollectibleType.SONG,
   },
   39: {
     index: 39,
@@ -2807,6 +2844,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.LAID_BACK,
+    type: CollectibleType.SONG,
   },
   40: {
     index: 40,
@@ -2814,6 +2852,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.LAID_BACK,
+    type: CollectibleType.SONG,
   },
   41: {
     index: 41,
@@ -2821,6 +2860,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GRUMPY,
+    type: CollectibleType.SONG,
   },
   42: {
     index: 42,
@@ -2828,6 +2868,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.BLUE,
+    type: CollectibleType.SONG,
   },
   43: {
     index: 43,
@@ -2835,6 +2876,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.LAID_BACK,
+    type: CollectibleType.SONG,
   },
   44: {
     index: 44,
@@ -2842,6 +2884,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.BLUE,
+    type: CollectibleType.SONG,
   },
   45: {
     index: 45,
@@ -2849,6 +2892,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GOOD,
+    type: CollectibleType.SONG,
   },
   46: {
     index: 46,
@@ -2856,6 +2900,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.HARD_TO_SAY,
+    type: CollectibleType.SONG,
   },
   47: {
     index: 47,
@@ -2863,6 +2908,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GOOD,
+    type: CollectibleType.SONG,
   },
   48: {
     index: 48,
@@ -2870,6 +2916,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GOOD,
+    type: CollectibleType.SONG,
   },
   49: {
     index: 49,
@@ -2877,6 +2924,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GRUMPY,
+    type: CollectibleType.SONG,
   },
   50: {
     index: 50,
@@ -2884,6 +2932,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.BLUE,
+    type: CollectibleType.SONG,
   },
   51: {
     index: 51,
@@ -2891,6 +2940,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.LAID_BACK,
+    type: CollectibleType.SONG,
   },
   52: {
     index: 52,
@@ -2898,6 +2948,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.HARD_TO_SAY,
+    type: CollectibleType.SONG,
   },
   53: {
     index: 53,
@@ -2905,6 +2956,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GOOD,
+    type: CollectibleType.SONG,
   },
   54: {
     index: 54,
@@ -2912,6 +2964,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GOOD,
+    type: CollectibleType.SONG,
   },
   55: {
     index: 55,
@@ -2919,6 +2972,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.HARD_TO_SAY,
+    type: CollectibleType.SONG,
   },
   56: {
     index: 56,
@@ -2926,6 +2980,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.LAID_BACK,
+    type: CollectibleType.SONG,
   },
   57: {
     index: 57,
@@ -2933,6 +2988,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GRUMPY,
+    type: CollectibleType.SONG,
   },
   58: {
     index: 58,
@@ -2940,6 +2996,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GOOD,
+    type: CollectibleType.SONG,
   },
   59: {
     index: 59,
@@ -2947,6 +3004,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GRUMPY,
+    type: CollectibleType.SONG,
   },
   60: {
     index: 60,
@@ -2954,6 +3012,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GOOD,
+    type: CollectibleType.SONG,
   },
   61: {
     index: 61,
@@ -2961,6 +3020,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GOOD,
+    type: CollectibleType.SONG,
   },
   62: {
     index: 62,
@@ -2968,6 +3028,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GOOD,
+    type: CollectibleType.SONG,
   },
   63: {
     index: 63,
@@ -2975,6 +3036,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.BLUE,
+    type: CollectibleType.SONG,
   },
   64: {
     index: 64,
@@ -2982,6 +3044,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.HARD_TO_SAY,
+    type: CollectibleType.SONG,
   },
   65: {
     index: 65,
@@ -2989,6 +3052,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.HARD_TO_SAY,
+    type: CollectibleType.SONG,
   },
   66: {
     index: 66,
@@ -2996,6 +3060,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GRUMPY,
+    type: CollectibleType.SONG,
   },
   67: {
     index: 67,
@@ -3003,6 +3068,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.LAID_BACK,
+    type: CollectibleType.SONG,
   },
   68: {
     index: 68,
@@ -3010,6 +3076,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.LAID_BACK,
+    type: CollectibleType.SONG,
   },
   69: {
     index: 69,
@@ -3017,6 +3084,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.LAID_BACK,
+    type: CollectibleType.SONG,
   },
   70: {
     index: 70,
@@ -3024,6 +3092,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GRUMPY,
+    type: CollectibleType.SONG,
   },
   71: {
     index: 71,
@@ -3031,6 +3100,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.HARD_TO_SAY,
+    type: CollectibleType.SONG,
   },
   72: {
     index: 72,
@@ -3038,6 +3108,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.BLUE,
+    type: CollectibleType.SONG,
   },
   73: {
     index: 73,
@@ -3045,6 +3116,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.BLUE,
+    type: CollectibleType.SONG,
   },
   74: {
     index: 74,
@@ -3052,6 +3124,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.BLUE,
+    type: CollectibleType.SONG,
   },
   75: {
     index: 75,
@@ -3059,6 +3132,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GRUMPY,
+    type: CollectibleType.SONG,
   },
   76: {
     index: 76,
@@ -3066,6 +3140,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.LAID_BACK,
+    type: CollectibleType.SONG,
   },
   77: {
     index: 77,
@@ -3073,6 +3148,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GOOD,
+    type: CollectibleType.SONG,
   },
   78: {
     index: 78,
@@ -3080,6 +3156,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.LAID_BACK,
+    type: CollectibleType.SONG,
   },
   79: {
     index: 79,
@@ -3087,6 +3164,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.LAID_BACK,
+    type: CollectibleType.SONG,
   },
   80: {
     index: 80,
@@ -3094,6 +3172,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GOOD,
+    type: CollectibleType.SONG,
   },
   81: {
     index: 81,
@@ -3101,6 +3180,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.BLUE,
+    type: CollectibleType.SONG,
   },
   82: {
     index: 82,
@@ -3108,6 +3188,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.LAID_BACK,
+    type: CollectibleType.SONG,
   },
   83: {
     index: 83,
@@ -3115,6 +3196,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GRUMPY,
+    type: CollectibleType.SONG,
   },
   84: {
     index: 84,
@@ -3122,6 +3204,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.LAID_BACK,
+    type: CollectibleType.SONG,
   },
   85: {
     index: 85,
@@ -3129,6 +3212,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.HARD_TO_SAY,
+    type: CollectibleType.SONG,
   },
   86: {
     index: 86,
@@ -3136,6 +3220,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GOOD,
+    type: CollectibleType.SONG,
   },
   87: {
     index: 87,
@@ -3143,6 +3228,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.BLUE,
+    type: CollectibleType.SONG,
   },
   88: {
     index: 88,
@@ -3150,6 +3236,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.BLUE,
+    type: CollectibleType.SONG,
   },
   89: {
     index: 89,
@@ -3157,6 +3244,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.GRUMPY,
+    type: CollectibleType.SONG,
   },
   90: {
     index: 90,
@@ -3164,6 +3252,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.HARD_TO_SAY,
+    type: CollectibleType.SONG,
   },
   91: {
     index: 91,
@@ -3171,6 +3260,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.HARD_TO_SAY,
+    type: CollectibleType.SONG,
   },
   92: {
     index: 92,
@@ -3178,6 +3268,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.BLUE,
+    type: CollectibleType.SONG,
   },
   93: {
     index: 93,
@@ -3185,6 +3276,7 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.LAID_BACK,
+    type: CollectibleType.SONG,
   },
   94: {
     index: 94,
@@ -3192,5 +3284,6 @@ export const SONG_DATA: { [key: number]: Song } = {
     price: 800,
     collected: false,
     mood: SongMood.REQUEST,
+    type: CollectibleType.SONG,
   },
 };

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { selectFish } from './reducers/fish-tracker.reducer';
-import { Creature, CollectionSubset } from '../shared/models/collectible.model';
+import {
+  CollectionSubset,
+  Collectible,
+} from '../shared/models/collectible.model';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState, Hemisphere } from '../shared/models/app-state.model';
@@ -22,7 +25,7 @@ import { SharedTrackerActions } from '../shared/actions';
 export class FishTrackerViewComponent implements OnInit {
   CollectionStatusFilterType = CollectionStatusFilterType;
 
-  creatures$: Observable<{ [key: number]: Creature }>;
+  fish$: Observable<{ [key: number]: Collectible }>;
   hemisphere$: Observable<Hemisphere>;
   collectionStatusFilter$: Observable<CollectionSubset>;
   modelStatusFilter$: Observable<CollectionSubset>;
@@ -32,7 +35,7 @@ export class FishTrackerViewComponent implements OnInit {
   reset = true;
 
   constructor(private store: Store<AppState>) {
-    this.creatures$ = this.store.pipe(
+    this.fish$ = this.store.pipe(
       map((state) => selectFish(state)),
       filter((value) => !!value)
     );
@@ -63,19 +66,21 @@ export class FishTrackerViewComponent implements OnInit {
     );
   }
 
-  toggleFishCollected(fish: Creature) {
-    this.store.dispatch(FishTrackerActions.toggleFishCollectedAction({ fish }));
-  }
-
-  toggleFishModelCollected(fish: Creature) {
+  toggleFishCollected(collectible: Collectible) {
     this.store.dispatch(
-      FishTrackerActions.toggleFishModelObtainedAction({ fish })
+      FishTrackerActions.toggleFishCollectedAction({ collectible })
     );
   }
 
-  toggleHaveFishModelSupplies(fish: Creature) {
+  toggleFishModelCollected(collectible: Collectible) {
     this.store.dispatch(
-      FishTrackerActions.toggleHaveFishModelSuppliesAction({ fish })
+      FishTrackerActions.toggleFishModelObtainedAction({ collectible })
+    );
+  }
+
+  toggleHaveFishModelSupplies(collectible: Collectible) {
+    this.store.dispatch(
+      FishTrackerActions.toggleHaveFishModelSuppliesAction({ collectible })
     );
   }
 
