@@ -1,4 +1,4 @@
-<div class="header-nav">
+<!-- <div class="header-nav">
   <mat-nav-list class="list-horizontal">
     <a mat-list-item class="nav-link" routerLink="/">LANDING</a>
     <a mat-list-item class="nav-link" routerLink="/bugs">BUGS</a>
@@ -7,5 +7,45 @@
       >SEA CREATURES</a
     >
     <a mat-list-item class="nav-link" routerLink="/songs">SONGS</a>
+  </mat-nav-list>
+</div> -->
+
+<div class="header-nav">
+  <mat-nav-list class="list-horizontal">
+    <a
+      mat-list-item
+      class="nav-link"
+      [routerLink]="'/'"
+      [queryParams]="{ session: sessionParam }"
+      >LANDING</a
+    >
+    <a
+      mat-list-item
+      class="nav-link"
+      [routerLink]="'/bugs'"
+      [queryParams]="{ session: sessionParam }"
+      >BUGS</a
+    >
+    <a
+      mat-list-item
+      class="nav-link"
+      [routerLink]="'/fish'"
+      [queryParams]="{ session: sessionParam }"
+      >FISH</a
+    >
+    <a
+      mat-list-item
+      class="nav-link"
+      [routerLink]="'/sea-creatures'"
+      [queryParams]="{ session: sessionParam }"
+      >SEA CREATURES</a
+    >
+    <a
+      mat-list-item
+      class="nav-link"
+      [routerLink]="'/songs'"
+      [queryParams]="{ session: sessionParam }"
+      >SONGS</a
+    >
   </mat-nav-list>
 </div>

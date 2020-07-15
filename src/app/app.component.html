@@ -14,6 +14,6 @@
       />
     </mat-form-field>
   </form>
-  <header-nav></header-nav>
+  <header-nav [sessionParam]="sessionQueryParam | async"></header-nav>
   <router-outlet></router-outlet>
 </div>

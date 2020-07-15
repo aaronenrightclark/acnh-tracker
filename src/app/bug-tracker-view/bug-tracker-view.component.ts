@@ -5,7 +5,7 @@ import {
   Collectible,
 } from '../shared/models/collectible.model';
 import { selectBugs } from './reducers/bug-tracker.reducer';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { AppState, Hemisphere } from '../shared/models/app-state.model';
 import { selectHemisphere } from '../shared/reducers/shared.reducer';
@@ -14,6 +14,7 @@ import { CollectionStatusFilterType } from '../shared/models/filter.model';
 import { BugTrackerFilterActions, BugTrackerActions } from './actions';
 import { selectBugNameFilter } from './reducers/bug-tracker-filter.reducer';
 import { selectBugCollectionStatusFilter } from './reducers/bug-tracker-filter.reducer';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-bug-tracker-view',
@@ -32,7 +33,12 @@ export class BugTrackerViewComponent implements OnInit {
 
   reset = true;
 
-  constructor(private store: Store<AppState>) {
+  subscriptions = new Array<Subscription>();
+
+  constructor(
+    private store: Store<AppState>,
+    private activatedRoute: ActivatedRoute
+  ) {
     this.bugs$ = this.store.pipe(
       map((state) => selectBugs(state)),
       filter((value) => !!value)

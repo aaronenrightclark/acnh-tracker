@@ -61,7 +61,6 @@ export class CreatureCardComponent implements OnInit {
   }
 
   markCollectibleCollected() {
-    console.log('marking collectible collected');
     this.collectibleCollected.emit(this.collectible);
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'header-nav',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header-nav.component.css'],
 })
 export class HeaderNavComponent implements OnInit {
+  @Input() sessionParam: string;
+
   constructor() {}
 
   ngOnInit(): void {}

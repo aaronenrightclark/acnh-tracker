@@ -25,6 +25,7 @@ import {
 import { selectFishTrackerState } from './fish-tracker-view/reducers/fish-tracker.reducer';
 import { selectSongTrackerState } from './song-tracker-view/reducers/song-tracker.reducer';
 import { selectSeaCreatureTrackerState } from './sea-creature-tracker-view/reducers/sea-creature-tracker.reducer';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -42,11 +43,15 @@ export class AppComponent implements OnDestroy {
   sessionData: SessionData = {};
   encodedSessionData: string = '';
   sessionDataInput: Subject<string> = new Subject<string>();
+  sessionQueryParam: Subject<string> = new Subject<string>();
   sessionDataInputClasses = {};
 
   subscriptions = new Array<Subscription>();
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private store: Store<AppState>,
+    private activatedRoute: ActivatedRoute
+  ) {
     this.bugs$ = this.store.pipe(
       map((state: AppState) => selectBugTrackerState(state))
     );
@@ -64,16 +69,7 @@ export class AppComponent implements OnDestroy {
       this.sessionDataInput
         .pipe(debounceTime(1000), distinctUntilChanged())
         .subscribe((input) => {
-          this.encodedSessionData = input.replace(/\s/g, '');
-          const validEntry = this.validateSessionDataEntry();
-          this.sessionDataInputClasses = {
-            valid: validEntry,
-            invalid: !validEntry,
-          };
-          if (validEntry) {
-            this.sessionData = this.getDecodedSession();
-            this.dispatchSessionData();
-          }
+          this.setEncodedSessionDataValue(input);
         })
     );
 
@@ -96,17 +92,42 @@ export class AppComponent implements OnDestroy {
             seaCreatureTrackerState.encoded,
             songTrackerState.encoded,
           ].join('.');
+          this.sessionQueryParam.next(this.encodedSessionData);
         }
       )
     );
+
+    this.subscriptions.push(
+      this.activatedRoute.queryParamMap.subscribe((queryParamMap) => {
+        if (
+          queryParamMap.has('session') &&
+          this.validateSessionData(queryParamMap.get('session'))
+        ) {
+          this.setEncodedSessionDataValue(queryParamMap.get('session'));
+        }
+      })
+    );
   }
 
-  validateSessionDataEntry(): boolean {
-    const entry = this.encodedSessionData;
-    if (!entry) {
+  setEncodedSessionDataValue(value: string): void {
+    this.encodedSessionData = value.replace(/\s/g, '');
+    const validEntry = this.validateSessionDataEntry();
+    this.sessionDataInputClasses = {
+      valid: validEntry,
+      invalid: !validEntry,
+    };
+    if (validEntry) {
+      this.sessionData = this.getDecodedSession();
+      this.dispatchSessionData();
+      this.sessionQueryParam.next(this.encodedSessionData);
+    }
+  }
+
+  validateSessionData(data: string): boolean {
+    if (!data) {
       return false;
     }
-    const categories = entry.split('.');
+    const categories = data.split('.');
     if (
       categories.some((cat) => {
         if (cat.indexOf('-') < 0) {
@@ -129,6 +150,10 @@ export class AppComponent implements OnDestroy {
       return false;
     }
     return true;
+  }
+
+  validateSessionDataEntry(): boolean {
+    return this.validateSessionData(this.encodedSessionData);
   }
 
   updateSessionDataEntry(entry: string): void {
@@ -175,14 +200,10 @@ export class AppComponent implements OnDestroy {
   }
 
   getDecodedSession(): SessionData {
-    console.log('decoding session...');
     const decoded: SessionData = {};
     const sessionCategories = this.encodedSessionData.split('.');
     sessionCategories.forEach((cat) => {
       const catData = cat.split('-');
-      console.log(
-        `catData[2].split(','): ` + `'${JSON.stringify(catData[2].split(','))}'`
-      );
       decoded[catData[0]] = {
         inclusive: catData[1],
         indices: catData[2]
@@ -191,7 +212,6 @@ export class AppComponent implements OnDestroy {
           .map((index) => +index.trim()),
       };
     });
-    console.log('decoded session: ' + JSON.stringify(decoded));
     return decoded;
   }
 
