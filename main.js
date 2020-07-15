@@ -129,22 +129,31 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function AppComponent_form_6_Template(rf, ctx) { if (rf & 1) {
-    const _r2 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+function AppComponent_div_8_form_1_Template(rf, ctx) { if (rf & 1) {
+    const _r3 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "form");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "mat-form-field", 5);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "mat-label");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3, "Session Data:");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "input", 6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function AppComponent_form_6_Template_input_ngModelChange_4_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r2); const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r1.encodedSessionData = $event; })("ngModelChange", function AppComponent_form_6_Template_input_ngModelChange_4_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r2); const ctx_r3 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r3.updateSessionDataEntry($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "textarea", 6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function AppComponent_div_8_form_1_Template_textarea_ngModelChange_4_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r3); const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2); return ctx_r2.encodedSessionData = $event; })("ngModelChange", function AppComponent_div_8_form_1_Template_textarea_ngModelChange_4_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r3); const ctx_r4 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2); return ctx_r4.updateSessionDataEntry($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+    const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", ctx_r0.sessionDataInputClasses)("ngModel", ctx_r0.encodedSessionData);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", ctx_r1.sessionDataInputClasses)("ngModel", ctx_r1.encodedSessionData);
+} }
+function AppComponent_div_8_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AppComponent_div_8_form_1_Template, 5, 2, "form", 3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    const ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r0.encodedSessionData);
 } }
 class AppComponent {
     constructor(store, activatedRoute) {
@@ -157,6 +166,7 @@ class AppComponent {
         this.sessionQueryParam = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
         this.sessionDataInputClasses = {};
         this.subscriptions = new Array();
+        this.showSessionForm = false;
         this.bugs$ = this.store.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])((state) => Object(_bug_tracker_view_reducers_bug_tracker_reducer__WEBPACK_IMPORTED_MODULE_6__["selectBugTrackerState"])(state)));
         this.fish$ = this.store.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])((state) => Object(_fish_tracker_view_reducers_fish_tracker_reducer__WEBPACK_IMPORTED_MODULE_9__["selectFishTrackerState"])(state)));
         this.seaCreatures$ = this.store.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])((state) => Object(_sea_creature_tracker_view_reducers_sea_creature_tracker_reducer__WEBPACK_IMPORTED_MODULE_11__["selectSeaCreatureTrackerState"])(state)));
@@ -228,10 +238,12 @@ class AppComponent {
         return this.validateSessionData(this.encodedSessionData);
     }
     updateSessionDataEntry(entry) {
-        this.sessionDataInput.next(entry);
-    }
-    showEncodedSession() {
-        return Object.keys(this.sessionData).length > 0;
+        if (!!entry) {
+            this.sessionDataInput.next(entry);
+        }
+        else {
+            this.sessionDataInput.next();
+        }
     }
     dispatchSessionData() {
         const supportedCollections = {
@@ -269,7 +281,7 @@ class AppComponent {
         sessionCategories.forEach((cat) => {
             const catData = cat.split('-');
             decoded[catData[0]] = {
-                inclusive: catData[1],
+                inclusive: +catData[1],
                 indices: catData[2]
                     .split(',')
                     .filter((index) => index !== '')
@@ -295,7 +307,7 @@ class AppComponent {
     }
 }
 AppComponent.ɵfac = function AppComponent_Factory(t) { return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_13__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_14__["ActivatedRoute"])); };
-AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AppComponent, selectors: [["app-root"]], decls: 10, vars: 4, consts: [[1, "app-container", "mat-typography", "mat-app-background", "light-theme"], [1, "app-component-header"], ["mat-stroked-button", "", 3, "click"], [4, "ngIf"], [3, "sessionParam"], [1, "session-input-form"], ["matInput", "", "type", "text", "name", "encodedSessionData", 1, "session-input", 3, "ngClass", "ngModel", "ngModelChange"]], template: function AppComponent_Template(rf, ctx) { if (rf & 1) {
+AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AppComponent, selectors: [["app-root"]], decls: 12, vars: 4, consts: [[1, "app-container", "mat-typography", "mat-app-background", "light-theme"], [1, "app-component-header"], ["mat-stroked-button", "", 3, "click"], [4, "ngIf"], [3, "sessionParam"], [1, "session-input-form"], ["matInput", "", "type", "text", "name", "encodedSessionData", 1, "session-input", 3, "ngClass", "ngModel", "ngModelChange"]], template: function AppComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "h1");
@@ -305,17 +317,21 @@ AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCompo
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AppComponent_Template_button_click_4_listener() { return ctx.resetTracker(); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5, "RESET TRACKER");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "button", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AppComponent_Template_button_click_6_listener() { return ctx.showSessionForm = !ctx.showSessionForm; });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](7, " TOGGLE SESSION INPUT ");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](6, AppComponent_form_6_Template, 5, 2, "form", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](7, "header-nav", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](8, "async");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](9, "router-outlet");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](8, AppComponent_div_8_Template, 2, 1, "div", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](9, "header-nav", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](10, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](11, "router-outlet");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     } if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.encodedSessionData);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](8);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.showSessionForm);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("sessionParam", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](8, 2, ctx.sessionQueryParam));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("sessionParam", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](10, 2, ctx.sessionQueryParam));
     } }, directives: [_angular_material_button__WEBPACK_IMPORTED_MODULE_15__["MatButton"], _angular_common__WEBPACK_IMPORTED_MODULE_16__["NgIf"], _header_nav_header_nav_component__WEBPACK_IMPORTED_MODULE_17__["HeaderNavComponent"], _angular_router__WEBPACK_IMPORTED_MODULE_14__["RouterOutlet"], _angular_forms__WEBPACK_IMPORTED_MODULE_18__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_18__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_18__["NgForm"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_19__["MatFormField"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_19__["MatLabel"], _angular_material_input__WEBPACK_IMPORTED_MODULE_20__["MatInput"], _angular_forms__WEBPACK_IMPORTED_MODULE_18__["DefaultValueAccessor"], _angular_common__WEBPACK_IMPORTED_MODULE_16__["NgClass"], _angular_forms__WEBPACK_IMPORTED_MODULE_18__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_18__["NgModel"]], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_16__["AsyncPipe"]], styles: [".app-container[_ngcontent-%COMP%] {\n  margin-right: auto;\n  margin-left: auto;\n  max-width: 960px;\n  padding-right: 10px;\n  padding-left: 10px;\n}\n\n.valid[_ngcontent-%COMP%] {\n  color: darkgreen;\n}\n\n.invalid[_ngcontent-%COMP%] {\n  color: red;\n}\n\nmat-form-field.session-input-form[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n}\n\n.session-input[_ngcontent-%COMP%] {\n  box-sizing: border-box;\n  margin: 10px;\n  text-align: center;\n}\n\n.app-component-header[_ngcontent-%COMP%] {\n  display: flex;\n}\n\n.app-component-header[_ngcontent-%COMP%]   *[_ngcontent-%COMP%] {\n  margin: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0Usa0JBQUE7RUFDQSxpQkFBQTtFQUNBLGdCQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtBQUNGOztBQUVBO0VBQ0UsZ0JBQUE7QUFDRjs7QUFFQTtFQUNFLFVBQUE7QUFDRjs7QUFFQTtFQUNFLGFBQUE7RUFDQSxzQkFBQTtFQUNBLFdBQUE7QUFDRjs7QUFFQTtFQUNFLHNCQUFBO0VBQ0EsWUFBQTtFQUNBLGtCQUFBO0FBQ0Y7O0FBRUE7RUFDRSxhQUFBO0FBQ0Y7O0FBQUU7RUFDRSxZQUFBO0FBRUoiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuYXBwLWNvbnRhaW5lciB7XG4gIG1hcmdpbi1yaWdodDogYXV0bztcbiAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gIG1heC13aWR0aDogOTYwcHg7XG4gIHBhZGRpbmctcmlnaHQ6IDEwcHg7XG4gIHBhZGRpbmctbGVmdDogMTBweDtcbn1cblxuLnZhbGlkIHtcbiAgY29sb3I6IGRhcmtncmVlbjtcbn1cblxuLmludmFsaWQge1xuICBjb2xvcjogcmVkO1xufVxuXG5tYXQtZm9ybS1maWVsZC5zZXNzaW9uLWlucHV0LWZvcm0ge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICB3aWR0aDogMTAwJTtcbn1cblxuLnNlc3Npb24taW5wdXQge1xuICBib3gtc2l6aW5nOiBib3JkZXItYm94O1xuICBtYXJnaW46IDEwcHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLmFwcC1jb21wb25lbnQtaGVhZGVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAgKiB7XG4gICAgbWFyZ2luOiAxMHB4O1xuICB9XG59XG4iXX0= */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AppComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
@@ -708,7 +724,7 @@ class BugTrackerViewComponent {
     }
 }
 BugTrackerViewComponent.ɵfac = function BugTrackerViewComponent_Factory(t) { return new (t || BugTrackerViewComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_9__["ActivatedRoute"])); };
-BugTrackerViewComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: BugTrackerViewComponent, selectors: [["app-bug-tracker-view"]], decls: 18, vars: 28, consts: [[1, "bug-tracker-view-container"], [1, "left-content"], ["mat-stroked-button", "", 3, "click"], [3, "collectibles", "resetNameFilterInput", "partialName", "hemisphereToggleValue"], [3, "filterType", "resetCollectionStatusFilterType", "collectionStatus"], [1, "right-content"], [1, "bug-tracker-container"], [3, "collectibles", "hemisphere", "partialName", "collectibleCollectionSubset", "modelCollectionSubset", "modelSuppliesCollectionSubset", "collectibleCollected", "collectibleModelCollected", "haveCollectibleModelSupplies"]], template: function BugTrackerViewComponent_Template(rf, ctx) { if (rf & 1) {
+BugTrackerViewComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: BugTrackerViewComponent, selectors: [["app-bug-tracker-view"]], decls: 21, vars: 37, consts: [[1, "bug-tracker-view-container"], [1, "left-content"], ["mat-stroked-button", "", 3, "click"], [3, "collectibles", "resetNameFilterInput", "partialName", "hemisphereToggleValue"], [3, "filterType", "collectionSubset", "resetCollectionStatusFilterType", "collectionStatus"], [1, "right-content"], [1, "bug-tracker-container"], [3, "collectibles", "hemisphere", "partialName", "collectibleCollectionSubset", "modelCollectionSubset", "modelSuppliesCollectionSubset", "collectibleCollected", "collectibleModelCollected", "haveCollectibleModelSupplies"]], template: function BugTrackerViewComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "aside", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "button", 2);
@@ -721,40 +737,43 @@ BugTrackerViewComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵ
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "app-collected-filter-toggle", 4);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("collectionStatus", function BugTrackerViewComponent_Template_app_collected_filter_toggle_collectionStatus_6_listener($event) { return ctx.setBugCollectionStatusStatusFilter(ctx.CollectionStatusFilterType.COLLECTIBLE, $event); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "app-collected-filter-toggle", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("collectionStatus", function BugTrackerViewComponent_Template_app_collected_filter_toggle_collectionStatus_7_listener($event) { return ctx.setBugCollectionStatusStatusFilter(ctx.CollectionStatusFilterType.MODEL, $event); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](7, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "app-collected-filter-toggle", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("collectionStatus", function BugTrackerViewComponent_Template_app_collected_filter_toggle_collectionStatus_8_listener($event) { return ctx.setBugCollectionStatusStatusFilter(ctx.CollectionStatusFilterType.MODEL_SUPPLIES, $event); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("collectionStatus", function BugTrackerViewComponent_Template_app_collected_filter_toggle_collectionStatus_8_listener($event) { return ctx.setBugCollectionStatusStatusFilter(ctx.CollectionStatusFilterType.MODEL, $event); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](9, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "app-collected-filter-toggle", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("collectionStatus", function BugTrackerViewComponent_Template_app_collected_filter_toggle_collectionStatus_10_listener($event) { return ctx.setBugCollectionStatusStatusFilter(ctx.CollectionStatusFilterType.MODEL_SUPPLIES, $event); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](11, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "section", 5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "div", 6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "app-creature-tracker", 7);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("collectibleCollected", function BugTrackerViewComponent_Template_app_creature_tracker_collectibleCollected_11_listener($event) { return ctx.toggleBugCollected($event); })("collectibleModelCollected", function BugTrackerViewComponent_Template_app_creature_tracker_collectibleModelCollected_11_listener($event) { return ctx.toggleBugModelCollected($event); })("haveCollectibleModelSupplies", function BugTrackerViewComponent_Template_app_creature_tracker_haveCollectibleModelSupplies_11_listener($event) { return ctx.toggleHaveBugModelSupplies($event); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](12, "async");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](13, "async");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](14, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](12, "section", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](13, "div", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "app-creature-tracker", 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("collectibleCollected", function BugTrackerViewComponent_Template_app_creature_tracker_collectibleCollected_14_listener($event) { return ctx.toggleBugCollected($event); })("collectibleModelCollected", function BugTrackerViewComponent_Template_app_creature_tracker_collectibleModelCollected_14_listener($event) { return ctx.toggleBugModelCollected($event); })("haveCollectibleModelSupplies", function BugTrackerViewComponent_Template_app_creature_tracker_haveCollectibleModelSupplies_14_listener($event) { return ctx.toggleHaveBugModelSupplies($event); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](15, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](16, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](17, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](18, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](19, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](20, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("collectibles", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](5, 14, ctx.bugs$))("resetNameFilterInput", ctx.reset);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("collectibles", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](5, 17, ctx.bugs$))("resetNameFilterInput", ctx.reset);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("filterType", ctx.CollectionStatusFilterType.COLLECTIBLE)("resetCollectionStatusFilterType", ctx.reset);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("filterType", ctx.CollectionStatusFilterType.MODEL)("resetCollectionStatusFilterType", ctx.reset);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("filterType", ctx.CollectionStatusFilterType.MODEL_SUPPLIES)("resetCollectionStatusFilterType", ctx.reset);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("collectibles", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](12, 16, ctx.bugs$))("hemisphere", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](13, 18, ctx.hemisphere$))("partialName", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](14, 20, ctx.nameFilter$))("collectibleCollectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](15, 22, ctx.collectionStatusFilter$))("modelCollectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](16, 24, ctx.modelStatusFilter$))("modelSuppliesCollectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](17, 26, ctx.modelSuppliesStatusFilter$));
-    } }, directives: [_angular_material_button__WEBPACK_IMPORTED_MODULE_10__["MatButton"], _collection_filters_collection_filters_component__WEBPACK_IMPORTED_MODULE_11__["CollectionFiltersComponent"], _collected_filter_toggle_collected_filter_toggle_component__WEBPACK_IMPORTED_MODULE_12__["CollectedFilterToggleComponent"], _creature_tracker_creature_tracker_component__WEBPACK_IMPORTED_MODULE_13__["CreatureTrackerComponent"]], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_14__["AsyncPipe"]], styles: [".bug-tracker-view-container[_ngcontent-%COMP%] {\n  display: flex;\n}\n\n.global-filter-container[_ngcontent-%COMP%] {\n  display: flex;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYnVnLXRyYWNrZXItdmlldy9idWctdHJhY2tlci12aWV3LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxhQUFhO0FBQ2Y7O0FBRUE7RUFDRSxhQUFhO0FBQ2YiLCJmaWxlIjoic3JjL2FwcC9idWctdHJhY2tlci12aWV3L2J1Zy10cmFja2VyLXZpZXcuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5idWctdHJhY2tlci12aWV3LWNvbnRhaW5lciB7XG4gIGRpc3BsYXk6IGZsZXg7XG59XG5cbi5nbG9iYWwtZmlsdGVyLWNvbnRhaW5lciB7XG4gIGRpc3BsYXk6IGZsZXg7XG59XG4iXX0= */"] });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("filterType", ctx.CollectionStatusFilterType.COLLECTIBLE)("collectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](7, 19, ctx.collectionStatusFilter$))("resetCollectionStatusFilterType", ctx.reset);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("filterType", ctx.CollectionStatusFilterType.MODEL)("collectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](9, 21, ctx.modelStatusFilter$))("resetCollectionStatusFilterType", ctx.reset);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("filterType", ctx.CollectionStatusFilterType.MODEL_SUPPLIES)("collectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](11, 23, ctx.modelSuppliesStatusFilter$))("resetCollectionStatusFilterType", ctx.reset);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("collectibles", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](15, 25, ctx.bugs$))("hemisphere", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](16, 27, ctx.hemisphere$))("partialName", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](17, 29, ctx.nameFilter$))("collectibleCollectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](18, 31, ctx.collectionStatusFilter$))("modelCollectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](19, 33, ctx.modelStatusFilter$))("modelSuppliesCollectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](20, 35, ctx.modelSuppliesStatusFilter$));
+    } }, directives: [_angular_material_button__WEBPACK_IMPORTED_MODULE_10__["MatButton"], _collection_filters_collection_filters_component__WEBPACK_IMPORTED_MODULE_11__["CollectionFiltersComponent"], _collected_filter_toggle_collected_filter_toggle_component__WEBPACK_IMPORTED_MODULE_12__["CollectedFilterToggleComponent"], _creature_tracker_creature_tracker_component__WEBPACK_IMPORTED_MODULE_13__["CreatureTrackerComponent"]], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_14__["AsyncPipe"]], styles: [".bug-tracker-view-container[_ngcontent-%COMP%] {\n  display: flex;\n}\n\n.global-filter-container[_ngcontent-%COMP%] {\n  display: flex;\n}\n\n.left-content[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  margin: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYnVnLXRyYWNrZXItdmlldy9idWctdHJhY2tlci12aWV3LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxhQUFhO0FBQ2Y7O0FBRUE7RUFDRSxhQUFhO0FBQ2Y7O0FBRUE7RUFDRSxhQUFhO0VBQ2Isc0JBQXNCO0VBQ3RCLFlBQVk7QUFDZCIsImZpbGUiOiJzcmMvYXBwL2J1Zy10cmFja2VyLXZpZXcvYnVnLXRyYWNrZXItdmlldy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJ1Zy10cmFja2VyLXZpZXctY29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbn1cblxuLmdsb2JhbC1maWx0ZXItY29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbn1cblxuLmxlZnQtY29udGVudCB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIG1hcmdpbjogMTBweDtcbn1cbiJdfQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](BugTrackerViewComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -983,14 +1002,14 @@ class CollectedFilterToggleComponent {
     }
 }
 CollectedFilterToggleComponent.ɵfac = function CollectedFilterToggleComponent_Factory(t) { return new (t || CollectedFilterToggleComponent)(); };
-CollectedFilterToggleComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: CollectedFilterToggleComponent, selectors: [["app-collected-filter-toggle"]], inputs: { filterType: "filterType", resetCollectionStatusFilterType: "resetCollectionStatusFilterType" }, outputs: { collectionStatus: "collectionStatus" }, decls: 11, vars: 14, consts: [[1, "collected-status-toggle-container"], ["vertical", "", "name", "collected-status", 3, "ngModel", "ngModelChange"], [3, "value", "checked", "click"]], template: function CollectedFilterToggleComponent_Template(rf, ctx) { if (rf & 1) {
+CollectedFilterToggleComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: CollectedFilterToggleComponent, selectors: [["app-collected-filter-toggle"]], inputs: { filterType: "filterType", resetCollectionStatusFilterType: "resetCollectionStatusFilterType", collectionSubset: "collectionSubset" }, outputs: { collectionStatus: "collectionStatus" }, decls: 11, vars: 14, consts: [[1, "collected-status-toggle-container"], ["vertical", "", "name", "collected-status", 3, "ngModel", "ngModelChange"], [3, "value", "checked", "click"]], template: function CollectedFilterToggleComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "span");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](3, "uppercase");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "mat-button-toggle-group", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function CollectedFilterToggleComponent_Template_mat_button_toggle_group_ngModelChange_4_listener($event) { return ctx.selected = $event; });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function CollectedFilterToggleComponent_Template_mat_button_toggle_group_ngModelChange_4_listener($event) { return ctx.collectionSubset = $event; });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "mat-button-toggle", 2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function CollectedFilterToggleComponent_Template_mat_button_toggle_click_5_listener() { return ctx.setCollectionStatusFilter(ctx.CollectionSubset.ALL); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](6);
@@ -1009,18 +1028,18 @@ CollectedFilterToggleComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0_
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](3, 12, ctx.CollectionStatusFilterType[ctx.filterType]));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.selected);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.collectionSubset);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("aria-label", ctx.CollectionStatusFilterType[ctx.filterType] + " collected status");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("value", ctx.CollectionSubset.ALL)("checked", ctx.selected === ctx.CollectionSubset.ALL);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("value", ctx.CollectionSubset.ALL)("checked", ctx.collectionSubset === ctx.CollectionSubset.ALL);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx.CollectionSubset[ctx.CollectionSubset.ALL]);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("value", ctx.CollectionSubset.COLLECTED)("checked", ctx.selected === ctx.CollectionSubset.COLLECTED);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("value", ctx.CollectionSubset.COLLECTED)("checked", ctx.collectionSubset === ctx.CollectionSubset.COLLECTED);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx.CollectionSubset[ctx.CollectionSubset.COLLECTED]);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("value", ctx.CollectionSubset.UNCOLLECTED)("checked", ctx.selected === ctx.CollectionSubset.UNCOLLECTED);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("value", ctx.CollectionSubset.UNCOLLECTED)("checked", ctx.collectionSubset === ctx.CollectionSubset.UNCOLLECTED);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx.CollectionSubset[ctx.CollectionSubset.UNCOLLECTED]);
     } }, directives: [_angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_3__["MatButtonToggleGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgModel"], _angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_3__["MatButtonToggle"]], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_5__["UpperCasePipe"]], styles: [".collected-status-toggle-container[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  margin: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29sbGVjdGVkLWZpbHRlci10b2dnbGUvY29sbGVjdGVkLWZpbHRlci10b2dnbGUuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGFBQWE7RUFDYixzQkFBc0I7RUFDdEIsWUFBWTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvY29sbGVjdGVkLWZpbHRlci10b2dnbGUvY29sbGVjdGVkLWZpbHRlci10b2dnbGUuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jb2xsZWN0ZWQtc3RhdHVzLXRvZ2dsZS1jb250YWluZXIge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICBtYXJnaW46IDEwcHg7XG59XG4iXX0= */"] });
@@ -1034,6 +1053,8 @@ CollectedFilterToggleComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0_
     }], function () { return []; }, { filterType: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
         }], resetCollectionStatusFilterType: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+        }], collectionSubset: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
         }], collectionStatus: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"]
@@ -1735,7 +1756,7 @@ class FishTrackerViewComponent {
     }
 }
 FishTrackerViewComponent.ɵfac = function FishTrackerViewComponent_Factory(t) { return new (t || FishTrackerViewComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"])); };
-FishTrackerViewComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: FishTrackerViewComponent, selectors: [["app-fish-tracker-view"]], decls: 18, vars: 28, consts: [[1, "fish-tracker-view-container"], [1, "left-content"], ["mat-stroked-button", "", 3, "click"], [3, "collectibles", "resetNameFilterInput", "partialName", "hemisphereToggleValue"], [3, "filterType", "resetCollectionStatusFilterType", "collectionStatus"], [1, "right-content"], [1, "fish-tracker-container"], [3, "collectibles", "hemisphere", "partialName", "collectibleCollectionSubset", "modelCollectionSubset", "modelSuppliesCollectionSubset", "collectibleCollected", "collectibleModelCollected", "haveCollectibleModelSupplies"]], template: function FishTrackerViewComponent_Template(rf, ctx) { if (rf & 1) {
+FishTrackerViewComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: FishTrackerViewComponent, selectors: [["app-fish-tracker-view"]], decls: 21, vars: 37, consts: [[1, "fish-tracker-view-container"], [1, "left-content"], ["mat-stroked-button", "", 3, "click"], [3, "collectibles", "resetNameFilterInput", "partialName", "hemisphereToggleValue"], [3, "filterType", "collectionSubset", "resetCollectionStatusFilterType", "collectionStatus"], [1, "right-content"], [1, "fish-tracker-container"], [3, "collectibles", "hemisphere", "partialName", "collectibleCollectionSubset", "modelCollectionSubset", "modelSuppliesCollectionSubset", "collectibleCollected", "collectibleModelCollected", "haveCollectibleModelSupplies"]], template: function FishTrackerViewComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "aside", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "button", 2);
@@ -1748,39 +1769,42 @@ FishTrackerViewComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ�
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "app-collected-filter-toggle", 4);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("collectionStatus", function FishTrackerViewComponent_Template_app_collected_filter_toggle_collectionStatus_6_listener($event) { return ctx.setFishCollectionStatusStatusFilter(ctx.CollectionStatusFilterType.COLLECTIBLE, $event); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "app-collected-filter-toggle", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("collectionStatus", function FishTrackerViewComponent_Template_app_collected_filter_toggle_collectionStatus_7_listener($event) { return ctx.setFishCollectionStatusStatusFilter(ctx.CollectionStatusFilterType.MODEL, $event); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](7, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "app-collected-filter-toggle", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("collectionStatus", function FishTrackerViewComponent_Template_app_collected_filter_toggle_collectionStatus_8_listener($event) { return ctx.setFishCollectionStatusStatusFilter(ctx.CollectionStatusFilterType.MODEL_SUPPLIES, $event); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("collectionStatus", function FishTrackerViewComponent_Template_app_collected_filter_toggle_collectionStatus_8_listener($event) { return ctx.setFishCollectionStatusStatusFilter(ctx.CollectionStatusFilterType.MODEL, $event); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](9, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "app-collected-filter-toggle", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("collectionStatus", function FishTrackerViewComponent_Template_app_collected_filter_toggle_collectionStatus_10_listener($event) { return ctx.setFishCollectionStatusStatusFilter(ctx.CollectionStatusFilterType.MODEL_SUPPLIES, $event); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](11, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "section", 5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "div", 6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "app-creature-tracker", 7);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("collectibleCollected", function FishTrackerViewComponent_Template_app_creature_tracker_collectibleCollected_11_listener($event) { return ctx.toggleFishCollected($event); })("collectibleModelCollected", function FishTrackerViewComponent_Template_app_creature_tracker_collectibleModelCollected_11_listener($event) { return ctx.toggleFishModelCollected($event); })("haveCollectibleModelSupplies", function FishTrackerViewComponent_Template_app_creature_tracker_haveCollectibleModelSupplies_11_listener($event) { return ctx.toggleHaveFishModelSupplies($event); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](12, "async");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](13, "async");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](14, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](12, "section", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](13, "div", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "app-creature-tracker", 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("collectibleCollected", function FishTrackerViewComponent_Template_app_creature_tracker_collectibleCollected_14_listener($event) { return ctx.toggleFishCollected($event); })("collectibleModelCollected", function FishTrackerViewComponent_Template_app_creature_tracker_collectibleModelCollected_14_listener($event) { return ctx.toggleFishModelCollected($event); })("haveCollectibleModelSupplies", function FishTrackerViewComponent_Template_app_creature_tracker_haveCollectibleModelSupplies_14_listener($event) { return ctx.toggleHaveFishModelSupplies($event); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](15, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](16, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](17, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](18, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](19, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](20, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("collectibles", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](5, 14, ctx.fish$))("resetNameFilterInput", ctx.reset);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("collectibles", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](5, 17, ctx.fish$))("resetNameFilterInput", ctx.reset);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("filterType", ctx.CollectionStatusFilterType.COLLECTIBLE)("resetCollectionStatusFilterType", ctx.reset);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("filterType", ctx.CollectionStatusFilterType.MODEL)("resetCollectionStatusFilterType", ctx.reset);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("filterType", ctx.CollectionStatusFilterType.MODEL_SUPPLIES)("resetCollectionStatusFilterType", ctx.reset);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("collectibles", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](12, 16, ctx.fish$))("hemisphere", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](13, 18, ctx.hemisphere$))("partialName", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](14, 20, ctx.nameFilter$))("collectibleCollectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](15, 22, ctx.collectionStatusFilter$))("modelCollectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](16, 24, ctx.modelStatusFilter$))("modelSuppliesCollectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](17, 26, ctx.modelSuppliesStatusFilter$));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("filterType", ctx.CollectionStatusFilterType.COLLECTIBLE)("collectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](7, 19, ctx.collectionStatusFilter$))("resetCollectionStatusFilterType", ctx.reset);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("filterType", ctx.CollectionStatusFilterType.MODEL)("collectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](9, 21, ctx.modelStatusFilter$))("resetCollectionStatusFilterType", ctx.reset);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("filterType", ctx.CollectionStatusFilterType.MODEL_SUPPLIES)("collectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](11, 23, ctx.modelSuppliesStatusFilter$))("resetCollectionStatusFilterType", ctx.reset);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("collectibles", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](15, 25, ctx.fish$))("hemisphere", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](16, 27, ctx.hemisphere$))("partialName", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](17, 29, ctx.nameFilter$))("collectibleCollectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](18, 31, ctx.collectionStatusFilter$))("modelCollectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](19, 33, ctx.modelStatusFilter$))("modelSuppliesCollectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](20, 35, ctx.modelSuppliesStatusFilter$));
     } }, directives: [_angular_material_button__WEBPACK_IMPORTED_MODULE_9__["MatButton"], _collection_filters_collection_filters_component__WEBPACK_IMPORTED_MODULE_10__["CollectionFiltersComponent"], _collected_filter_toggle_collected_filter_toggle_component__WEBPACK_IMPORTED_MODULE_11__["CollectedFilterToggleComponent"], _creature_tracker_creature_tracker_component__WEBPACK_IMPORTED_MODULE_12__["CreatureTrackerComponent"]], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_13__["AsyncPipe"]], styles: [".fish-tracker-view-container[_ngcontent-%COMP%] {\n  display: flex;\n}\n\n.global-filter-container[_ngcontent-%COMP%] {\n  display: flex;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZmlzaC10cmFja2VyLXZpZXcvZmlzaC10cmFja2VyLXZpZXcuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGFBQWE7QUFDZjs7QUFFQTtFQUNFLGFBQWE7QUFDZiIsImZpbGUiOiJzcmMvYXBwL2Zpc2gtdHJhY2tlci12aWV3L2Zpc2gtdHJhY2tlci12aWV3LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZmlzaC10cmFja2VyLXZpZXctY29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbn1cblxuLmdsb2JhbC1maWx0ZXItY29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbn1cbiJdfQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](FishTrackerViewComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
@@ -2394,7 +2418,7 @@ class SeaCreatureTrackerViewComponent {
     }
 }
 SeaCreatureTrackerViewComponent.ɵfac = function SeaCreatureTrackerViewComponent_Factory(t) { return new (t || SeaCreatureTrackerViewComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"])); };
-SeaCreatureTrackerViewComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: SeaCreatureTrackerViewComponent, selectors: [["app-sea-creature-tracker-view"]], decls: 16, vars: 24, consts: [[1, "sea-creature-tracker-view-container"], [1, "left-content"], ["mat-stroked-button", "", 3, "click"], [3, "collectibles", "resetNameFilterInput", "partialName", "hemisphereToggleValue"], [3, "filterType", "resetCollectionStatusFilterType", "collectionStatus"], [1, "right-content"], [1, "sea-creature-tracker-container"], [3, "collectibles", "hemisphere", "partialName", "collectibleCollectionSubset", "modelCollectionSubset", "modelSuppliesCollectionSubset", "collectibleCollected"]], template: function SeaCreatureTrackerViewComponent_Template(rf, ctx) { if (rf & 1) {
+SeaCreatureTrackerViewComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: SeaCreatureTrackerViewComponent, selectors: [["app-sea-creature-tracker-view"]], decls: 17, vars: 27, consts: [[1, "sea-creature-tracker-view-container"], [1, "left-content"], ["mat-stroked-button", "", 3, "click"], [3, "collectibles", "resetNameFilterInput", "partialName", "hemisphereToggleValue"], [3, "filterType", "collectionSubset", "resetCollectionStatusFilterType", "collectionStatus"], [1, "right-content"], [1, "sea-creature-tracker-container"], [3, "collectibles", "hemisphere", "partialName", "collectibleCollectionSubset", "modelCollectionSubset", "modelSuppliesCollectionSubset", "collectibleCollected"]], template: function SeaCreatureTrackerViewComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "aside", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "button", 2);
@@ -2407,29 +2431,30 @@ SeaCreatureTrackerViewComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "app-collected-filter-toggle", 4);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("collectionStatus", function SeaCreatureTrackerViewComponent_Template_app_collected_filter_toggle_collectionStatus_6_listener($event) { return ctx.setSeaCreatureCollectionStatusStatusFilter(ctx.CollectionStatusFilterType.COLLECTIBLE, $event); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](7, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "section", 5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "div", 6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "app-creature-tracker", 7);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("collectibleCollected", function SeaCreatureTrackerViewComponent_Template_app_creature_tracker_collectibleCollected_9_listener($event) { return ctx.toggleSeaCreatureCollected($event); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](10, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "section", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "div", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "app-creature-tracker", 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("collectibleCollected", function SeaCreatureTrackerViewComponent_Template_app_creature_tracker_collectibleCollected_10_listener($event) { return ctx.toggleSeaCreatureCollected($event); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](11, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](12, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](13, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](14, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](15, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](16, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("collectibles", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](5, 10, ctx.seaCreatures$))("resetNameFilterInput", ctx.reset);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("collectibles", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](5, 11, ctx.seaCreatures$))("resetNameFilterInput", ctx.reset);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("filterType", ctx.CollectionStatusFilterType.COLLECTIBLE)("resetCollectionStatusFilterType", ctx.reset);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("collectibles", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](10, 12, ctx.seaCreatures$))("hemisphere", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](11, 14, ctx.hemisphere$))("partialName", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](12, 16, ctx.nameFilter$))("collectibleCollectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](13, 18, ctx.collectionStatusFilter$))("modelCollectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](14, 20, ctx.modelStatusFilter$))("modelSuppliesCollectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](15, 22, ctx.modelSuppliesStatusFilter$));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("filterType", ctx.CollectionStatusFilterType.COLLECTIBLE)("collectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](7, 13, ctx.collectionStatusFilter$))("resetCollectionStatusFilterType", ctx.reset);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("collectibles", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](11, 15, ctx.seaCreatures$))("hemisphere", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](12, 17, ctx.hemisphere$))("partialName", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](13, 19, ctx.nameFilter$))("collectibleCollectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](14, 21, ctx.collectionStatusFilter$))("modelCollectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](15, 23, ctx.modelStatusFilter$))("modelSuppliesCollectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](16, 25, ctx.modelSuppliesStatusFilter$));
     } }, directives: [_angular_material_button__WEBPACK_IMPORTED_MODULE_9__["MatButton"], _collection_filters_collection_filters_component__WEBPACK_IMPORTED_MODULE_10__["CollectionFiltersComponent"], _collected_filter_toggle_collected_filter_toggle_component__WEBPACK_IMPORTED_MODULE_11__["CollectedFilterToggleComponent"], _creature_tracker_creature_tracker_component__WEBPACK_IMPORTED_MODULE_12__["CreatureTrackerComponent"]], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_13__["AsyncPipe"]], styles: [".sea-creature-tracker-view-container[_ngcontent-%COMP%] {\n  display: flex;\n}\n\n.global-filter-container[_ngcontent-%COMP%] {\n  display: flex;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2VhLWNyZWF0dXJlLXRyYWNrZXItdmlldy9zZWEtY3JlYXR1cmUtdHJhY2tlci12aWV3LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxhQUFhO0FBQ2Y7O0FBRUE7RUFDRSxhQUFhO0FBQ2YiLCJmaWxlIjoic3JjL2FwcC9zZWEtY3JlYXR1cmUtdHJhY2tlci12aWV3L3NlYS1jcmVhdHVyZS10cmFja2VyLXZpZXcuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5zZWEtY3JlYXR1cmUtdHJhY2tlci12aWV3LWNvbnRhaW5lciB7XG4gIGRpc3BsYXk6IGZsZXg7XG59XG5cbi5nbG9iYWwtZmlsdGVyLWNvbnRhaW5lciB7XG4gIGRpc3BsYXk6IGZsZXg7XG59XG4iXX0= */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SeaCreatureTrackerViewComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
@@ -6377,7 +6402,7 @@ class SongTrackerViewComponent {
     }
 }
 SongTrackerViewComponent.ɵfac = function SongTrackerViewComponent_Factory(t) { return new (t || SongTrackerViewComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["Store"])); };
-SongTrackerViewComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({ type: SongTrackerViewComponent, selectors: [["app-song-tracker-view"]], decls: 14, vars: 18, consts: [[1, "song-tracker-view-container"], [1, "left-content"], ["mat-stroked-button", "", 3, "click"], [3, "collectibles", "resetNameFilterInput", "partialName", "hemisphereToggleValue"], [3, "filterType", "resetCollectionStatusFilterType", "collectionStatus"], [1, "right-content"], [1, "song-tracker-container"], [3, "collectibles", "hemisphere", "partialName", "collectibleCollectionSubset", "collectibleCollected"]], template: function SongTrackerViewComponent_Template(rf, ctx) { if (rf & 1) {
+SongTrackerViewComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({ type: SongTrackerViewComponent, selectors: [["app-song-tracker-view"]], decls: 15, vars: 21, consts: [[1, "song-tracker-view-container"], [1, "left-content"], ["mat-stroked-button", "", 3, "click"], [3, "collectibles", "resetNameFilterInput", "partialName", "hemisphereToggleValue"], [3, "filterType", "collectionSubset", "resetCollectionStatusFilterType", "collectionStatus"], [1, "right-content"], [1, "song-tracker-container"], [3, "collectibles", "hemisphere", "partialName", "collectibleCollectionSubset", "collectibleCollected"]], template: function SongTrackerViewComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "aside", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "button", 2);
@@ -6390,27 +6415,28 @@ SongTrackerViewComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵ�
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](6, "app-collected-filter-toggle", 4);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("collectionStatus", function SongTrackerViewComponent_Template_app_collected_filter_toggle_collectionStatus_6_listener($event) { return ctx.setSongCollectionStatusStatusFilter(ctx.CollectionStatusFilterType.COLLECTIBLE, $event); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipe"](7, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](7, "section", 5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](8, "div", 6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](9, "app-creature-tracker", 7);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("collectibleCollected", function SongTrackerViewComponent_Template_app_creature_tracker_collectibleCollected_9_listener($event) { return ctx.toggleSongCollected($event); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipe"](10, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](8, "section", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](9, "div", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](10, "app-creature-tracker", 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("collectibleCollected", function SongTrackerViewComponent_Template_app_creature_tracker_collectibleCollected_10_listener($event) { return ctx.toggleSongCollected($event); });
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipe"](11, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipe"](12, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipe"](13, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipe"](14, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("collectibles", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](5, 8, ctx.songs$))("resetNameFilterInput", ctx.reset);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("collectibles", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](5, 9, ctx.songs$))("resetNameFilterInput", ctx.reset);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("filterType", ctx.CollectionStatusFilterType.COLLECTIBLE)("resetCollectionStatusFilterType", ctx.reset);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("collectibles", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](10, 10, ctx.songs$))("hemisphere", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](11, 12, ctx.hemisphere$))("partialName", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](12, 14, ctx.nameFilter$))("collectibleCollectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](13, 16, ctx.collectionStatusFilter$));
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("filterType", ctx.CollectionStatusFilterType.COLLECTIBLE)("collectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](7, 11, ctx.collectionStatusFilter$))("resetCollectionStatusFilterType", ctx.reset);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("collectibles", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](11, 13, ctx.songs$))("hemisphere", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](12, 15, ctx.hemisphere$))("partialName", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](13, 17, ctx.nameFilter$))("collectibleCollectionSubset", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](14, 19, ctx.collectionStatusFilter$));
     } }, directives: [_angular_material_button__WEBPACK_IMPORTED_MODULE_9__["MatButton"], _collection_filters_collection_filters_component__WEBPACK_IMPORTED_MODULE_10__["CollectionFiltersComponent"], _collected_filter_toggle_collected_filter_toggle_component__WEBPACK_IMPORTED_MODULE_11__["CollectedFilterToggleComponent"], _creature_tracker_creature_tracker_component__WEBPACK_IMPORTED_MODULE_12__["CreatureTrackerComponent"]], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_13__["AsyncPipe"]], styles: [".song-tracker-view-container[_ngcontent-%COMP%] {\n  display: flex;\n}\n\n.global-filter-container[_ngcontent-%COMP%] {\n  display: flex;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc29uZy10cmFja2VyLXZpZXcvc29uZy10cmFja2VyLXZpZXcuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGFBQWE7QUFDZjs7QUFFQTtFQUNFLGFBQWE7QUFDZiIsImZpbGUiOiJzcmMvYXBwL3NvbmctdHJhY2tlci12aWV3L3NvbmctdHJhY2tlci12aWV3LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuc29uZy10cmFja2VyLXZpZXctY29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbn1cblxuLmdsb2JhbC1maWx0ZXItY29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbn1cbiJdfQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](SongTrackerViewComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"],
