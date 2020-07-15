@@ -26,11 +26,12 @@ import { selectFishTrackerState } from './fish-tracker-view/reducers/fish-tracke
 import { selectSongTrackerState } from './song-tracker-view/reducers/song-tracker.reducer';
 import { selectSeaCreatureTrackerState } from './sea-creature-tracker-view/reducers/sea-creature-tracker.reducer';
 import { ActivatedRoute } from '@angular/router';
+import { getDefaultEncoding } from './shared/services/collection-encoding.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnDestroy {
   title = 'acnh-tracker';
@@ -213,6 +214,21 @@ export class AppComponent implements OnDestroy {
       };
     });
     return decoded;
+  }
+
+  resetTracker(): void {
+    this.setEncodedSessionDataValue(
+      getDefaultEncoding([
+        TrackerCategory.BUG_COLLECTION,
+        TrackerCategory.BUG_MODELS,
+        TrackerCategory.BUG_MODEL_SUPPLIES,
+        TrackerCategory.FISH_COLLECTION,
+        TrackerCategory.FISH_MODELS,
+        TrackerCategory.FISH_MODEL_SUPPLIES,
+        TrackerCategory.SEA_CREATURE_COLLECTION,
+        TrackerCategory.SONGS,
+      ])
+    );
   }
 
   ngOnDestroy(): void {

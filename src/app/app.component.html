@@ -1,5 +1,8 @@
 <div class="app-container mat-typography mat-app-background light-theme">
-  <h1>ACNH Tracker</h1>
+  <div class="app-component-header">
+    <h1>ACNH Tracker</h1>
+    <button mat-stroked-button (click)="resetTracker()">RESET TRACKER</button>
+  </div>
   <form *ngIf="encodedSessionData">
     <mat-form-field class="session-input-form">
       <mat-label>Session Data:</mat-label>

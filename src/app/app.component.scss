@@ -25,3 +25,10 @@ mat-form-field.session-input-form {
   margin: 10px;
   text-align: center;
 }
+
+.app-component-header {
+  display: flex;
+  * {
+    margin: 10px;
+  }
+}
