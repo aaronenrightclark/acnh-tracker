@@ -15,6 +15,7 @@ export class CollectedFilterToggleComponent implements OnInit {
   @Input() set resetCollectionStatusFilterType(reset: boolean) {
     this.selected = CollectionSubset.ALL;
   }
+  @Input() collectionSubset: CollectionSubset;
   @Output() collectionStatus = new EventEmitter<CollectionSubset>();
 
   selected: CollectionSubset;

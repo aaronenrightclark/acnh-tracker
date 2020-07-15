@@ -10,6 +10,7 @@
     </app-collection-filters>
     <app-collected-filter-toggle
       [filterType]="CollectionStatusFilterType.COLLECTIBLE"
+      [collectionSubset]="collectionStatusFilter$ | async"
       [resetCollectionStatusFilterType]="reset"
       (collectionStatus)="
         this.setFishCollectionStatusStatusFilter(
@@ -20,6 +21,7 @@
     ></app-collected-filter-toggle>
     <app-collected-filter-toggle
       [filterType]="CollectionStatusFilterType.MODEL"
+      [collectionSubset]="modelStatusFilter$ | async"
       [resetCollectionStatusFilterType]="reset"
       (collectionStatus)="
         this.setFishCollectionStatusStatusFilter(
@@ -30,6 +32,7 @@
     ></app-collected-filter-toggle>
     <app-collected-filter-toggle
       [filterType]="CollectionStatusFilterType.MODEL_SUPPLIES"
+      [collectionSubset]="modelSuppliesStatusFilter$ | async"
       [resetCollectionStatusFilterType]="reset"
       (collectionStatus)="
         this.setFishCollectionStatusStatusFilter(
