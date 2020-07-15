@@ -3,26 +3,26 @@
   <mat-button-toggle-group
     vertical
     name="collected-status"
-    [(ngModel)]="selected"
+    [(ngModel)]="collectionSubset"
     [attr.aria-label]="
       CollectionStatusFilterType[this.filterType] + ' collected status'
     "
   >
     <mat-button-toggle
       [value]="CollectionSubset.ALL"
-      [checked]="selected === CollectionSubset.ALL"
+      [checked]="collectionSubset === CollectionSubset.ALL"
       (click)="setCollectionStatusFilter(CollectionSubset.ALL)"
       >{{ CollectionSubset[CollectionSubset.ALL] }}</mat-button-toggle
     >
     <mat-button-toggle
       [value]="CollectionSubset.COLLECTED"
-      [checked]="selected === CollectionSubset.COLLECTED"
+      [checked]="collectionSubset === CollectionSubset.COLLECTED"
       (click)="setCollectionStatusFilter(CollectionSubset.COLLECTED)"
       >{{ CollectionSubset[CollectionSubset.COLLECTED] }}</mat-button-toggle
     >
     <mat-button-toggle
       [value]="CollectionSubset.UNCOLLECTED"
-      [checked]="selected === CollectionSubset.UNCOLLECTED"
+      [checked]="collectionSubset === CollectionSubset.UNCOLLECTED"
       (click)="setCollectionStatusFilter(CollectionSubset.UNCOLLECTED)"
       >{{ CollectionSubset[CollectionSubset.UNCOLLECTED] }}</mat-button-toggle
     >

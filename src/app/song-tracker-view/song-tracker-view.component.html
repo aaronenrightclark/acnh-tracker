@@ -10,6 +10,7 @@
     </app-collection-filters>
     <app-collected-filter-toggle
       [filterType]="CollectionStatusFilterType.COLLECTIBLE"
+      [collectionSubset]="collectionStatusFilter$ | async"
       [resetCollectionStatusFilterType]="reset"
       (collectionStatus)="
         this.setSongCollectionStatusStatusFilter(
