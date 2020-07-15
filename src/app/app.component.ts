@@ -208,7 +208,7 @@ export class AppComponent implements OnDestroy {
     sessionCategories.forEach((cat) => {
       const catData = cat.split('-');
       decoded[catData[0]] = {
-        inclusive: catData[1],
+        inclusive: +catData[1],
         indices: catData[2]
           .split(',')
           .filter((index) => index !== '')
