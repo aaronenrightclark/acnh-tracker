@@ -49,6 +49,8 @@ export class AppComponent implements OnDestroy {
 
   subscriptions = new Array<Subscription>();
 
+  showSessionForm = false;
+
   constructor(
     private store: Store<AppState>,
     private activatedRoute: ActivatedRoute
@@ -158,11 +160,11 @@ export class AppComponent implements OnDestroy {
   }
 
   updateSessionDataEntry(entry: string): void {
-    this.sessionDataInput.next(entry);
-  }
-
-  showEncodedSession(): boolean {
-    return Object.keys(this.sessionData).length > 0;
+    if (!!entry) {
+      this.sessionDataInput.next(entry);
+    } else {
+      this.sessionDataInput.next();
+    }
   }
 
   dispatchSessionData(): void {

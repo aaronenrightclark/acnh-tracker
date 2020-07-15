@@ -2,21 +2,28 @@
   <div class="app-component-header">
     <h1>ACNH Tracker</h1>
     <button mat-stroked-button (click)="resetTracker()">RESET TRACKER</button>
+    <button mat-stroked-button (click)="showSessionForm = !showSessionForm">
+      TOGGLE SESSION INPUT
+    </button>
   </div>
-  <form *ngIf="encodedSessionData">
-    <mat-form-field class="session-input-form">
-      <mat-label>Session Data:</mat-label>
-      <input
-        matInput
-        class="session-input"
-        type="text"
-        [ngClass]="sessionDataInputClasses"
-        [(ngModel)]="encodedSessionData"
-        name="encodedSessionData"
-        (ngModelChange)="updateSessionDataEntry($event)"
-      />
-    </mat-form-field>
-  </form>
+
+  <div *ngIf="showSessionForm">
+    <form *ngIf="encodedSessionData">
+      <mat-form-field class="session-input-form">
+        <mat-label>Session Data:</mat-label>
+        <textarea
+          matInput
+          class="session-input"
+          type="text"
+          [ngClass]="sessionDataInputClasses"
+          [(ngModel)]="encodedSessionData"
+          name="encodedSessionData"
+          (ngModelChange)="updateSessionDataEntry($event)"
+        ></textarea>
+      </mat-form-field>
+    </form>
+  </div>
+
   <header-nav [sessionParam]="sessionQueryParam | async"></header-nav>
   <router-outlet></router-outlet>
 </div>
