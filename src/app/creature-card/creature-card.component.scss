@@ -1,0 +1,54 @@
+.collectible-card {
+  display: flex;
+  min-width: 100px;
+
+  &.card-style-small {
+    flex-direction: column;
+    padding: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+
+    .collectible-image {
+      align-self: center;
+    }
+
+    .collectible-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .collection-checks {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+
+      & > .collection-check {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+      }
+    }
+  }
+
+  &.card-style-details {
+    flex-direction: row;
+    padding: 5px;
+    margin-bottom: 10px;
+
+    .collection-checks {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+.collection-checks {
+  display: flex;
+  flex-direction: column;
+}
+
+.collectible-image img {
+  max-width: 64px;
+  height: auto;
+}

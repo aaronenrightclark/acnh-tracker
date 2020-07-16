@@ -15,21 +15,27 @@ import {
   CollectibleType,
 } from '../shared/models/collectible.model';
 import { DatePipe, APP_BASE_HREF } from '@angular/common';
-import { SwimStyle, Collectible } from '../shared/models/collectible.model';
+import {
+  SwimStyle,
+  Collectible,
+  CardStyle,
+} from '../shared/models/collectible.model';
 import { Hemisphere } from '../shared/models/app-state.model';
 
 @Component({
   selector: 'app-collectible-card',
   templateUrl: './creature-card.component.html',
-  styleUrls: ['./creature-card.component.css'],
+  styleUrls: ['./creature-card.component.scss'],
 })
 export class CreatureCardComponent implements OnInit {
+  CardStyle = CardStyle;
   SwimStyle = SwimStyle;
   SongMood = SongMood;
   SilhouetteSize = SilhouetteSize;
 
   @Input() collectible: Collectible;
   @Input() hemisphere: Hemisphere;
+  @Input() cardStyle: CardStyle;
 
   @Output() collectibleCollected: EventEmitter<
     Collectible

@@ -1,0 +1,29 @@
+.creature-tracker-container {
+  & > * {
+    margin: 10px;
+  }
+
+  .container-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px;
+
+    .mat-stroked-button {
+      margin-left: 10px;
+    }
+  }
+
+  .collectible-tracker-container {
+    display: flex;
+
+    &.card-style-small {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    &.card-style-details {
+      flex-direction: column;
+    }
+  }
+}

@@ -1,27 +1,27 @@
-<mat-card class="collectible-card" [formGroup]="collectionForm">
+<mat-card
+  *ngIf="cardStyle === CardStyle.DETAILS"
+  class="collectible-card card-style-details"
+  [formGroup]="collectionForm"
+>
   <div class="collection-checks" [formGroup]="collectionForm">
-    <span>
-      <mat-checkbox
-        formControlName="collected"
-        (click)="markCollectibleCollected()"
-        >COLLECTED</mat-checkbox
-      >
-    </span>
-    <span *ngIf="collectible.haveModel !== undefined">
-      <mat-checkbox
-        formControlName="haveModel"
-        (click)="markCollectibleModelCollected()"
-        >HAVE MODEL</mat-checkbox
-      >
-    </span>
-    <span *ngIf="collectible.haveModelSupplies !== undefined">
-      <mat-checkbox
-        type="checkbox"
-        formControlName="haveModelSupplies"
-        (click)="markHaveCollectibleModelSupplies()"
-        >HAVE SUPPLIES</mat-checkbox
-      >
-    </span>
+    <mat-checkbox
+      formControlName="collected"
+      (click)="markCollectibleCollected()"
+      >COLLECTED</mat-checkbox
+    >
+    <mat-checkbox
+      *ngIf="collectible.haveModel !== undefined"
+      formControlName="haveModel"
+      (click)="markCollectibleModelCollected()"
+      >HAVE MODEL</mat-checkbox
+    >
+    <mat-checkbox
+      *ngIf="collectible.haveModelSupplies !== undefined"
+      type="checkbox"
+      formControlName="haveModelSupplies"
+      (click)="markHaveCollectibleModelSupplies()"
+      >HAVE SUPPLIES</mat-checkbox
+    >
   </div>
   <div class="collectible-image">
     <img [src]="imageSrc" />
@@ -43,6 +43,46 @@
     <div>#: {{ collectible.index }}</div>
     <div *ngIf="collectible.mood !== undefined">
       Md: {{ SongMood[collectible.mood] }}
+    </div>
+  </div>
+</mat-card>
+<mat-card
+  *ngIf="cardStyle === CardStyle.SMALL"
+  class="collectible-card card-style-small"
+  [formGroup]="collectionForm"
+>
+  <div class="collectible-info">
+    <div>{{ collectible.name }}</div>
+    <div>#: {{ collectible.index }}</div>
+  </div>
+  <div class="collectible-image">
+    <img [src]="imageSrc" />
+  </div>
+  <div class="collection-checks" [formGroup]="collectionForm">
+    <div class="collection-check">
+      <mat-label>C</mat-label>
+      <mat-checkbox
+        formControlName="collected"
+        (click)="markCollectibleCollected()"
+      ></mat-checkbox>
+    </div>
+    <div class="collection-check">
+      <mat-label>M</mat-label>
+      <mat-checkbox
+        *ngIf="collectible.haveModel !== undefined"
+        formControlName="haveModel"
+        (click)="markCollectibleModelCollected()"
+      ></mat-checkbox>
+    </div>
+    <div class="collection-check">
+      <mat-label>S</mat-label>
+      <mat-checkbox
+        *ngIf="collectible.haveModelSupplies !== undefined"
+        type="checkbox"
+        formControlName="haveModelSupplies"
+        (click)="markHaveCollectibleModelSupplies()"
+      >
+      </mat-checkbox>
     </div>
   </div>
 </mat-card>
