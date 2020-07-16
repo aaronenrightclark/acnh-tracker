@@ -12,6 +12,7 @@ import {
   Collectible,
 } from '../shared/models/collectible.model';
 import { Hemisphere } from '../shared/models/app-state.model';
+import { CardStyle } from '../shared/models/collectible.model';
 import {
   COLLECTIBLE_KEY_COLLECTED,
   COLLECTIBLE_KEY_HAVE_MODEL,
@@ -21,9 +22,11 @@ import {
 @Component({
   selector: 'app-creature-tracker',
   templateUrl: './creature-tracker.component.html',
-  styleUrls: ['./creature-tracker.component.css'],
+  styleUrls: ['./creature-tracker.component.scss'],
 })
 export class CreatureTrackerComponent implements OnInit, OnChanges {
+  CardStyle = CardStyle;
+
   _collectibles: Collectible[] = [];
   @Input() set collectibles(collectibles: { [key: string]: Collectible }) {
     this._collectibles = Object.keys(collectibles).map(
@@ -48,9 +51,13 @@ export class CreatureTrackerComponent implements OnInit, OnChanges {
 
   filteredCollectibles: Collectible[];
 
+  cardStyle: CardStyle;
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.cardStyle = CardStyle.DETAILS;
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.filteredCollectibles = this._collectibles
@@ -73,6 +80,13 @@ export class CreatureTrackerComponent implements OnInit, OnChanges {
         )
       )
       .filter(this.filterByName());
+  }
+
+  getCardStyleClasses() {
+    return {
+      'card-style-small': this.cardStyle === CardStyle.SMALL,
+      'card-style-details': this.cardStyle === CardStyle.DETAILS,
+    };
   }
 
   filterByCollectionSubset(
@@ -101,6 +115,13 @@ export class CreatureTrackerComponent implements OnInit, OnChanges {
           .includes(this.partialName.toLowerCase().replace(/(\s|')/g, ''))
       );
     };
+  }
+
+  toggleCardStyle() {
+    this.cardStyle =
+      this.cardStyle === CardStyle.DETAILS
+        ? CardStyle.SMALL
+        : CardStyle.DETAILS;
   }
 
   markCollectibleCollected(collectible) {

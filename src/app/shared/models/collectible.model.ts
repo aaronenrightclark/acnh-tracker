@@ -102,3 +102,8 @@ export enum CollectionSubset {
   COLLECTED,
   UNCOLLECTED,
 }
+
+export enum CardStyle {
+  SMALL,
+  DETAILS,
+}

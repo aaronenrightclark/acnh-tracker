@@ -1,13 +1,32 @@
-<div *ngIf="_collectibles.length" class="collectible-tracker-container">
-  <app-collectible-card
-    *ngFor="let collectible of filteredCollectibles"
-    [collectible]="collectible"
-    [hemisphere]="hemisphere"
-    (collectibleCollected)="markCollectibleCollected($event)"
-    (collectibleModelCollected)="markCollectibleModelCollected($event)"
-    (haveCollectibleModelSupplies)="markHaveCollectibleModelSupplies($event)"
-  ></app-collectible-card>
-</div>
-<div *ngIf="!filteredCollectibles.length">
-  NO COLLECTIBLES
+<div class="creature-tracker-container">
+  <div class="container-header">
+    <div>Displaying {{ filteredCollectibles.length }} items</div>
+    <button mat-stroked-button (click)="toggleCardStyle()">
+      Show
+      {{
+        cardStyle === CardStyle.DETAILS
+          ? CardStyle[CardStyle.SMALL]
+          : CardStyle[CardStyle.DETAILS]
+      }}
+      Cards
+    </button>
+  </div>
+  <div
+    *ngIf="_collectibles.length"
+    class="collectible-tracker-container"
+    [ngClass]="getCardStyleClasses()"
+  >
+    <app-collectible-card
+      *ngFor="let collectible of filteredCollectibles"
+      [collectible]="collectible"
+      [hemisphere]="hemisphere"
+      [cardStyle]="cardStyle"
+      (collectibleCollected)="markCollectibleCollected($event)"
+      (collectibleModelCollected)="markCollectibleModelCollected($event)"
+      (haveCollectibleModelSupplies)="markHaveCollectibleModelSupplies($event)"
+    ></app-collectible-card>
+  </div>
+  <div *ngIf="!filteredCollectibles.length">
+    NO COLLECTIBLES
+  </div>
 </div>
