@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1594875666826,
+  "timestamp": 1594875954738,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -240,7 +240,6 @@
         "/assets/default.png",
         "/assets/favicon-16x16.png",
         "/assets/favicon-32x32.png",
-        "/assets/favicon.ico",
         "/assets/fonts/FOT-RodinCamille Pro B.otf",
         "/assets/fonts/FOT-RodinCamille Pro DB.otf",
         "/assets/fonts/FOT-RodinCamille Pro EB.otf",
@@ -475,7 +474,6 @@
     "/assets/default.png": "82556e5ae69d68fe6ce42034cab618e92d815e86",
     "/assets/favicon-16x16.png": "0a93d832cb34c2710ac0157666da875b0b46bee3",
     "/assets/favicon-32x32.png": "694e6201764a4caecd2aec2edfd838d1770bf5b5",
-    "/assets/favicon.ico": "21134c0fcd0dd9dd98f986816f4ce97db1bb8914",
     "/assets/fonts/FOT-RodinCamille Pro B.otf": "51fc5d0facce61154d0d7498cc39d65cd1c7a59e",
     "/assets/fonts/FOT-RodinCamille Pro DB.otf": "cb10793eccf4157b9a5d13a8229598f5c9f70535",
     "/assets/fonts/FOT-RodinCamille Pro EB.otf": "88162ec298297ee4b578dc54db0d1843615bde68",
@@ -493,7 +491,7 @@
     "/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
     "/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
-    "/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "/favicon.ico": "21134c0fcd0dd9dd98f986816f4ce97db1bb8914",
     "/index.html": "19c57cba4dd55e149500904e2614c58f45e9eb36",
     "/main.9783459ea14b3e50c956.js": "995fe3268e6d106469070228ce70a02263188b72",
     "/manifest.webmanifest": "64de245427cfe659b162fc643c348630d688ebdd",
