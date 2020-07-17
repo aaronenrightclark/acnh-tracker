@@ -5,9 +5,12 @@
       [collectibles]="fish$ | async"
       [resetNameFilterInput]="reset"
       (partialName)="onFilterByName($event)"
-      (hemisphereToggleValue)="setHemisphereToggleValue($event)"
     >
     </app-collection-filters>
+    <app-hemisphere-toggle
+      [currentHemisphere]="hemisphere$ | async"
+      (hemisphereToggleValue)="setHemisphereToggleValue($event)"
+    ></app-hemisphere-toggle>
     <app-collected-filter-toggle
       [filterType]="CollectionStatusFilterType.COLLECTIBLE"
       [collectionSubset]="collectionStatusFilter$ | async"

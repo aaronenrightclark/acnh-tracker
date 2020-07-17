@@ -15,7 +15,6 @@ import {
 } from 'rxjs/operators';
 import { Collectible } from '../shared/models/collectible.model';
 import { FormControl } from '@angular/forms';
-import { Hemisphere } from '../shared/models/app-state.model';
 
 @Component({
   selector: 'app-collection-filters',
@@ -28,7 +27,6 @@ export class CollectionFiltersComponent implements OnInit, OnDestroy {
     this.control.setValue('');
   }
   @Output() partialName = new EventEmitter<string>();
-  @Output() hemisphereToggleValue = new EventEmitter<Hemisphere>();
 
   filteredCollectibleNames: Observable<string[]>;
   control = new FormControl();
@@ -70,9 +68,5 @@ export class CollectionFiltersComponent implements OnInit, OnDestroy {
 
   updateNameFilterInput(entry: string): void {
     this.nameFilterInput.next(entry);
-  }
-
-  setHemisphereToggleValue(hemisphere: Hemisphere) {
-    this.hemisphereToggleValue.emit(hemisphere);
   }
 }

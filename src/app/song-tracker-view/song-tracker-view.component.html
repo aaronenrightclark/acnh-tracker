@@ -5,7 +5,6 @@
       [collectibles]="songs$ | async"
       [resetNameFilterInput]="reset"
       (partialName)="onFilterByName($event)"
-      (hemisphereToggleValue)="setHemisphereToggleValue($event)"
     >
     </app-collection-filters>
     <app-collected-filter-toggle
@@ -24,7 +23,6 @@
     <div class="song-tracker-container">
       <app-creature-tracker
         [collectibles]="songs$ | async"
-        [hemisphere]="hemisphere$ | async"
         [partialName]="nameFilter$ | async"
         [cardStyle]="cardStyle$ | async"
         [collectibleCollectionSubset]="collectionStatusFilter$ | async"

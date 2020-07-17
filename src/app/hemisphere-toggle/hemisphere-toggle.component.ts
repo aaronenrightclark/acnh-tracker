@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Hemisphere } from '../shared/models/app-state.model';
 
 @Component({
@@ -9,6 +9,7 @@ import { Hemisphere } from '../shared/models/app-state.model';
 export class HemisphereToggleComponent implements OnInit {
   Hemisphere = Hemisphere; // expose enum value to template
 
+  @Input() currentHemisphere: Hemisphere;
   @Output() hemisphereToggleValue = new EventEmitter<Hemisphere>();
 
   constructor() {}
