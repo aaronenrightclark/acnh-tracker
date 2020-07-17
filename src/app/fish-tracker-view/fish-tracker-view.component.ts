@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { selectFish } from './reducers/fish-tracker.reducer';
+import {
+  selectFish,
+  selectFishCardStyle,
+} from './reducers/fish-tracker.reducer';
 import {
   CollectionSubset,
   Collectible,
@@ -16,6 +19,7 @@ import {
 } from './reducers/fish-tracker-filter.reducer';
 import { FishTrackerActions, FishTrackerFilterActions } from './actions';
 import { SharedTrackerActions } from '../shared/actions';
+import { CardStyle } from '../shared/models/collectible.model';
 
 @Component({
   selector: 'app-fish-tracker-view',
@@ -31,6 +35,7 @@ export class FishTrackerViewComponent implements OnInit {
   modelStatusFilter$: Observable<CollectionSubset>;
   modelSuppliesStatusFilter$: Observable<CollectionSubset>;
   nameFilter$: Observable<string>;
+  cardStyle$: Observable<CardStyle>;
 
   reset = true;
 
@@ -39,6 +44,7 @@ export class FishTrackerViewComponent implements OnInit {
       map((state) => selectFish(state)),
       filter((value) => !!value)
     );
+    this.cardStyle$ = this.store.pipe(select(selectFishCardStyle));
     this.hemisphere$ = this.store.pipe(map((state) => selectHemisphere(state)));
     this.nameFilter$ = this.store.pipe(select(selectFishNameFilter));
     this.collectionStatusFilter$ = this.store.pipe(
@@ -69,6 +75,12 @@ export class FishTrackerViewComponent implements OnInit {
   toggleFishCollected(collectible: Collectible) {
     this.store.dispatch(
       FishTrackerActions.toggleFishCollectedAction({ collectible })
+    );
+  }
+
+  toggleFishCardStyle(cardStyle: CardStyle) {
+    this.store.dispatch(
+      FishTrackerActions.setFishCardStyleAction({ cardStyle })
     );
   }
 

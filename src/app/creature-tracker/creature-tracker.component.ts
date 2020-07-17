@@ -38,6 +38,7 @@ export class CreatureTrackerComponent implements OnInit, OnChanges {
   @Input() modelCollectionSubset: CollectionSubset;
   @Input() modelSuppliesCollectionSubset: CollectionSubset;
   @Input() partialName: string;
+  @Input() cardStyle: CardStyle;
 
   @Output() collectibleCollected: EventEmitter<
     Collectible
@@ -48,16 +49,13 @@ export class CreatureTrackerComponent implements OnInit, OnChanges {
   @Output() haveCollectibleModelSupplies: EventEmitter<
     Collectible
   > = new EventEmitter();
+  @Output() selectedCardStyle: EventEmitter<CardStyle> = new EventEmitter();
 
   filteredCollectibles: Collectible[];
 
-  cardStyle: CardStyle;
-
   constructor() {}
 
-  ngOnInit(): void {
-    this.cardStyle = CardStyle.DETAILS;
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     this.filteredCollectibles = this._collectibles
@@ -118,10 +116,9 @@ export class CreatureTrackerComponent implements OnInit, OnChanges {
   }
 
   toggleCardStyle() {
-    this.cardStyle =
-      this.cardStyle === CardStyle.DETAILS
-        ? CardStyle.SMALL
-        : CardStyle.DETAILS;
+    this.selectedCardStyle.emit(
+      this.cardStyle === CardStyle.DETAILS ? CardStyle.SMALL : CardStyle.DETAILS
+    );
   }
 
   markCollectibleCollected(collectible) {

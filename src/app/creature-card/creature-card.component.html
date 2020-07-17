@@ -29,10 +29,18 @@
   <div class="collectible-info">
     <div>{{ collectible.name }}</div>
     <div *ngIf="collectible.location !== undefined">L: {{ getLocation() }}</div>
-    <div *ngIf="collectible.monthsActive !== undefined">
+    <div
+      *ngIf="collectible.monthsActive !== undefined"
+      [ngClass]="{ 'creature-active': isActiveMonth() }"
+    >
       Mo: {{ getMonths() }}
     </div>
-    <div *ngIf="collectible.timesActive !== undefined">T: {{ getTimes() }}</div>
+    <div
+      *ngIf="collectible.timesActive !== undefined"
+      [ngClass]="{ 'creature-active': isActiveTime() }"
+    >
+      T: {{ getTimes() }}
+    </div>
     <div *ngIf="collectible.size !== undefined">
       Sz: {{ SilhouetteSize[collectible.size] }}
     </div>
@@ -52,7 +60,12 @@
   [formGroup]="collectionForm"
 >
   <div class="collectible-info">
-    <div>{{ collectible.name }}</div>
+    <div
+      class="collectible-name"
+      [ngClass]="{ 'creature-active': isActiveMonth() && isActiveTime() }"
+    >
+      {{ collectible.name }}
+    </div>
     <div>#: {{ collectible.index }}</div>
   </div>
   <div class="collectible-image">
@@ -66,18 +79,19 @@
         (click)="markCollectibleCollected()"
       ></mat-checkbox>
     </div>
-    <div class="collection-check">
+    <div class="collection-check" *ngIf="collectible.haveModel !== undefined">
       <mat-label>M</mat-label>
       <mat-checkbox
-        *ngIf="collectible.haveModel !== undefined"
         formControlName="haveModel"
         (click)="markCollectibleModelCollected()"
       ></mat-checkbox>
     </div>
-    <div class="collection-check">
+    <div
+      class="collection-check"
+      *ngIf="collectible.haveModelSupplies !== undefined"
+    >
       <mat-label>S</mat-label>
       <mat-checkbox
-        *ngIf="collectible.haveModelSupplies !== undefined"
         type="checkbox"
         formControlName="haveModelSupplies"
         (click)="markHaveCollectibleModelSupplies()"

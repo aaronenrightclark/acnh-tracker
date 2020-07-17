@@ -26,8 +26,10 @@
         [collectibles]="songs$ | async"
         [hemisphere]="hemisphere$ | async"
         [partialName]="nameFilter$ | async"
+        [cardStyle]="cardStyle$ | async"
         [collectibleCollectionSubset]="collectionStatusFilter$ | async"
         (collectibleCollected)="toggleSongCollected($event)"
+        (selectedCardStyle)="toggleSongCardStyle($event)"
       ></app-creature-tracker>
     </div>
   </section>

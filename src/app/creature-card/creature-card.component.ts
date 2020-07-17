@@ -21,6 +21,7 @@ import {
   CardStyle,
 } from '../shared/models/collectible.model';
 import { Hemisphere } from '../shared/models/app-state.model';
+import { ActivityWindow } from '../shared/models/collectible.model';
 
 @Component({
   selector: 'app-collectible-card',
@@ -88,6 +89,49 @@ export class CreatureCardComponent implements OnInit {
       .join(', ');
   }
 
+  isActiveMonth(): boolean {
+    const monthsActive = this.getMonthsActive();
+    const currentMonth = new Date().getMonth();
+    return (
+      !!monthsActive &&
+      (monthsActive.length === 0 ||
+        monthsActive.some((activityWindow) => {
+          if (activityWindow.end < activityWindow.start) {
+            return (
+              currentMonth >= activityWindow.start ||
+              currentMonth <= activityWindow.end
+            );
+          } else {
+            return (
+              currentMonth >= activityWindow.start &&
+              currentMonth <= activityWindow.end
+            );
+          }
+        }))
+    );
+  }
+
+  isActiveTime(): boolean {
+    const currentHour = new Date().getHours();
+    return (
+      !!this.collectible.timesActive &&
+      (this.collectible.timesActive.length === 0 ||
+        this.collectible.timesActive.some((activityWindow) => {
+          if (activityWindow.end < activityWindow.start) {
+            return (
+              currentHour >= activityWindow.start ||
+              currentHour <= activityWindow.end
+            );
+          } else {
+            return (
+              currentHour >= activityWindow.start &&
+              currentHour <= activityWindow.end
+            );
+          }
+        }))
+    );
+  }
+
   getMonths(): string {
     return this.collectible.monthsActive.length
       ? this.collectible.monthsActive
@@ -106,6 +150,18 @@ export class CreatureCardComponent implements OnInit {
           })
           .join(', ')
       : 'ALL YEAR';
+  }
+
+  getMonthsActive(): ActivityWindow[] {
+    const offset = this.hemisphere === Hemisphere.NORTH ? 0 : 6;
+    return !!this.collectible.monthsActive
+      ? this.collectible.monthsActive.map((activityWindow) => {
+          return {
+            start: (activityWindow.start + offset) % 12,
+            end: (activityWindow.end + offset) % 12,
+          };
+        })
+      : undefined;
   }
 
   getTimes(): string {

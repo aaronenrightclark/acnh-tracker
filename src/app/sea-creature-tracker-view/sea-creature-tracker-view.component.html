@@ -26,10 +26,12 @@
         [collectibles]="seaCreatures$ | async"
         [hemisphere]="hemisphere$ | async"
         [partialName]="nameFilter$ | async"
+        [cardStyle]="cardStyle$ | async"
         [collectibleCollectionSubset]="collectionStatusFilter$ | async"
         [modelCollectionSubset]="modelStatusFilter$ | async"
         [modelSuppliesCollectionSubset]="modelSuppliesStatusFilter$ | async"
         (collectibleCollected)="toggleSeaCreatureCollected($event)"
+        (selectedCardStyle)="toggleSeaCreatureCardStyle($event)"
       ></app-creature-tracker>
     </div>
   </section>

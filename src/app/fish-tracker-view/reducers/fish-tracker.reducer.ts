@@ -22,6 +22,7 @@ import {
   COLLECTIBLE_KEY_COLLECTED,
   COLLECTIBLE_KEY_HAVE_MODEL,
   COLLECTIBLE_KEY_HAVE_MODEL_SUPPLIES,
+  CardStyle,
 } from '../../shared/models/collectible.model';
 
 const initialState: CollectibleTrackerState = {
@@ -31,6 +32,7 @@ const initialState: CollectibleTrackerState = {
     TrackerCategory.FISH_MODELS,
     TrackerCategory.FISH_MODEL_SUPPLIES,
   ]),
+  cardStyle: CardStyle.DETAILS,
 };
 
 export const selectFishTrackerState = (state: AppState) =>
@@ -39,6 +41,11 @@ export const selectFishTrackerState = (state: AppState) =>
 export const selectFish = createSelector(
   selectFishTrackerState,
   (state: CollectibleTrackerState) => state.collectibles
+);
+
+export const selectFishCardStyle = createSelector(
+  selectFishTrackerState,
+  (state: CollectibleTrackerState) => state.cardStyle
 );
 
 // TODO: genericise for use with any modelable collection state
@@ -152,7 +159,13 @@ const _fishTrackerReducer: ActionReducer<
         data,
         COLLECTIBLE_KEY_HAVE_MODEL_SUPPLIES
       )
-  )
+  ),
+  on(FishTrackerActions.setFishCardStyleAction, (state, { cardStyle }) => {
+    return {
+      ...state,
+      cardStyle,
+    };
+  })
 );
 
 export function getUpdatedFishStateForProperty(

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Collectible } from '../../shared/models/collectible.model';
+import { Collectible, CardStyle } from '../../shared/models/collectible.model';
 import { SessionCategoryData } from '../../shared/models/app-state.model';
 
 export const toggleBugCollectedAction = createAction(
@@ -25,4 +25,8 @@ export const updateBugModelStateFromSessionAction = createAction(
 export const updateHaveBugModelSuppliesStateFromSessionAction = createAction(
   '[Bug Tracker] Update Have Model Supplies State from Session',
   props<{ data: SessionCategoryData }>()
+);
+export const setBugCardStyleAction = createAction(
+  '[Bug Tracker] Set Card Style',
+  props<{ cardStyle: CardStyle }>()
 );
