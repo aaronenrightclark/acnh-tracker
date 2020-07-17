@@ -48,12 +48,14 @@
         [collectibles]="fish$ | async"
         [hemisphere]="hemisphere$ | async"
         [partialName]="nameFilter$ | async"
+        [cardStyle]="cardStyle$ | async"
         [collectibleCollectionSubset]="collectionStatusFilter$ | async"
         [modelCollectionSubset]="modelStatusFilter$ | async"
         [modelSuppliesCollectionSubset]="modelSuppliesStatusFilter$ | async"
         (collectibleCollected)="toggleFishCollected($event)"
         (collectibleModelCollected)="toggleFishModelCollected($event)"
         (haveCollectibleModelSupplies)="toggleHaveFishModelSupplies($event)"
+        (selectedCardStyle)="toggleFishCardStyle($event)"
       ></app-creature-tracker>
     </div>
   </section>

@@ -10,6 +10,7 @@ import {
   COLLECTIBLE_KEY_COLLECTED,
   COLLECTIBLE_KEY_HAVE_MODEL,
   COLLECTIBLE_KEY_HAVE_MODEL_SUPPLIES,
+  CardStyle,
 } from '../../shared/models/collectible.model';
 import {
   AppState,
@@ -35,6 +36,7 @@ const initialState: CollectibleTrackerState = {
     TrackerCategory.BUG_MODELS,
     TrackerCategory.BUG_MODEL_SUPPLIES,
   ]),
+  cardStyle: CardStyle.DETAILS,
 };
 
 export const selectBugTrackerState = (state: AppState) => state.bugTrackerState;
@@ -42,6 +44,11 @@ export const selectBugTrackerState = (state: AppState) => state.bugTrackerState;
 export const selectBugs = createSelector(
   selectBugTrackerState,
   (state: CollectibleTrackerState) => state.collectibles
+);
+
+export const selectBugCardStyle = createSelector(
+  selectBugTrackerState,
+  (state: CollectibleTrackerState) => state.cardStyle
 );
 
 // TODO: genericise for use with any modelable collection state
@@ -153,7 +160,6 @@ const _bugTrackerReducer: ActionReducer<
   on(
     BugTrackerActions.updateBugModelStateFromSessionAction,
     (state, { data }) =>
-      // getUpdatedBugStateForProperty(state, data, COLLECTIBLE_KEY_HAVE_MODEL)
       getUpdatedCollectibleStateForProperty(
         state,
         data,
@@ -173,7 +179,13 @@ const _bugTrackerReducer: ActionReducer<
         data,
         COLLECTIBLE_KEY_HAVE_MODEL_SUPPLIES
       )
-  )
+  ),
+  on(BugTrackerActions.setBugCardStyleAction, (state, { cardStyle }) => {
+    return {
+      ...state,
+      cardStyle,
+    };
+  })
 );
 
 export function getUpdatedBugStateForProperty(

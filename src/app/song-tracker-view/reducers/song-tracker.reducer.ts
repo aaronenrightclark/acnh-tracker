@@ -1,6 +1,7 @@
 import {
   Collectible,
   COLLECTIBLE_KEY_COLLECTED,
+  CardStyle,
 } from '../../shared/models/collectible.model';
 import { SONG_DATA } from '../../shared/models/constants';
 import { CollectibleTrackerState } from '../../shared/models/app-state.model';
@@ -26,6 +27,7 @@ import { getEncodedCollectibleState } from '../../shared/helpers/reducer.helper'
 const initialState: CollectibleTrackerState = {
   collectibles: SONG_DATA,
   encoded: getDefaultEncoding([TrackerCategory.SONGS]),
+  cardStyle: CardStyle.DETAILS,
 };
 
 export const selectSongTrackerState = (state: AppState) =>
@@ -34,6 +36,11 @@ export const selectSongTrackerState = (state: AppState) =>
 export const selectSongs = createSelector(
   selectSongTrackerState,
   (state: CollectibleTrackerState) => state.collectibles
+);
+
+export const selectSongCardStyle = createSelector(
+  selectSongTrackerState,
+  (state: CollectibleTrackerState) => state.cardStyle
 );
 
 // TODO: genericise for use with any modelable collection state
@@ -82,7 +89,13 @@ const _songTrackerReducer: ActionReducer<
     SongTrackerActions.updateSongCollectionStateFromSessionAction,
     (state, { data }) =>
       getUpdatedSongStateForProperty(state, data, COLLECTIBLE_KEY_COLLECTED)
-  )
+  ),
+  on(SongTrackerActions.setSongCardStyleAction, (state, { cardStyle }) => {
+    return {
+      ...state,
+      cardStyle,
+    };
+  })
 );
 
 export function getUpdatedSongStateForProperty(

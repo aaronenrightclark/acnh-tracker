@@ -1,7 +1,10 @@
 import { Store, select } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 import { AppState, Hemisphere } from '../shared/models/app-state.model';
-import { selectSongs } from './reducers/song-tracker.reducer';
+import {
+  selectSongs,
+  selectSongCardStyle,
+} from './reducers/song-tracker.reducer';
 import { map, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import {
@@ -12,6 +15,7 @@ import { CollectionStatusFilterType } from '../shared/models/filter.model';
 import { SongTrackerFilterActions, SongTrackerActions } from './actions';
 import { SharedTrackerActions } from '../shared/actions';
 import { selectHemisphere } from '../shared/reducers/shared.reducer';
+import { CardStyle } from '../shared/models/collectible.model';
 import {
   selectSongNameFilter,
   selectSongCollectionStatusFilter,
@@ -29,6 +33,7 @@ export class SongTrackerViewComponent implements OnInit {
   hemisphere$: Observable<Hemisphere>;
   collectionStatusFilter$: Observable<CollectionSubset>;
   nameFilter$: Observable<string>;
+  cardStyle$: Observable<CardStyle>;
 
   reset = true;
 
@@ -37,6 +42,7 @@ export class SongTrackerViewComponent implements OnInit {
       map((state) => selectSongs(state)),
       filter((value) => !!value)
     );
+    this.cardStyle$ = this.store.pipe(select(selectSongCardStyle));
     this.hemisphere$ = this.store.pipe(map((state) => selectHemisphere(state)));
     this.nameFilter$ = this.store.pipe(select(selectSongNameFilter));
     this.collectionStatusFilter$ = this.store.pipe(
@@ -57,6 +63,12 @@ export class SongTrackerViewComponent implements OnInit {
   toggleSongCollected(collectible: Collectible) {
     this.store.dispatch(
       SongTrackerActions.toggleSongCollectedAction({ collectible })
+    );
+  }
+
+  toggleSongCardStyle(cardStyle: CardStyle) {
+    this.store.dispatch(
+      SongTrackerActions.setSongCardStyleAction({ cardStyle })
     );
   }
 

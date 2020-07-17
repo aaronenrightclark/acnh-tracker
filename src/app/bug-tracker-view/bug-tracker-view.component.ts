@@ -3,8 +3,9 @@ import { Store, select } from '@ngrx/store';
 import {
   CollectionSubset,
   Collectible,
+  CardStyle,
 } from '../shared/models/collectible.model';
-import { selectBugs } from './reducers/bug-tracker.reducer';
+import { selectBugs, selectBugCardStyle } from './reducers/bug-tracker.reducer';
 import { Observable, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { AppState, Hemisphere } from '../shared/models/app-state.model';
@@ -30,6 +31,7 @@ export class BugTrackerViewComponent implements OnInit {
   modelStatusFilter$: Observable<CollectionSubset>;
   modelSuppliesStatusFilter$: Observable<CollectionSubset>;
   nameFilter$: Observable<string>;
+  cardStyle$: Observable<CardStyle>;
 
   reset = true;
 
@@ -43,6 +45,7 @@ export class BugTrackerViewComponent implements OnInit {
       map((state) => selectBugs(state)),
       filter((value) => !!value)
     );
+    this.cardStyle$ = this.store.pipe(select(selectBugCardStyle));
     this.hemisphere$ = this.store.pipe(map((state) => selectHemisphere(state)));
     this.nameFilter$ = this.store.pipe(select(selectBugNameFilter));
     this.collectionStatusFilter$ = this.store.pipe(
@@ -74,6 +77,10 @@ export class BugTrackerViewComponent implements OnInit {
     this.store.dispatch(
       BugTrackerActions.toggleBugCollectedAction({ collectible })
     );
+  }
+
+  toggleBugCardStyle(cardStyle: CardStyle) {
+    this.store.dispatch(BugTrackerActions.setBugCardStyleAction({ cardStyle }));
   }
 
   toggleBugModelCollected(collectible: Collectible) {

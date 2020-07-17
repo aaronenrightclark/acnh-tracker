@@ -1,10 +1,11 @@
 import { SharedTrackerState } from '../reducers/shared.reducer';
-import { Collectible, CollectionSubset } from './collectible.model';
+import { Collectible, CollectionSubset, CardStyle } from './collectible.model';
 import { CollectionStatusFilterType } from './filter.model';
 
 export interface CollectibleTrackerState {
   collectibles: { [key: string]: Collectible };
   encoded: string;
+  cardStyle: CardStyle;
 }
 
 export interface CollectibleTrackerFilters {

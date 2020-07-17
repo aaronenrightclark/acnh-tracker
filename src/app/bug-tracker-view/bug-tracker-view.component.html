@@ -47,12 +47,14 @@
         [collectibles]="bugs$ | async"
         [hemisphere]="hemisphere$ | async"
         [partialName]="nameFilter$ | async"
+        [cardStyle]="cardStyle$ | async"
         [collectibleCollectionSubset]="collectionStatusFilter$ | async"
         [modelCollectionSubset]="modelStatusFilter$ | async"
         [modelSuppliesCollectionSubset]="modelSuppliesStatusFilter$ | async"
         (collectibleCollected)="toggleBugCollected($event)"
         (collectibleModelCollected)="toggleBugModelCollected($event)"
         (haveCollectibleModelSupplies)="toggleHaveBugModelSupplies($event)"
+        (selectedCardStyle)="toggleBugCardStyle($event)"
       ></app-creature-tracker>
     </div>
   </section>

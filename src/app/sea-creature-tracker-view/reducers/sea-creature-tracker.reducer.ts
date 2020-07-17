@@ -2,6 +2,7 @@ import { SEA_CREATURE_DATA } from '../../shared/models/constants';
 import {
   Collectible,
   COLLECTIBLE_KEY_COLLECTED,
+  CardStyle,
 } from '../../shared/models/collectible.model';
 import { CollectibleTrackerState } from '../../shared/models/app-state.model';
 import {
@@ -25,6 +26,7 @@ import { SeaCreatureTrackerActions } from '../actions';
 const initialState: CollectibleTrackerState = {
   collectibles: SEA_CREATURE_DATA,
   encoded: getDefaultEncoding([TrackerCategory.SEA_CREATURE_COLLECTION]),
+  cardStyle: CardStyle.DETAILS,
 };
 
 export const selectSeaCreatureTrackerState = (state: AppState) =>
@@ -33,6 +35,11 @@ export const selectSeaCreatureTrackerState = (state: AppState) =>
 export const selectSeaCreatures = createSelector(
   selectSeaCreatureTrackerState,
   (state: CollectibleTrackerState) => state.collectibles
+);
+
+export const selectSeaCreatureCardStyle = createSelector(
+  selectSeaCreatureTrackerState,
+  (state: CollectibleTrackerState) => state.cardStyle
 );
 
 // TODO: genericise for use with any modelable collection state
@@ -82,6 +89,15 @@ const _seaCreatureTrackerReducer: ActionReducer<
         data,
         COLLECTIBLE_KEY_COLLECTED
       )
+  ),
+  on(
+    SeaCreatureTrackerActions.setSeaCreatureCardStyleAction,
+    (state, { cardStyle }) => {
+      return {
+        ...state,
+        cardStyle,
+      };
+    }
   )
 );
 

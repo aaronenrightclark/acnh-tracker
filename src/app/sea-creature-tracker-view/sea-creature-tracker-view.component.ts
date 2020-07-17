@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { selectSeaCreatures } from './reducers/sea-creature-tracker.reducer';
+import {
+  selectSeaCreatures,
+  selectSeaCreatureCardStyle,
+} from './reducers/sea-creature-tracker.reducer';
 import { Observable } from 'rxjs';
 import {
   CollectionSubset,
   Collectible,
+  CardStyle,
 } from '../shared/models/collectible.model';
 import { Store, select } from '@ngrx/store';
 import { AppState, Hemisphere } from '../shared/models/app-state.model';
@@ -34,6 +38,7 @@ export class SeaCreatureTrackerViewComponent implements OnInit {
   modelStatusFilter$: Observable<CollectionSubset>;
   modelSuppliesStatusFilter$: Observable<CollectionSubset>;
   nameFilter$: Observable<string>;
+  cardStyle$: Observable<CardStyle>;
 
   reset = true;
 
@@ -42,6 +47,7 @@ export class SeaCreatureTrackerViewComponent implements OnInit {
       map((state) => selectSeaCreatures(state)),
       filter((value) => !!value)
     );
+    this.cardStyle$ = this.store.pipe(select(selectSeaCreatureCardStyle));
     this.hemisphere$ = this.store.pipe(map((state) => selectHemisphere(state)));
     this.nameFilter$ = this.store.pipe(select(selectSeaCreatureNameFilter));
     this.collectionStatusFilter$ = this.store.pipe(
@@ -76,6 +82,12 @@ export class SeaCreatureTrackerViewComponent implements OnInit {
       SeaCreatureTrackerActions.toggleSeaCreatureCollectedAction({
         collectible,
       })
+    );
+  }
+
+  toggleSeaCreatureCardStyle(cardStyle: CardStyle) {
+    this.store.dispatch(
+      SeaCreatureTrackerActions.setSeaCreatureCardStyleAction({ cardStyle })
     );
   }
 

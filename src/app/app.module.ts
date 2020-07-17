@@ -43,6 +43,8 @@ import { sharedTrackerReducer } from './shared/reducers/shared.reducer';
 import { fishTrackerFilterReducer } from './fish-tracker-view/reducers/fish-tracker-filter.reducer';
 import { seaCreatureTrackerFilterReducer } from './sea-creature-tracker-view/reducers/sea-creature-tracker-filter.reducer';
 import { songTrackerFilterReducer } from './song-tracker-view/reducers/song-tracker-filter.reducer';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 export function getBaseHref(platformLocation: PlatformLocation): string {
   return platformLocation.getBaseHrefFromDOM();
@@ -92,6 +94,7 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
     MatSidenavModule,
     MatAutocompleteModule,
     MatButtonModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [
     DatePipe,
