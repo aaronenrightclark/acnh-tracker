@@ -1,16 +1,18 @@
 <div class="hemisphere-toggle-container">
   <mat-button-toggle-group
     name="hemisphere"
-    value="Hemisphere.NORTH"
+    [value]="currentHemisphere"
     aria-label="Hemisphere Selection"
   >
     <mat-button-toggle
-      value="Hemisphere.NORTH"
+      [value]="Hemisphere.NORTH"
+      [checked]="currentHemisphere === Hemisphere.NORTH"
       (click)="setHemisphereToggleValue(Hemisphere.NORTH)"
       >{{ Hemisphere[Hemisphere.NORTH] }}</mat-button-toggle
     >
     <mat-button-toggle
-      value="Hemisphere.SOUTH"
+      [value]="Hemisphere.SOUTH"
+      [checked]="currentHemisphere === Hemisphere.SOUTH"
       (click)="setHemisphereToggleValue(Hemisphere.SOUTH)"
       >{{ Hemisphere[Hemisphere.SOUTH] }}</mat-button-toggle
     >

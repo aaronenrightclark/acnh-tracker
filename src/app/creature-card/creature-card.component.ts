@@ -153,15 +153,16 @@ export class CreatureCardComponent implements OnInit {
   }
 
   getMonthsActive(): ActivityWindow[] {
-    const offset = this.hemisphere === Hemisphere.NORTH ? 0 : 6;
-    return !!this.collectible.monthsActive
-      ? this.collectible.monthsActive.map((activityWindow) => {
-          return {
-            start: (activityWindow.start + offset) % 12,
-            end: (activityWindow.end + offset) % 12,
-          };
-        })
-      : undefined;
+    if (!!this.collectible.monthsActive) {
+      const offset = this.hemisphere === Hemisphere.NORTH ? 0 : 6;
+      return this.collectible.monthsActive.map((activityWindow) => {
+        return {
+          start: (activityWindow.start + offset) % 12,
+          end: (activityWindow.end + offset) % 12,
+        };
+      });
+    }
+    return undefined;
   }
 
   getTimes(): string {
