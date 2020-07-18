@@ -1,15 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FishTrackerViewComponent } from './fish-tracker-view.component';
-import { AppState } from '../shared/models/app-state.model';
+import { AppState, Hemisphere } from '../shared/models/app-state.model';
 import {
   CardStyle,
   CollectionSubset,
 } from '../shared/models/collectible.model';
 import { provideMockStore } from '@ngrx/store/testing';
 import { CollectionStatusFilterType } from '../shared/models/filter.model';
+import { CollectionFiltersComponent } from '../collection-filters/collection-filters.component';
+import { MockComponent } from 'ng-mocks';
+import { HemisphereToggleComponent } from '../hemisphere-toggle/hemisphere-toggle.component';
+import { CollectedFilterToggleComponent } from '../collected-filter-toggle/collected-filter-toggle.component';
+import { CreatureTrackerComponent } from '../creature-tracker/creature-tracker.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-fdescribe('FishTrackerViewComponent', () => {
+describe('FishTrackerViewComponent', () => {
   let component: FishTrackerViewComponent;
   let fixture: ComponentFixture<FishTrackerViewComponent>;
 
@@ -27,12 +33,22 @@ fdescribe('FishTrackerViewComponent', () => {
         partialName: '',
       },
     },
+    sharedTrackerState: {
+      hemisphere: Hemisphere.NORTH,
+    },
   } as AppState;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [FishTrackerViewComponent],
-      providers: [provideMockStore({ initialState })],
+      providers: [
+        provideMockStore({ initialState }),
+        MockComponent(CollectionFiltersComponent),
+        MockComponent(CollectedFilterToggleComponent),
+        MockComponent(HemisphereToggleComponent),
+        MockComponent(CreatureTrackerComponent),
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 

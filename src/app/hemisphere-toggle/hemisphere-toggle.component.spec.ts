@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HemisphereToggleComponent } from './hemisphere-toggle.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 describe('HemisphereToggleComponent', () => {
   let component: HemisphereToggleComponent;
@@ -8,9 +9,9 @@ describe('HemisphereToggleComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HemisphereToggleComponent ]
-    })
-    .compileComponents();
+      declarations: [HemisphereToggleComponent],
+      imports: [MatButtonToggleModule],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

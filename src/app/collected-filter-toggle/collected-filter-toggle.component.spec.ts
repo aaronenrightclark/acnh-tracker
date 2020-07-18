@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CollectedFilterToggleComponent } from './collected-filter-toggle.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { FormsModule } from '@angular/forms';
 
 describe('CollectedFilterToggleComponent', () => {
   let component: CollectedFilterToggleComponent;
@@ -8,9 +10,9 @@ describe('CollectedFilterToggleComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CollectedFilterToggleComponent ]
-    })
-    .compileComponents();
+      declarations: [CollectedFilterToggleComponent],
+      imports: [MatButtonToggleModule, FormsModule],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
