@@ -15,7 +15,6 @@ import { CollectionStatusFilterType } from '../shared/models/filter.model';
 import { BugTrackerFilterActions, BugTrackerActions } from './actions';
 import { selectBugNameFilter } from './reducers/bug-tracker-filter.reducer';
 import { selectBugCollectionStatusFilter } from './reducers/bug-tracker-filter.reducer';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-bug-tracker-view',
@@ -37,10 +36,7 @@ export class BugTrackerViewComponent implements OnInit {
 
   subscriptions = new Array<Subscription>();
 
-  constructor(
-    private store: Store<AppState>,
-    private activatedRoute: ActivatedRoute
-  ) {
+  constructor(private store: Store<AppState>) {
     this.bugs$ = this.store.pipe(
       map((state) => selectBugs(state)),
       filter((value) => !!value)

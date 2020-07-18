@@ -5,7 +5,6 @@
       [collectibles]="bugs$ | async"
       [resetNameFilterInput]="reset"
       (partialName)="onFilterByName($event)"
-      (hemisphereToggleValue)="setHemisphereToggleValue($event)"
     ></app-collection-filters>
     <app-hemisphere-toggle
       [currentHemisphere]="hemisphere$ | async"

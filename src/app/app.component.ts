@@ -2,7 +2,12 @@ import { Component, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { Observable, Subscription, Subject, combineLatest } from 'rxjs';
-import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import {
+  map,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+} from 'rxjs/operators';
 import { updateSeaCreatureCollectionStateFromSessionAction } from './sea-creature-tracker-view/actions/sea-creature-tracker.actions';
 import { updateSongCollectionStateFromSessionAction } from './song-tracker-view/actions/song-tracker.actions';
 import { CollectibleTrackerState } from './shared/models/app-state.model';
@@ -34,7 +39,7 @@ import { getDefaultEncoding } from './shared/services/collection-encoding.servic
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnDestroy {
-  title = 'acnh-tracker';
+  title = 'ACNH Tracker';
 
   bugs$: Observable<CollectibleTrackerState>;
   fish$: Observable<CollectibleTrackerState>;
@@ -78,10 +83,10 @@ export class AppComponent implements OnDestroy {
 
     this.subscriptions.push(
       combineLatest([
-        this.bugs$,
-        this.fish$,
-        this.seaCreatures$,
-        this.songs$,
+        this.bugs$.pipe(filter((state) => !!state)),
+        this.fish$.pipe(filter((state) => !!state)),
+        this.seaCreatures$.pipe(filter((state) => !!state)),
+        this.songs$.pipe(filter((state) => !!state)),
       ]).subscribe(
         ([
           bugTrackerState,
