@@ -57,7 +57,7 @@ export class CreatureTrackerComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {}
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.filteredCollectibles = this._collectibles
       .filter(
         this.filterByCollectionSubset(
