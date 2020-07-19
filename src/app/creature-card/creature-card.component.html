@@ -5,17 +5,20 @@
 >
   <div class="collection-checks" [formGroup]="collectionForm">
     <mat-checkbox
+      class="collectible-collected-check"
       formControlName="collected"
       (click)="markCollectibleCollected()"
       >COLLECTED</mat-checkbox
     >
     <mat-checkbox
+      class="model-collected-check"
       *ngIf="collectible.haveModel !== undefined"
       formControlName="haveModel"
       (click)="markCollectibleModelCollected()"
       >HAVE MODEL</mat-checkbox
     >
     <mat-checkbox
+      class="model-supplies-check"
       *ngIf="collectible.haveModelSupplies !== undefined"
       type="checkbox"
       formControlName="haveModelSupplies"
