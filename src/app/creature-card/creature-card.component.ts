@@ -189,8 +189,7 @@ export class CreatureCardComponent implements OnInit {
       !!this.collectible &&
       this.collectible.index !== undefined &&
       !!this.collectible.name &&
-      this.collectible.type !== undefined &&
-      this.collectible.type === CollectibleType.BUG
+      this.collectible.type !== undefined
     ) {
       let collectibleType: string;
       switch (+this.collectible.type) {
@@ -204,12 +203,14 @@ export class CreatureCardComponent implements OnInit {
         //   break;
         // }
       }
-      const fileName = `${
-        this.collectible.index
-      }-${this.collectible.name.replace(/\W/g, '')}.png`;
-      return (
-        this.baseHref + `assets/collectibles/${collectibleType}/${fileName}`
-      );
+      if (!!collectibleType) {
+        const fileName = `${
+          this.collectible.index
+        }-${this.collectible.name.replace(/\W/g, '')}.png`;
+        return (
+          this.baseHref + `assets/collectibles/${collectibleType}/${fileName}`
+        );
+      }
     }
     return this.baseHref + 'assets/default.png';
   }
