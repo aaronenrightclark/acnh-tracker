@@ -2,7 +2,7 @@
   <aside class="left-content">
     <button mat-stroked-button (click)="resetFilters()">RESET FILTERS</button>
     <app-collection-filters
-      [collectibles]="bugs$ | async"
+      [collectibles]="collection$ | async"
       [resetNameFilterInput]="reset"
       (partialName)="onFilterByName($event)"
     ></app-collection-filters>
@@ -47,7 +47,7 @@
   <section class="right-content">
     <div class="bug-tracker-container">
       <app-creature-tracker
-        [collectibles]="bugs$ | async"
+        [collectibles]="collection$ | async"
         [hemisphere]="hemisphere$ | async"
         [partialName]="nameFilter$ | async"
         [cardStyle]="cardStyle$ | async"

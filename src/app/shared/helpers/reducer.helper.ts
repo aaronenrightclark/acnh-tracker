@@ -1,6 +1,20 @@
 import { Collectible } from '../models/collectible.model';
 import { encodeSessionData } from '../services/collection-encoding.service';
 import {
+  AppState,
+  CollectibleTrackerFilterState,
+} from '../models/app-state.model';
+import {
+  createSelector,
+  DefaultProjectorFn,
+  MemoizedSelectorWithProps,
+} from '@ngrx/store';
+import {
+  CollectibleTrackerFilters,
+  CollectibleTrackerStateKey,
+} from '../models/app-state.model';
+import { CollectibleTrackerFilterStateKey } from '../models/app-state.model';
+import {
   TrackerCategory,
   CollectibleTrackerState,
   SessionCategoryData,
@@ -87,3 +101,90 @@ export function getUpdatedCollectibleStateForProperty<
   updated.encoded = getEncodedCollectibleState(updated.collectibles, options);
   return updated;
 }
+
+export const selectCollectibleTrackerState = (
+  state: AppState,
+  key: CollectibleTrackerStateKey
+) => state[key];
+
+export const selectCollectibleTrackerFilterState = (
+  state: AppState,
+  key: CollectibleTrackerFilterStateKey
+) => state[key];
+
+export const getCollectiblesSelector = (
+  trackerStateSelector: (
+    state: AppState,
+    key: CollectibleTrackerStateKey
+  ) => CollectibleTrackerState
+) => {
+  return createSelector(
+    trackerStateSelector,
+    (state: CollectibleTrackerState) => state.collectibles
+  );
+};
+
+export const getCardStyleSelector = (
+  trackerStateSelector: (
+    state: AppState,
+    key: CollectibleTrackerStateKey
+  ) => CollectibleTrackerState
+) => {
+  return createSelector(
+    trackerStateSelector,
+    (state: CollectibleTrackerState) => state.cardStyle
+  );
+};
+
+export const getEncodedStateSelector = (
+  trackerStateSelector: (state: AppState) => CollectibleTrackerState
+) => {
+  return createSelector(
+    trackerStateSelector,
+    (state: CollectibleTrackerState) => state.encoded
+  );
+};
+
+export const getCollectionFiltersSelector = (
+  trackerFilterStateSelector: (
+    state: AppState,
+    key: CollectibleTrackerFilterStateKey
+  ) => CollectibleTrackerFilterState
+) => {
+  return createSelector(
+    trackerFilterStateSelector,
+    (state: CollectibleTrackerFilterState) => state.filters
+  );
+};
+
+export const getCollectionNameFilterSelector = (
+  collectibleTrackerFiltersSelector: MemoizedSelectorWithProps<
+    AppState,
+    CollectibleTrackerFilterStateKey,
+    CollectibleTrackerFilters,
+    DefaultProjectorFn<CollectibleTrackerFilters>
+  >
+) => {
+  return createSelector(
+    collectibleTrackerFiltersSelector,
+    (filters: CollectibleTrackerFilters) => filters.partialName
+  );
+};
+
+// export const getCollectionStatusFilterSelector = (
+//   collectibleTrackerFiltersSelector: (
+//     selector: MemoizedSelector<
+//       AppState,
+//       CollectibleTrackerFilters,
+//       DefaultProjectorFn<CollectibleTrackerFilters>
+//     >
+//   ) => CollectibleTrackerFilters
+// ) => {
+//   return createSelector(
+//     collectibleTrackerFiltersSelector,
+//     (
+//       filters: CollectibleTrackerFilters,
+//       props: { filterType: CollectionStatusFilterType }
+//     ) => filters[props.filterType]
+//   );
+// };

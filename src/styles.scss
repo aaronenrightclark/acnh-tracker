@@ -25,3 +25,10 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.header-nav .mat-list-item-content {
+  justify-content: center;
+  span {
+    text-align: center;
+  }
+}
