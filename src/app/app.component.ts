@@ -10,13 +10,15 @@ import {
 } from 'rxjs/operators';
 import { updateSeaCreatureCollectionStateFromSessionAction } from './sea-creature-tracker-view/actions/sea-creature-tracker.actions';
 import { updateSongCollectionStateFromSessionAction } from './song-tracker-view/actions/song-tracker.actions';
-import { CollectibleTrackerState } from './shared/models/app-state.model';
+import {
+  CollectibleTrackerState,
+  CollectibleTrackerKey,
+} from './shared/models/app-state.model';
 import {
   AppState,
   SessionData,
   TrackerCategory,
 } from './shared/models/app-state.model';
-import { selectBugTrackerState } from './bug-tracker-view/reducers/bug-tracker.reducer';
 import {
   updateBugCollectionStateFromSessionAction,
   updateBugModelStateFromSessionAction,
@@ -27,11 +29,12 @@ import {
   updateFishModelStateFromSessionAction,
   updateHaveFishModelSuppliesStateFromSessionAction,
 } from './fish-tracker-view/actions/fish-tracker.actions';
-import { selectFishTrackerState } from './fish-tracker-view/reducers/fish-tracker.reducer';
-import { selectSongTrackerState } from './song-tracker-view/reducers/song-tracker.reducer';
-import { selectSeaCreatureTrackerState } from './sea-creature-tracker-view/reducers/sea-creature-tracker.reducer';
 import { ActivatedRoute } from '@angular/router';
 import { getDefaultEncoding } from './shared/services/collection-encoding.service';
+import {
+  selectCollectibleTracker,
+  getCollectibleTrackerStateSelector,
+} from './shared/helpers/reducer.helper';
 
 @Component({
   selector: 'app-root',
@@ -61,16 +64,36 @@ export class AppComponent implements OnDestroy {
     private activatedRoute: ActivatedRoute
   ) {
     this.bugs$ = this.store.pipe(
-      map((state: AppState) => selectBugTrackerState(state))
+      map((state: AppState) =>
+        getCollectibleTrackerStateSelector(selectCollectibleTracker)(
+          state,
+          CollectibleTrackerKey.BUGS
+        )
+      )
     );
     this.fish$ = this.store.pipe(
-      map((state: AppState) => selectFishTrackerState(state))
+      map((state: AppState) =>
+        getCollectibleTrackerStateSelector(selectCollectibleTracker)(
+          state,
+          CollectibleTrackerKey.FISH
+        )
+      )
     );
     this.seaCreatures$ = this.store.pipe(
-      map((state: AppState) => selectSeaCreatureTrackerState(state))
+      map((state: AppState) =>
+        getCollectibleTrackerStateSelector(selectCollectibleTracker)(
+          state,
+          CollectibleTrackerKey.SEA_CREATURES
+        )
+      )
     );
     this.songs$ = this.store.pipe(
-      map((state: AppState) => selectSongTrackerState(state))
+      map((state: AppState) =>
+        getCollectibleTrackerStateSelector(selectCollectibleTracker)(
+          state,
+          CollectibleTrackerKey.SONGS
+        )
+      )
     );
 
     this.subscriptions.push(

@@ -1,11 +1,7 @@
-import {
-  CollectibleTrackerFilterState,
-  AppState,
-  CollectibleTrackerFilters,
-} from '../../shared/models/app-state.model';
+import { CollectibleTrackerFilterState } from '../../shared/models/app-state.model';
 import { CollectionStatusFilterType } from '../../shared/models/filter.model';
 import { CollectionSubset } from '../../shared/models/collectible.model';
-import { createSelector, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { SongTrackerFilterActions } from '../actions';
 
 export const initialState: CollectibleTrackerFilterState = {
@@ -14,31 +10,6 @@ export const initialState: CollectibleTrackerFilterState = {
     partialName: '',
   },
 };
-
-export const selectSongTrackerFilterState = (state: AppState) =>
-  state.songTrackerFilterState;
-
-export const selectSongFilters = createSelector(
-  selectSongTrackerFilterState,
-  (state: CollectibleTrackerFilterState) => {
-    return state.filters;
-  }
-);
-
-export const selectSongCollectionStatusFilter = createSelector(
-  selectSongFilters,
-  (
-    filters: CollectibleTrackerFilters,
-    props: { filterType: CollectionStatusFilterType }
-  ) => filters[props.filterType]
-);
-
-export const selectSongNameFilter = createSelector(
-  selectSongFilters,
-  (filters: CollectibleTrackerFilters) => {
-    return filters.partialName;
-  }
-);
 
 const _songTrackerFilterReducer = createReducer(
   initialState,

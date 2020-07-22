@@ -6,7 +6,6 @@ import {
 import { SONG_DATA } from '../../shared/models/constants';
 import { CollectibleTrackerState } from '../../shared/models/app-state.model';
 import {
-  AppState,
   TrackerCategory,
   SessionCategoryData,
 } from '../../shared/models/app-state.model';
@@ -14,13 +13,7 @@ import {
   getDefaultEncoding,
   encodeSessionData,
 } from '../../shared/services/collection-encoding.service';
-import {
-  createReducer,
-  on,
-  Action,
-  ActionReducer,
-  createSelector,
-} from '@ngrx/store';
+import { createReducer, on, Action, ActionReducer } from '@ngrx/store';
 import { SongTrackerActions } from '../actions';
 import { getEncodedCollectibleState } from '../../shared/helpers/reducer.helper';
 
@@ -30,19 +23,6 @@ const initialState: CollectibleTrackerState = {
   cardStyle: CardStyle.DETAILS,
 };
 
-export const selectSongTrackerState = (state: AppState) =>
-  state.songTrackerState;
-
-export const selectSongs = createSelector(
-  selectSongTrackerState,
-  (state: CollectibleTrackerState) => state.collectibles
-);
-
-export const selectSongCardStyle = createSelector(
-  selectSongTrackerState,
-  (state: CollectibleTrackerState) => state.cardStyle
-);
-
 // TODO: genericise for use with any modelable collection state
 const getEncodedState = (collectibles: {
   [key: number]: Collectible;
@@ -50,10 +30,6 @@ const getEncodedState = (collectibles: {
   const sessionData = {};
   const collected = new Array<number>();
   const uncollected = new Array<number>();
-  const haveModels = new Array<number>();
-  const missingModels = new Array<number>();
-  const haveModelSupplies = new Array<number>();
-  const missingModelSupplies = new Array<number>();
   Object.keys(collectibles).forEach((key) => {
     collectibles[key].collected ? collected.push(+key) : uncollected.push(+key);
     sessionData[TrackerCategory.SONGS] = {

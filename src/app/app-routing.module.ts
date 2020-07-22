@@ -8,11 +8,40 @@ import { SongTrackerViewComponent } from './song-tracker-view/song-tracker-view.
 import { SeaCreatureTrackerViewComponent } from './sea-creature-tracker-view/sea-creature-tracker-view.component';
 
 export const routes: Routes = [
-  { path: 'bugs', component: BugTrackerViewComponent },
-  { path: 'fish', component: FishTrackerViewComponent },
-  { path: 'sea-creatures', component: SeaCreatureTrackerViewComponent },
-  { path: 'songs', component: SongTrackerViewComponent },
+  {
+    path: 'bugs',
+    loadChildren: () =>
+      import('./bug-tracker/bug-tracker.module').then(
+        (m) => m.BugTrackerModule
+      ),
+  },
+  {
+    path: 'fish',
+    loadChildren: () =>
+      import('./fish-tracker/fish-tracker.module').then(
+        (m) => m.FishTrackerModule
+      ),
+  },
+  {
+    path: 'sea-creatures',
+    loadChildren: () =>
+      import('./sea-creature-tracker/sea-creature-tracker.module').then(
+        (m) => m.SeaCreatureTrackerModule
+      ),
+  },
+  {
+    path: 'songs',
+    loadChildren: () =>
+      import('./song-tracker/song-tracker.module').then(
+        (m) => m.SongTrackerModule
+      ),
+  },
   { path: '**', component: LandingViewComponent },
+  // {
+  //   path: '',
+  //   redirectTo: '',
+  //   pathMatch: 'full',
+  // },
 ];
 
 @NgModule({

@@ -6,7 +6,7 @@ import {
   EventEmitter,
   OnDestroy,
 } from '@angular/core';
-import { Subscription, Subject, Observable } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import {
   startWith,
   map,
@@ -26,12 +26,14 @@ export class CollectionFiltersComponent implements OnInit, OnDestroy {
   @Input() set resetNameFilterInput(resetInput: boolean) {
     this.control.setValue('');
   }
+  @Input() set nameFilter(name: string) {
+    // TODO: fix
+    this.control.setValue(name);
+  }
   @Output() partialName = new EventEmitter<string>();
 
   filteredCollectibleNames: Observable<string[]>;
   control = new FormControl();
-
-  nameFilterInput: Subject<string> = new Subject<string>();
 
   subscriptions = new Array<Subscription>();
 
@@ -64,9 +66,5 @@ export class CollectionFiltersComponent implements OnInit, OnDestroy {
 
   _normalizeValue(value: string): string {
     return value.toLowerCase().replace(/\s/g, '');
-  }
-
-  updateNameFilterInput(entry: string): void {
-    this.nameFilterInput.next(entry);
   }
 }

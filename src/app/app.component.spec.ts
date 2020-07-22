@@ -13,17 +13,25 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AppComponent', () => {
   const initialState = {
-    bugTrackerState: { encoded: '' },
-    fishTrackerState: { encoded: '' },
-    seaCreatureTrackerState: { encoded: '' },
-    songTrackerState: { encoded: '' },
+    bugTracker: {
+      trackerState: { encoded: '' },
+    },
+    fishTracker: {
+      trackerState: { encoded: '' },
+    },
+    seaCreatureTracker: {
+      trackerState: { encoded: '' },
+    },
+    songTracker: {
+      trackerState: { encoded: '' },
+    },
   } as AppState;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent],
       providers: [
-        provideMockStore({}),
+        provideMockStore({ initialState }),
         MockComponent(HeaderNavComponent),
         {
           provide: ActivatedRoute,

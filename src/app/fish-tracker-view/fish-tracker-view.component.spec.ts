@@ -1,7 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FishTrackerViewComponent } from './fish-tracker-view.component';
-import { AppState, Hemisphere } from '../shared/models/app-state.model';
+import {
+  AppState,
+  Hemisphere,
+  TRACKER_KEY,
+  CollectibleTrackerKey,
+} from '../shared/models/app-state.model';
 import {
   CardStyle,
   CollectionSubset,
@@ -20,17 +25,19 @@ describe('FishTrackerViewComponent', () => {
   let fixture: ComponentFixture<FishTrackerViewComponent>;
 
   const initialState = {
-    fishTrackerState: {
-      collectibles: {},
-      encoded: '',
-      cardStyle: CardStyle.DETAILS,
-    },
-    fishTrackerFilterState: {
-      filters: {
-        [CollectionStatusFilterType.COLLECTIBLE]: CollectionSubset.ALL,
-        [CollectionStatusFilterType.MODEL]: CollectionSubset.ALL,
-        [CollectionStatusFilterType.MODEL_SUPPLIES]: CollectionSubset.ALL,
-        partialName: '',
+    fishTracker: {
+      trackerState: {
+        collectibles: {},
+        encoded: '',
+        cardStyle: CardStyle.DETAILS,
+      },
+      trackerFilterState: {
+        filters: {
+          [CollectionStatusFilterType.COLLECTIBLE]: CollectionSubset.ALL,
+          [CollectionStatusFilterType.MODEL]: CollectionSubset.ALL,
+          [CollectionStatusFilterType.MODEL_SUPPLIES]: CollectionSubset.ALL,
+          partialName: '',
+        },
       },
     },
     sharedTrackerState: {
@@ -47,6 +54,7 @@ describe('FishTrackerViewComponent', () => {
         MockComponent(CollectedFilterToggleComponent),
         MockComponent(HemisphereToggleComponent),
         MockComponent(CreatureTrackerComponent),
+        { provide: TRACKER_KEY, useValue: CollectibleTrackerKey.FISH },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();

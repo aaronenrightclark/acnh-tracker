@@ -2,7 +2,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BugTrackerViewComponent } from './bug-tracker-view.component';
 import { provideMockStore } from '@ngrx/store/testing';
-import { AppState, Hemisphere } from '../shared/models/app-state.model';
+import {
+  AppState,
+  Hemisphere,
+  CollectibleTrackerKey,
+  TRACKER_KEY,
+} from '../shared/models/app-state.model';
 import {
   CardStyle,
   CollectionSubset,
@@ -20,17 +25,19 @@ describe('BugTrackerViewComponent', () => {
   let fixture: ComponentFixture<BugTrackerViewComponent>;
 
   const initialState = {
-    bugTrackerState: {
-      collectibles: {},
-      encoded: '',
-      cardStyle: CardStyle.DETAILS,
-    },
-    bugTrackerFilterState: {
-      filters: {
-        [CollectionStatusFilterType.COLLECTIBLE]: CollectionSubset.ALL,
-        [CollectionStatusFilterType.MODEL]: CollectionSubset.ALL,
-        [CollectionStatusFilterType.MODEL_SUPPLIES]: CollectionSubset.ALL,
-        partialName: '',
+    bugTracker: {
+      trackerState: {
+        collectibles: {},
+        encoded: '',
+        cardStyle: CardStyle.DETAILS,
+      },
+      trackerFilterState: {
+        filters: {
+          [CollectionStatusFilterType.COLLECTIBLE]: CollectionSubset.ALL,
+          [CollectionStatusFilterType.MODEL]: CollectionSubset.ALL,
+          [CollectionStatusFilterType.MODEL_SUPPLIES]: CollectionSubset.ALL,
+          partialName: '',
+        },
       },
     },
     sharedTrackerState: {
@@ -47,6 +54,7 @@ describe('BugTrackerViewComponent', () => {
         MockComponent(CollectedFilterToggleComponent),
         MockComponent(HemisphereToggleComponent),
         MockComponent(CreatureTrackerComponent),
+        { provide: TRACKER_KEY, useValue: CollectibleTrackerKey.BUGS },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
