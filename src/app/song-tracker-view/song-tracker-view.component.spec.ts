@@ -3,7 +3,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 
 import { SongTrackerViewComponent } from './song-tracker-view.component';
-import { AppState } from '../shared/models/app-state.model';
+import {
+  AppState,
+  TRACKER_KEY,
+  CollectibleTrackerKey,
+} from '../shared/models/app-state.model';
 import {
   CardStyle,
   CollectionSubset,
@@ -20,15 +24,17 @@ describe('SongTrackerViewComponent', () => {
   let fixture: ComponentFixture<SongTrackerViewComponent>;
 
   const initialState = {
-    songTrackerState: {
-      collectibles: {},
-      encoded: '',
-      cardStyle: CardStyle.DETAILS,
-    },
-    songTrackerFilterState: {
-      filters: {
-        [CollectionStatusFilterType.COLLECTIBLE]: CollectionSubset.ALL,
-        partialName: '',
+    songTracker: {
+      trackerState: {
+        collectibles: {},
+        encoded: '',
+        cardStyle: CardStyle.DETAILS,
+      },
+      trackerFilterState: {
+        filters: {
+          [CollectionStatusFilterType.COLLECTIBLE]: CollectionSubset.ALL,
+          partialName: '',
+        },
       },
     },
   } as AppState;
@@ -41,6 +47,7 @@ describe('SongTrackerViewComponent', () => {
         MockComponent(CollectionFiltersComponent),
         MockComponent(CollectedFilterToggleComponent),
         MockComponent(CreatureTrackerComponent),
+        { provide: TRACKER_KEY, useValue: CollectibleTrackerKey.SONGS },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();

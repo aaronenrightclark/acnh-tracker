@@ -2,7 +2,7 @@
   <aside class="left-content">
     <button mat-stroked-button (click)="resetFilters()">RESET FILTERS</button>
     <app-collection-filters
-      [collectibles]="seaCreatures$ | async"
+      [collectibles]="collection$ | async"
       [resetNameFilterInput]="reset"
       (partialName)="onFilterByName($event)"
     >
@@ -26,7 +26,7 @@
   <section class="right-content">
     <div class="sea-creature-tracker-container">
       <app-creature-tracker
-        [collectibles]="seaCreatures$ | async"
+        [collectibles]="collection$ | async"
         [hemisphere]="hemisphere$ | async"
         [partialName]="nameFilter$ | async"
         [cardStyle]="cardStyle$ | async"

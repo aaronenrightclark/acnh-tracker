@@ -3,6 +3,7 @@
     <button mat-stroked-button (click)="resetFilters()">RESET FILTERS</button>
     <app-collection-filters
       [collectibles]="collection$ | async"
+      [nameFilter]="nameFilter$ | async"
       [resetNameFilterInput]="reset"
       (partialName)="onFilterByName($event)"
     ></app-collection-filters>

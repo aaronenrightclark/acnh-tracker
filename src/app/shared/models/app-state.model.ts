@@ -3,6 +3,9 @@ import { Collectible, CollectionSubset, CardStyle } from './collectible.model';
 import { CollectionStatusFilterType } from './filter.model';
 import { InjectionToken } from '@angular/core';
 
+export const TRACKER_KEY = new InjectionToken<CollectibleTrackerKey>(
+  'TRACKER_KEY'
+);
 export const TRACKER_STATE_KEY = new InjectionToken<CollectibleTrackerStateKey>(
   'TRACKER_STATE_KEY'
 );
@@ -27,6 +30,13 @@ export interface CollectibleTrackerFilterState {
   filters: CollectibleTrackerFilters;
 }
 
+export enum CollectibleTrackerKey {
+  BUGS = 'bugTracker',
+  FISH = 'fishTracker',
+  SEA_CREATURES = 'seaCreatureTracker',
+  SONGS = 'songTracker',
+}
+
 export enum CollectibleTrackerStateKey {
   BUGS = 'bugTrackerState',
   FISH = 'fishTrackerState',
@@ -41,15 +51,16 @@ export enum CollectibleTrackerFilterStateKey {
   SONGS = 'songTrackerFilterState',
 }
 
+export interface CollectibleTrackerModel {
+  trackerState: CollectibleTrackerState;
+  trackerFilterState: CollectibleTrackerFilterState;
+}
+
 export interface AppState {
-  [CollectibleTrackerStateKey.BUGS]: CollectibleTrackerState;
-  [CollectibleTrackerFilterStateKey.BUGS]: CollectibleTrackerFilterState;
-  [CollectibleTrackerStateKey.FISH]: CollectibleTrackerState;
-  [CollectibleTrackerFilterStateKey.FISH]: CollectibleTrackerFilterState;
-  [CollectibleTrackerStateKey.SEA_CREATURES]: CollectibleTrackerState;
-  [CollectibleTrackerFilterStateKey.SEA_CREATURES]: CollectibleTrackerFilterState;
-  [CollectibleTrackerStateKey.SONGS]: CollectibleTrackerState;
-  [CollectibleTrackerFilterStateKey.SONGS]: CollectibleTrackerFilterState;
+  [CollectibleTrackerKey.BUGS]: CollectibleTrackerModel;
+  [CollectibleTrackerKey.FISH]: CollectibleTrackerModel;
+  [CollectibleTrackerKey.SEA_CREATURES]: CollectibleTrackerModel;
+  [CollectibleTrackerKey.SONGS]: CollectibleTrackerModel;
   sharedTrackerState: SharedTrackerState;
 }
 

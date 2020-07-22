@@ -20,6 +20,7 @@
     &.card-style-small {
       flex-direction: row;
       flex-wrap: wrap;
+      justify-content: space-around;
     }
 
     &.card-style-details {

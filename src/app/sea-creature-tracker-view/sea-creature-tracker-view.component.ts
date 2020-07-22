@@ -1,70 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  selectSeaCreatures,
-  selectSeaCreatureCardStyle,
-} from './reducers/sea-creature-tracker.reducer';
-import { Observable } from 'rxjs';
+import { Component, OnInit, Inject } from '@angular/core';
 import {
   CollectionSubset,
   Collectible,
   CardStyle,
 } from '../shared/models/collectible.model';
 import { Store, select } from '@ngrx/store';
-import { AppState, Hemisphere } from '../shared/models/app-state.model';
-import { map, filter } from 'rxjs/operators';
-import { CollectionStatusFilterType } from '../shared/models/filter.model';
-import { selectHemisphere } from '../shared/reducers/shared.reducer';
 import {
-  selectSeaCreatureNameFilter,
-  selectSeaCreatureCollectionStatusFilter,
-} from './reducers/sea-creature-tracker-filter.reducer';
+  AppState,
+  Hemisphere,
+  TRACKER_KEY,
+} from '../shared/models/app-state.model';
+import { CollectionStatusFilterType } from '../shared/models/filter.model';
 import {
   SeaCreatureTrackerActions,
   SeaCreatureTrackerFilterActions,
 } from './actions';
 import { SharedTrackerActions } from '../shared/actions';
+import { CollectibleTrackerViewComponent } from '../collectible-tracker-view/collectible-tracker-view.component';
 
 @Component({
   selector: 'app-sea-creature-tracker-view',
   templateUrl: './sea-creature-tracker-view.component.html',
   styleUrls: ['./sea-creature-tracker-view.component.css'],
 })
-export class SeaCreatureTrackerViewComponent implements OnInit {
+export class SeaCreatureTrackerViewComponent
+  extends CollectibleTrackerViewComponent
+  implements OnInit {
   CollectionStatusFilterType = CollectionStatusFilterType;
-
-  seaCreatures$: Observable<{ [key: number]: Collectible }>;
-  hemisphere$: Observable<Hemisphere>;
-  collectionStatusFilter$: Observable<CollectionSubset>;
-  modelStatusFilter$: Observable<CollectionSubset>;
-  modelSuppliesStatusFilter$: Observable<CollectionSubset>;
-  nameFilter$: Observable<string>;
-  cardStyle$: Observable<CardStyle>;
 
   reset = true;
 
-  constructor(private store: Store<AppState>) {
-    this.seaCreatures$ = this.store.pipe(
-      map((state) => selectSeaCreatures(state)),
-      filter((value) => !!value)
-    );
-    this.cardStyle$ = this.store.pipe(select(selectSeaCreatureCardStyle));
-    this.hemisphere$ = this.store.pipe(map((state) => selectHemisphere(state)));
-    this.nameFilter$ = this.store.pipe(select(selectSeaCreatureNameFilter));
-    this.collectionStatusFilter$ = this.store.pipe(
-      select(selectSeaCreatureCollectionStatusFilter, {
-        filterType: CollectionStatusFilterType.COLLECTIBLE,
-      })
-    );
-    this.modelStatusFilter$ = this.store.pipe(
-      select(selectSeaCreatureCollectionStatusFilter, {
-        filterType: CollectionStatusFilterType.MODEL,
-      })
-    );
-    this.modelSuppliesStatusFilter$ = this.store.pipe(
-      select(selectSeaCreatureCollectionStatusFilter, {
-        filterType: CollectionStatusFilterType.MODEL_SUPPLIES,
-      })
-    );
+  constructor(
+    @Inject(TRACKER_KEY) public trackerKey,
+    public store: Store<AppState>
+  ) {
+    super(trackerKey, store);
   }
 
   ngOnInit(): void {}

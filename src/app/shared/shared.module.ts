@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CollectionFiltersComponent } from '../collection-filters/collection-filters.component';
 import { CreatureCardComponent } from '../creature-card/creature-card.component';
@@ -14,6 +14,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { CollectibleTrackerKey, TRACKER_KEY } from './models/app-state.model';
+
+export interface SharedModuleConfig {
+  trackerKey: CollectibleTrackerKey;
+}
 
 @NgModule({
   declarations: [
@@ -45,4 +50,13 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     CreatureTrackerComponent,
   ],
 })
-export class SharedModule {}
+export class SharedModule {
+  static forChild(
+    config: SharedModuleConfig
+  ): ModuleWithProviders<SharedModule> {
+    return {
+      ngModule: SharedModule,
+      providers: [{ provide: TRACKER_KEY, useValue: config.trackerKey }],
+    };
+  }
+}

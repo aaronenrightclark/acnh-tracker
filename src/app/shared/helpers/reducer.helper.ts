@@ -1,5 +1,6 @@
 import { Collectible } from '../models/collectible.model';
 import { encodeSessionData } from '../services/collection-encoding.service';
+import { CollectibleTrackerModel } from '../models/app-state.model';
 import {
   AppState,
   CollectibleTrackerFilterState,
@@ -13,7 +14,10 @@ import {
   CollectibleTrackerFilters,
   CollectibleTrackerStateKey,
 } from '../models/app-state.model';
-import { CollectibleTrackerFilterStateKey } from '../models/app-state.model';
+import {
+  CollectibleTrackerFilterStateKey,
+  CollectibleTrackerKey,
+} from '../models/app-state.model';
 import {
   TrackerCategory,
   CollectibleTrackerState,
@@ -102,21 +106,42 @@ export function getUpdatedCollectibleStateForProperty<
   return updated;
 }
 
-export const selectCollectibleTrackerState = (
+export const selectCollectibleTracker = (
   state: AppState,
-  key: CollectibleTrackerStateKey
+  key: CollectibleTrackerKey
 ) => state[key];
 
-export const selectCollectibleTrackerFilterState = (
-  state: AppState,
-  key: CollectibleTrackerFilterStateKey
-) => state[key];
+export const getCollectibleTrackerStateSelector = (
+  trackerSelector: (
+    state: AppState,
+    key: CollectibleTrackerKey
+  ) => CollectibleTrackerModel
+) => {
+  return createSelector(
+    trackerSelector,
+    (tracker: CollectibleTrackerModel) => tracker.trackerState
+  );
+};
+
+export const getCollectibleTrackerFilterStateSelector = (
+  trackerSelector: (
+    state: AppState,
+    key: CollectibleTrackerKey
+  ) => CollectibleTrackerModel
+) => {
+  return createSelector(
+    trackerSelector,
+    (tracker: CollectibleTrackerModel) => tracker.trackerFilterState
+  );
+};
 
 export const getCollectiblesSelector = (
-  trackerStateSelector: (
-    state: AppState,
-    key: CollectibleTrackerStateKey
-  ) => CollectibleTrackerState
+  trackerStateSelector: MemoizedSelectorWithProps<
+    AppState,
+    CollectibleTrackerKey,
+    CollectibleTrackerState,
+    DefaultProjectorFn<CollectibleTrackerState>
+  >
 ) => {
   return createSelector(
     trackerStateSelector,
@@ -125,10 +150,12 @@ export const getCollectiblesSelector = (
 };
 
 export const getCardStyleSelector = (
-  trackerStateSelector: (
-    state: AppState,
-    key: CollectibleTrackerStateKey
-  ) => CollectibleTrackerState
+  trackerStateSelector: MemoizedSelectorWithProps<
+    AppState,
+    CollectibleTrackerKey,
+    CollectibleTrackerState,
+    DefaultProjectorFn<CollectibleTrackerState>
+  >
 ) => {
   return createSelector(
     trackerStateSelector,
@@ -137,7 +164,12 @@ export const getCardStyleSelector = (
 };
 
 export const getEncodedStateSelector = (
-  trackerStateSelector: (state: AppState) => CollectibleTrackerState
+  trackerStateSelector: MemoizedSelectorWithProps<
+    AppState,
+    CollectibleTrackerKey,
+    CollectibleTrackerState,
+    DefaultProjectorFn<CollectibleTrackerState>
+  >
 ) => {
   return createSelector(
     trackerStateSelector,
@@ -146,10 +178,12 @@ export const getEncodedStateSelector = (
 };
 
 export const getCollectionFiltersSelector = (
-  trackerFilterStateSelector: (
-    state: AppState,
-    key: CollectibleTrackerFilterStateKey
-  ) => CollectibleTrackerFilterState
+  trackerFilterStateSelector: MemoizedSelectorWithProps<
+    AppState,
+    CollectibleTrackerKey,
+    CollectibleTrackerFilterState,
+    DefaultProjectorFn<CollectibleTrackerFilterState>
+  >
 ) => {
   return createSelector(
     trackerFilterStateSelector,
@@ -160,7 +194,7 @@ export const getCollectionFiltersSelector = (
 export const getCollectionNameFilterSelector = (
   collectibleTrackerFiltersSelector: MemoizedSelectorWithProps<
     AppState,
-    CollectibleTrackerFilterStateKey,
+    CollectibleTrackerKey,
     CollectibleTrackerFilters,
     DefaultProjectorFn<CollectibleTrackerFilters>
   >
@@ -170,21 +204,3 @@ export const getCollectionNameFilterSelector = (
     (filters: CollectibleTrackerFilters) => filters.partialName
   );
 };
-
-// export const getCollectionStatusFilterSelector = (
-//   collectibleTrackerFiltersSelector: (
-//     selector: MemoizedSelector<
-//       AppState,
-//       CollectibleTrackerFilters,
-//       DefaultProjectorFn<CollectibleTrackerFilters>
-//     >
-//   ) => CollectibleTrackerFilters
-// ) => {
-//   return createSelector(
-//     collectibleTrackerFiltersSelector,
-//     (
-//       filters: CollectibleTrackerFilters,
-//       props: { filterType: CollectionStatusFilterType }
-//     ) => filters[props.filterType]
-//   );
-// };
