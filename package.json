@@ -27,6 +27,7 @@
     "@ngrx/effects": "^9.2.0",
     "@ngrx/store": "^9.2.0",
     "@ngrx/store-devtools": "^9.2.0",
+    "jasmine-marbles": "^0.6.0",
     "jsonwebtoken": "^8.5.1",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
