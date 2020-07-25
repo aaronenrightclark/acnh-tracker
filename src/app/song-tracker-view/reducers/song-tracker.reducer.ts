@@ -15,7 +15,7 @@ import {
 } from '../../shared/services/collection-encoding.service';
 import { createReducer, on, Action, ActionReducer } from '@ngrx/store';
 import { SongTrackerActions } from '../actions';
-import { getEncodedCollectibleState } from '../../shared/helpers/reducer.helper';
+import { getEncodedCollectibleState } from '../../shared/services/collection-encoding.service';
 
 const initialState: CollectibleTrackerState = {
   collectibles: SONG_DATA,

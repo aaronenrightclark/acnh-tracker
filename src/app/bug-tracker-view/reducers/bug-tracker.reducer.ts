@@ -6,21 +6,12 @@ import {
   COLLECTIBLE_KEY_HAVE_MODEL_SUPPLIES,
   CardStyle,
 } from '../../shared/models/collectible.model';
-import {
-  TrackerCategory,
-  SessionCategoryData,
-} from '../../shared/models/app-state.model';
-import {
-  getDefaultEncoding,
-  encodeSessionData,
-} from '../../shared/services/collection-encoding.service';
+import { TrackerCategory } from '../../shared/models/app-state.model';
+import { getDefaultEncoding } from '../../shared/services/collection-encoding.service';
 import { BugTrackerActions } from '../actions';
-import {
-  getEncodedCollectibleState,
-  getUpdatedCollectibleStateForProperty,
-} from '../../shared/helpers/reducer.helper';
+import { getUpdatedCollectibleStateForProperty } from '../../shared/helpers/reducer.helper';
 import { CollectibleTrackerState } from '../../shared/models/app-state.model';
-import { Collectible } from '../../shared/models/collectible.model';
+import { getUpdatedStateForCollectibleToggle } from '../../shared/helpers/reducer.helper';
 
 const initialState: CollectibleTrackerState = {
   collectibles: BUG_DATA,
@@ -32,111 +23,56 @@ const initialState: CollectibleTrackerState = {
   cardStyle: CardStyle.DETAILS,
 };
 
-// TODO: genericise for use with any modelable collection state
-const getEncodedState = (bugs: { [key: number]: Collectible }): string => {
-  const sessionData = {};
-  const collected = new Array<number>();
-  const uncollected = new Array<number>();
-  const haveModels = new Array<number>();
-  const missingModels = new Array<number>();
-  const haveModelSupplies = new Array<number>();
-  const missingModelSupplies = new Array<number>();
-  Object.keys(bugs).forEach((key) => {
-    bugs[key].collected ? collected.push(+key) : uncollected.push(+key);
-    bugs[key].haveModel ? haveModels.push(+key) : missingModels.push(+key);
-    bugs[key].haveModelSupplies
-      ? haveModelSupplies.push(+key)
-      : missingModelSupplies.push(+key);
-    sessionData[TrackerCategory.BUG_COLLECTION] = {
-      inclusive: collected.length <= uncollected.length,
-      indices: collected.length <= uncollected.length ? collected : uncollected,
-    };
-    sessionData[TrackerCategory.BUG_MODELS] = {
-      inclusive: haveModels.length <= missingModels.length,
-      indices:
-        haveModels.length <= missingModels.length ? haveModels : missingModels,
-    };
-    sessionData[TrackerCategory.BUG_MODEL_SUPPLIES] = {
-      inclusive: haveModelSupplies.length <= missingModelSupplies.length,
-      indices:
-        haveModelSupplies.length <= missingModelSupplies.length
-          ? haveModelSupplies
-          : missingModelSupplies,
-    };
-  });
-  return encodeSessionData(sessionData);
+const defaultEncodingOptions = {
+  collection: TrackerCategory.BUG_COLLECTION,
+  models: TrackerCategory.BUG_MODELS,
+  modelSupplies: TrackerCategory.BUG_MODEL_SUPPLIES,
 };
 
-const _bugTrackerReducer: ActionReducer<
+const bugTrackerReducer: ActionReducer<
   CollectibleTrackerState,
   Action
 > = createReducer(
   initialState,
   on(BugTrackerActions.toggleBugCollectedAction, (state, { collectible }) => {
-    const updated = {
-      ...state,
-      collectibles: {
-        ...state.collectibles,
-        [collectible.index]: {
-          ...state.collectibles[collectible.index],
-          collected: !state.collectibles[collectible.index].collected,
-        },
-      },
-    } as CollectibleTrackerState;
-    updated.encoded = getEncodedCollectibleState(updated.collectibles, {
-      collection: TrackerCategory.BUG_COLLECTION,
-      models: TrackerCategory.BUG_MODELS,
-      modelSupplies: TrackerCategory.BUG_MODEL_SUPPLIES,
-    });
-    return updated;
+    return getUpdatedStateForCollectibleToggle(
+      state,
+      collectible,
+      COLLECTIBLE_KEY_COLLECTED,
+      defaultEncodingOptions
+    );
   }),
   on(
     BugTrackerActions.toggleBugModelObtainedAction,
     (state, { collectible }) => {
-      const updated = {
-        ...state,
-        collectibles: {
-          ...state.collectibles,
-          [collectible.index]: {
-            ...state.collectibles[collectible.index],
-            haveModel: !state.collectibles[collectible.index].haveModel,
-          },
-        },
-      } as CollectibleTrackerState;
-      updated.encoded = getEncodedCollectibleState(updated.collectibles, {
-        collection: TrackerCategory.BUG_COLLECTION,
-        models: TrackerCategory.BUG_MODELS,
-        modelSupplies: TrackerCategory.BUG_MODEL_SUPPLIES,
-      });
-      return updated;
+      return getUpdatedStateForCollectibleToggle(
+        state,
+        collectible,
+        COLLECTIBLE_KEY_HAVE_MODEL,
+        defaultEncodingOptions
+      );
     }
   ),
   on(
     BugTrackerActions.toggleHaveBugModelSuppliesAction,
     (state, { collectible }) => {
-      const updated = {
-        ...state,
-        collectibles: {
-          ...state.collectibles,
-          [collectible.index]: {
-            ...state.collectibles[collectible.index],
-            haveModelSupplies: !state.collectibles[collectible.index]
-              .haveModelSupplies,
-          },
-        },
-      } as CollectibleTrackerState;
-      updated.encoded = getEncodedCollectibleState(updated.collectibles, {
-        collection: TrackerCategory.BUG_COLLECTION,
-        models: TrackerCategory.BUG_MODELS,
-        modelSupplies: TrackerCategory.BUG_MODEL_SUPPLIES,
-      });
-      return updated;
+      return getUpdatedStateForCollectibleToggle(
+        state,
+        collectible,
+        COLLECTIBLE_KEY_HAVE_MODEL_SUPPLIES,
+        defaultEncodingOptions
+      );
     }
   ),
   on(
     BugTrackerActions.updateBugCollectionStateFromSessionAction,
     (state, { data }) =>
-      getUpdatedBugStateForProperty(state, data, COLLECTIBLE_KEY_COLLECTED)
+      getUpdatedCollectibleStateForProperty(
+        state,
+        data,
+        COLLECTIBLE_KEY_COLLECTED,
+        defaultEncodingOptions
+      )
   ),
   on(
     BugTrackerActions.updateBugModelStateFromSessionAction,
@@ -145,20 +81,17 @@ const _bugTrackerReducer: ActionReducer<
         state,
         data,
         COLLECTIBLE_KEY_HAVE_MODEL,
-        {
-          collection: TrackerCategory.BUG_COLLECTION,
-          models: TrackerCategory.BUG_MODELS,
-          modelSupplies: TrackerCategory.BUG_MODEL_SUPPLIES,
-        }
+        defaultEncodingOptions
       )
   ),
   on(
     BugTrackerActions.updateHaveBugModelSuppliesStateFromSessionAction,
     (state, { data }) =>
-      getUpdatedBugStateForProperty(
+      getUpdatedCollectibleStateForProperty(
         state,
         data,
-        COLLECTIBLE_KEY_HAVE_MODEL_SUPPLIES
+        COLLECTIBLE_KEY_HAVE_MODEL_SUPPLIES,
+        defaultEncodingOptions
       )
   ),
   on(BugTrackerActions.setBugCardStyleAction, (state, { cardStyle }) => {
@@ -169,24 +102,6 @@ const _bugTrackerReducer: ActionReducer<
   })
 );
 
-export function getUpdatedBugStateForProperty(
-  state: CollectibleTrackerState,
-  data: SessionCategoryData,
-  propName: string
-): CollectibleTrackerState {
-  const updated = JSON.parse(JSON.stringify(state)) as CollectibleTrackerState;
-  for (const key of Object.keys(state.collectibles)) {
-    updated.collectibles[key] = {
-      ...state.collectibles[key],
-    } as Collectible;
-    updated.collectibles[key][propName] = data.inclusive
-      ? data.indices.indexOf(+key) > -1
-      : data.indices.indexOf(+key) < 0;
-  }
-  updated.encoded = getEncodedState(updated.collectibles);
-  return updated;
-}
-
-export function bugTrackerReducer(state, action): CollectibleTrackerState {
-  return _bugTrackerReducer(state, action);
+export function reducer(state, action): CollectibleTrackerState {
+  return bugTrackerReducer(state, action);
 }
