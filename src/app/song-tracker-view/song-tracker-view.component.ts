@@ -1,12 +1,6 @@
-import { Store, select } from '@ngrx/store';
-import { Component, OnInit } from '@angular/core';
-import { AppState } from '../shared/models/app-state.model';
-import {
-  selectSongs,
-  selectSongCardStyle,
-} from './reducers/song-tracker.reducer';
-import { map, filter } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Component, OnInit, Inject } from '@angular/core';
+import { AppState, TRACKER_KEY } from '../shared/models/app-state.model';
 import {
   Collectible,
   CollectionSubset,
@@ -14,38 +8,24 @@ import {
 import { CollectionStatusFilterType } from '../shared/models/filter.model';
 import { SongTrackerFilterActions, SongTrackerActions } from './actions';
 import { CardStyle } from '../shared/models/collectible.model';
-import {
-  selectSongNameFilter,
-  selectSongCollectionStatusFilter,
-} from './reducers/song-tracker-filter.reducer';
+import { CollectibleTrackerViewComponent } from '../collectible-tracker-view/collectible-tracker-view.component';
 
 @Component({
   selector: 'app-song-tracker-view',
   templateUrl: './song-tracker-view.component.html',
   styleUrls: ['./song-tracker-view.component.css'],
 })
-export class SongTrackerViewComponent implements OnInit {
+export class SongTrackerViewComponent extends CollectibleTrackerViewComponent
+  implements OnInit {
   CollectionStatusFilterType = CollectionStatusFilterType;
-
-  songs$: Observable<{ [key: number]: Collectible }>;
-  collectionStatusFilter$: Observable<CollectionSubset>;
-  nameFilter$: Observable<string>;
-  cardStyle$: Observable<CardStyle>;
 
   reset = true;
 
-  constructor(private store: Store<AppState>) {
-    this.songs$ = this.store.pipe(
-      map((state) => selectSongs(state)),
-      filter((value) => !!value)
-    );
-    this.cardStyle$ = this.store.pipe(select(selectSongCardStyle));
-    this.nameFilter$ = this.store.pipe(select(selectSongNameFilter));
-    this.collectionStatusFilter$ = this.store.pipe(
-      select(selectSongCollectionStatusFilter, {
-        filterType: CollectionStatusFilterType.COLLECTIBLE,
-      })
-    );
+  constructor(
+    @Inject(TRACKER_KEY) public trackerKey,
+    public store: Store<AppState>
+  ) {
+    super(trackerKey, store);
   }
 
   ngOnInit(): void {}

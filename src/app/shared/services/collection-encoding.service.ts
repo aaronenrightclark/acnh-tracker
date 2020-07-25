@@ -2,9 +2,17 @@ import { Injectable } from '@angular/core';
 import { TrackerCategory, SessionData } from '../models/app-state.model';
 
 export function getDefaultEncoding(
-  trackerCategories: TrackerCategory[]
+  trackerCategories?: TrackerCategory[]
 ): string {
-  return trackerCategories.map((cat) => `${cat}-1-`).join('.');
+  return (trackerCategories?.length
+    ? trackerCategories
+    : Object.keys(TrackerCategory)
+        .filter((cat) => isNaN(Number(cat)) === false)
+        .map((cat) => +cat)
+  )
+    .sort()
+    .map((cat) => `${cat}-1-`)
+    .join('.');
 }
 
 export function encodeSessionData(sessionData: SessionData): string {

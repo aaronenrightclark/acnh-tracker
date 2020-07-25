@@ -1,11 +1,7 @@
 import { CollectionStatusFilterType } from '../../shared/models/filter.model';
 import { CollectionSubset } from '../../shared/models/collectible.model';
-import {
-  AppState,
-  CollectibleTrackerFilterState,
-  CollectibleTrackerFilters,
-} from '../../shared/models/app-state.model';
-import { createSelector, createReducer, on } from '@ngrx/store';
+import { CollectibleTrackerFilterState } from '../../shared/models/app-state.model';
+import { createReducer, on } from '@ngrx/store';
 import { SeaCreatureTrackerFilterActions } from '../actions';
 
 export const initialState: CollectibleTrackerFilterState = {
@@ -14,31 +10,6 @@ export const initialState: CollectibleTrackerFilterState = {
     partialName: '',
   },
 };
-
-export const selectSeaCreatureTrackerFilterState = (state: AppState) =>
-  state.seaCreatureTrackerFilterState;
-
-export const selectSeaCreatureFilters = createSelector(
-  selectSeaCreatureTrackerFilterState,
-  (state: CollectibleTrackerFilterState) => {
-    return state.filters;
-  }
-);
-
-export const selectSeaCreatureCollectionStatusFilter = createSelector(
-  selectSeaCreatureFilters,
-  (
-    filters: CollectibleTrackerFilters,
-    props: { filterType: CollectionStatusFilterType }
-  ) => filters[props.filterType]
-);
-
-export const selectSeaCreatureNameFilter = createSelector(
-  selectSeaCreatureFilters,
-  (filters: CollectibleTrackerFilters) => {
-    return filters.partialName;
-  }
-);
 
 const _seaCreatureTrackerFilterReducer = createReducer(
   initialState,

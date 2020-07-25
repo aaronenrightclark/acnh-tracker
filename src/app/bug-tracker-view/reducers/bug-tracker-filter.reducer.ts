@@ -1,12 +1,8 @@
-import {
-  AppState,
-  CollectibleTrackerFilterState,
-} from '../../shared/models/app-state.model';
-import { createSelector, createReducer, on } from '@ngrx/store';
+import { CollectibleTrackerFilterState } from '../../shared/models/app-state.model';
+import { createReducer, on } from '@ngrx/store';
 import { BugTrackerFilterActions } from '../actions';
 import { CollectionSubset } from '../../shared/models/collectible.model';
 import { CollectionStatusFilterType } from 'src/app/shared/models/filter.model';
-import { CollectibleTrackerFilters } from '../../shared/models/app-state.model';
 
 export const initialState: CollectibleTrackerFilterState = {
   filters: {
@@ -16,31 +12,6 @@ export const initialState: CollectibleTrackerFilterState = {
     partialName: '',
   },
 };
-
-export const selectBugTrackerFilterState = (state: AppState) =>
-  state.bugTrackerFilterState;
-
-export const selectBugFilters = createSelector(
-  selectBugTrackerFilterState,
-  (state: CollectibleTrackerFilterState) => {
-    return state.filters;
-  }
-);
-
-export const selectBugCollectionStatusFilter = createSelector(
-  selectBugFilters,
-  (
-    filters: CollectibleTrackerFilters,
-    props: { filterType: CollectionStatusFilterType }
-  ) => filters[props.filterType]
-);
-
-export const selectBugNameFilter = createSelector(
-  selectBugFilters,
-  (filters: CollectibleTrackerFilters) => {
-    return filters.partialName;
-  }
-);
 
 const _bugTrackerFilterReducer = createReducer(
   initialState,

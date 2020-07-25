@@ -1,11 +1,7 @@
 import { CollectionStatusFilterType } from '../../shared/models/filter.model';
 import { CollectionSubset } from '../../shared/models/collectible.model';
-import {
-  AppState,
-  CollectibleTrackerFilterState,
-  CollectibleTrackerFilters,
-} from '../../shared/models/app-state.model';
-import { createSelector, createReducer, on } from '@ngrx/store';
+import { CollectibleTrackerFilterState } from '../../shared/models/app-state.model';
+import { createReducer, on } from '@ngrx/store';
 import { FishTrackerFilterActions } from '../actions';
 
 export const initialState: CollectibleTrackerFilterState = {
@@ -16,31 +12,6 @@ export const initialState: CollectibleTrackerFilterState = {
     partialName: '',
   },
 };
-
-export const selectFishTrackerFilterState = (state: AppState) =>
-  state.fishTrackerFilterState;
-
-export const selectFishFilters = createSelector(
-  selectFishTrackerFilterState,
-  (state: CollectibleTrackerFilterState) => {
-    return state.filters;
-  }
-);
-
-export const selectFishCollectionStatusFilter = createSelector(
-  selectFishFilters,
-  (
-    filters: CollectibleTrackerFilters,
-    props: { filterType: CollectionStatusFilterType }
-  ) => filters[props.filterType]
-);
-
-export const selectFishNameFilter = createSelector(
-  selectFishFilters,
-  (filters: CollectibleTrackerFilters) => {
-    return filters.partialName;
-  }
-);
 
 const _fishTrackerFilterReducer = createReducer(
   initialState,

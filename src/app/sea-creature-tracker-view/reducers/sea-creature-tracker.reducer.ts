@@ -11,16 +11,9 @@ import {
 } from '../../shared/services/collection-encoding.service';
 import {
   TrackerCategory,
-  AppState,
   SessionCategoryData,
 } from '../../shared/models/app-state.model';
-import {
-  createSelector,
-  ActionReducer,
-  Action,
-  createReducer,
-  on,
-} from '@ngrx/store';
+import { ActionReducer, Action, createReducer, on } from '@ngrx/store';
 import { SeaCreatureTrackerActions } from '../actions';
 
 const initialState: CollectibleTrackerState = {
@@ -28,19 +21,6 @@ const initialState: CollectibleTrackerState = {
   encoded: getDefaultEncoding([TrackerCategory.SEA_CREATURE_COLLECTION]),
   cardStyle: CardStyle.DETAILS,
 };
-
-export const selectSeaCreatureTrackerState = (state: AppState) =>
-  state.seaCreatureTrackerState;
-
-export const selectSeaCreatures = createSelector(
-  selectSeaCreatureTrackerState,
-  (state: CollectibleTrackerState) => state.collectibles
-);
-
-export const selectSeaCreatureCardStyle = createSelector(
-  selectSeaCreatureTrackerState,
-  (state: CollectibleTrackerState) => state.cardStyle
-);
 
 // TODO: genericise for use with any modelable collection state
 const getEncodedState = (collectibles: {

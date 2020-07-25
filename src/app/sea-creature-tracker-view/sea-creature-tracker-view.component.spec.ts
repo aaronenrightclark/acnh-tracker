@@ -5,7 +5,12 @@ import {
   CardStyle,
   CollectionSubset,
 } from '../shared/models/collectible.model';
-import { Hemisphere, AppState } from '../shared/models/app-state.model';
+import {
+  Hemisphere,
+  AppState,
+  TRACKER_KEY,
+  CollectibleTrackerKey,
+} from '../shared/models/app-state.model';
 import { provideMockStore } from '@ngrx/store/testing';
 import { CollectionStatusFilterType } from '../shared/models/filter.model';
 import { MockComponent } from 'ng-mocks';
@@ -20,15 +25,17 @@ describe('SeaCreatureTrackerViewComponent', () => {
   let fixture: ComponentFixture<SeaCreatureTrackerViewComponent>;
 
   const initialState = {
-    seaCreatureTrackerState: {
-      collectibles: {},
-      encoded: '',
-      cardStyle: CardStyle.DETAILS,
-    },
-    seaCreatureTrackerFilterState: {
-      filters: {
-        [CollectionStatusFilterType.COLLECTIBLE]: CollectionSubset.ALL,
-        partialName: '',
+    seaCreatureTracker: {
+      trackerState: {
+        collectibles: {},
+        encoded: '',
+        cardStyle: CardStyle.DETAILS,
+      },
+      trackerFilterState: {
+        filters: {
+          [CollectionStatusFilterType.COLLECTIBLE]: CollectionSubset.ALL,
+          partialName: '',
+        },
       },
     },
     sharedTrackerState: {
@@ -45,6 +52,7 @@ describe('SeaCreatureTrackerViewComponent', () => {
         MockComponent(CollectedFilterToggleComponent),
         MockComponent(HemisphereToggleComponent),
         MockComponent(CreatureTrackerComponent),
+        { provide: TRACKER_KEY, useValue: CollectibleTrackerKey.SEA_CREATURES },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();

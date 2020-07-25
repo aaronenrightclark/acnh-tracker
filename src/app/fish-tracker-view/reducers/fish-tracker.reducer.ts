@@ -1,13 +1,6 @@
-import {
-  createReducer,
-  on,
-  Action,
-  ActionReducer,
-  createSelector,
-} from '@ngrx/store';
+import { createReducer, on, Action, ActionReducer } from '@ngrx/store';
 import { FISH_DATA } from '../../shared/models/constants';
 import {
-  AppState,
   TrackerCategory,
   SessionCategoryData,
 } from '../../shared/models/app-state.model';
@@ -34,19 +27,6 @@ const initialState: CollectibleTrackerState = {
   ]),
   cardStyle: CardStyle.DETAILS,
 };
-
-export const selectFishTrackerState = (state: AppState) =>
-  state.fishTrackerState;
-
-export const selectFish = createSelector(
-  selectFishTrackerState,
-  (state: CollectibleTrackerState) => state.collectibles
-);
-
-export const selectFishCardStyle = createSelector(
-  selectFishTrackerState,
-  (state: CollectibleTrackerState) => state.cardStyle
-);
 
 // TODO: genericise for use with any modelable collection state
 const getEncodedState = (collectibles: {

@@ -1,10 +1,4 @@
-import {
-  createReducer,
-  on,
-  Action,
-  ActionReducer,
-  createSelector,
-} from '@ngrx/store';
+import { createReducer, on, Action, ActionReducer } from '@ngrx/store';
 import { BUG_DATA } from '../../shared/models/constants';
 import {
   COLLECTIBLE_KEY_COLLECTED,
@@ -13,7 +7,6 @@ import {
   CardStyle,
 } from '../../shared/models/collectible.model';
 import {
-  AppState,
   TrackerCategory,
   SessionCategoryData,
 } from '../../shared/models/app-state.model';
@@ -38,18 +31,6 @@ const initialState: CollectibleTrackerState = {
   ]),
   cardStyle: CardStyle.DETAILS,
 };
-
-export const selectBugTrackerState = (state: AppState) => state.bugTrackerState;
-
-export const selectBugs = createSelector(
-  selectBugTrackerState,
-  (state: CollectibleTrackerState) => state.collectibles
-);
-
-export const selectBugCardStyle = createSelector(
-  selectBugTrackerState,
-  (state: CollectibleTrackerState) => state.cardStyle
-);
 
 // TODO: genericise for use with any modelable collection state
 const getEncodedState = (bugs: { [key: number]: Collectible }): string => {

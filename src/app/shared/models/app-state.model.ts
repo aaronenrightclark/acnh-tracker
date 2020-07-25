@@ -1,6 +1,17 @@
 import { SharedTrackerState } from '../reducers/shared.reducer';
 import { Collectible, CollectionSubset, CardStyle } from './collectible.model';
 import { CollectionStatusFilterType } from './filter.model';
+import { InjectionToken } from '@angular/core';
+
+export const TRACKER_KEY = new InjectionToken<CollectibleTrackerKey>(
+  'TRACKER_KEY'
+);
+export const TRACKER_STATE_KEY = new InjectionToken<CollectibleTrackerStateKey>(
+  'TRACKER_STATE_KEY'
+);
+export const TRACKER_FILTER_STATE_KEY = new InjectionToken<
+  CollectibleTrackerFilterStateKey
+>('TRACKER_FILTER_STATE_KEY');
 
 export interface CollectibleTrackerState {
   collectibles: { [key: string]: Collectible };
@@ -19,15 +30,37 @@ export interface CollectibleTrackerFilterState {
   filters: CollectibleTrackerFilters;
 }
 
+export enum CollectibleTrackerKey {
+  BUGS = 'bugTracker',
+  FISH = 'fishTracker',
+  SEA_CREATURES = 'seaCreatureTracker',
+  SONGS = 'songTracker',
+}
+
+export enum CollectibleTrackerStateKey {
+  BUGS = 'bugTrackerState',
+  FISH = 'fishTrackerState',
+  SEA_CREATURES = 'seaCreatureTrackerState',
+  SONGS = 'songTrackerState',
+}
+
+export enum CollectibleTrackerFilterStateKey {
+  BUGS = 'bugTrackerFilterState',
+  FISH = 'fishTrackerFilterState',
+  SEA_CREATURES = 'seaCreatureTrackerFilterState',
+  SONGS = 'songTrackerFilterState',
+}
+
+export interface CollectibleTrackerModel {
+  trackerState: CollectibleTrackerState;
+  trackerFilterState: CollectibleTrackerFilterState;
+}
+
 export interface AppState {
-  bugTrackerState: CollectibleTrackerState;
-  bugTrackerFilterState: CollectibleTrackerFilterState;
-  fishTrackerState: CollectibleTrackerState;
-  fishTrackerFilterState: CollectibleTrackerFilterState;
-  seaCreatureTrackerState: CollectibleTrackerState;
-  seaCreatureTrackerFilterState: CollectibleTrackerFilterState;
-  songTrackerState: CollectibleTrackerState;
-  songTrackerFilterState: CollectibleTrackerFilterState;
+  [CollectibleTrackerKey.BUGS]: CollectibleTrackerModel;
+  [CollectibleTrackerKey.FISH]: CollectibleTrackerModel;
+  [CollectibleTrackerKey.SEA_CREATURES]: CollectibleTrackerModel;
+  [CollectibleTrackerKey.SONGS]: CollectibleTrackerModel;
   sharedTrackerState: SharedTrackerState;
 }
 
