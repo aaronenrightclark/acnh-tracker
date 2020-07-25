@@ -50,12 +50,33 @@ export class AppComponent implements OnDestroy {
   songs$: Observable<CollectibleTrackerState>;
 
   sessionData: SessionData = {};
-  encodedSessionData: string = '';
+  encodedSessionData = '';
   sessionDataInput: Subject<string> = new Subject<string>();
   sessionQueryParam: Subject<string> = new Subject<string>();
   sessionDataInputClasses = {};
 
+  collections: {
+    [key in CollectibleTrackerKey]?: Observable<CollectibleTrackerState>;
+  } = {};
   subscriptions = new Array<Subscription>();
+
+  supportedTrackers = [
+    CollectibleTrackerKey.BUGS,
+    CollectibleTrackerKey.FISH,
+    CollectibleTrackerKey.SEA_CREATURES,
+    CollectibleTrackerKey.SONGS,
+  ];
+
+  trackerUpdateActions = {
+    [TrackerCategory.BUG_COLLECTION]: updateBugCollectionStateFromSessionAction,
+    [TrackerCategory.BUG_MODELS]: updateBugModelStateFromSessionAction,
+    [TrackerCategory.BUG_MODEL_SUPPLIES]: updateHaveBugModelSuppliesStateFromSessionAction,
+    [TrackerCategory.FISH_COLLECTION]: updateFishCollectionStateFromSessionAction,
+    [TrackerCategory.FISH_MODELS]: updateFishModelStateFromSessionAction,
+    [TrackerCategory.FISH_MODEL_SUPPLIES]: updateHaveFishModelSuppliesStateFromSessionAction,
+    [TrackerCategory.SEA_CREATURE_COLLECTION]: updateSeaCreatureCollectionStateFromSessionAction,
+    [TrackerCategory.SONGS]: updateSongCollectionStateFromSessionAction,
+  };
 
   showSessionForm = false;
 
@@ -63,71 +84,14 @@ export class AppComponent implements OnDestroy {
     private store: Store<AppState>,
     private activatedRoute: ActivatedRoute
   ) {
-    this.bugs$ = this.store.pipe(
-      map((state: AppState) =>
-        getCollectibleTrackerStateSelector(selectCollectibleTracker)(
-          state,
-          CollectibleTrackerKey.BUGS
-        )
-      )
-    );
-    this.fish$ = this.store.pipe(
-      map((state: AppState) =>
-        getCollectibleTrackerStateSelector(selectCollectibleTracker)(
-          state,
-          CollectibleTrackerKey.FISH
-        )
-      )
-    );
-    this.seaCreatures$ = this.store.pipe(
-      map((state: AppState) =>
-        getCollectibleTrackerStateSelector(selectCollectibleTracker)(
-          state,
-          CollectibleTrackerKey.SEA_CREATURES
-        )
-      )
-    );
-    this.songs$ = this.store.pipe(
-      map((state: AppState) =>
-        getCollectibleTrackerStateSelector(selectCollectibleTracker)(
-          state,
-          CollectibleTrackerKey.SONGS
-        )
-      )
-    );
+    this.supportedTrackers.forEach((key) => this.addCollection(key));
 
-    this.subscriptions.push(
-      this.sessionDataInput
-        .pipe(debounceTime(1000), distinctUntilChanged())
-        .subscribe((input) => {
-          this.setEncodedSessionDataValue(input);
-        })
-    );
+    this.subscribeToSessionDataInput();
+    this.subscribeToEncodedStates();
+    this.subscribeToActivatedRouteParams();
+  }
 
-    this.subscriptions.push(
-      combineLatest([
-        this.bugs$.pipe(filter((state) => !!state)),
-        this.fish$.pipe(filter((state) => !!state)),
-        this.seaCreatures$.pipe(filter((state) => !!state)),
-        this.songs$.pipe(filter((state) => !!state)),
-      ]).subscribe(
-        ([
-          bugTrackerState,
-          fishTrackerState,
-          seaCreatureTrackerState,
-          songTrackerState,
-        ]) => {
-          this.encodedSessionData = [
-            bugTrackerState.encoded,
-            fishTrackerState.encoded,
-            seaCreatureTrackerState.encoded,
-            songTrackerState.encoded,
-          ].join('.');
-          this.sessionQueryParam.next(this.encodedSessionData);
-        }
-      )
-    );
-
+  subscribeToActivatedRouteParams(): void {
     this.subscriptions.push(
       this.activatedRoute.queryParamMap.subscribe((queryParamMap) => {
         if (
@@ -137,6 +101,43 @@ export class AppComponent implements OnDestroy {
           this.setEncodedSessionDataValue(queryParamMap.get('session'));
         }
       })
+    );
+  }
+
+  subscribeToSessionDataInput(): void {
+    this.subscriptions.push(
+      this.sessionDataInput
+        .pipe(debounceTime(1000), distinctUntilChanged())
+        .subscribe((input) => {
+          this.setEncodedSessionDataValue(input);
+        })
+    );
+  }
+
+  subscribeToEncodedStates(): void {
+    if (Object.keys(this.collections).length) {
+      this.subscriptions.push(
+        combineLatest(
+          Object.keys(this.collections).map((key) =>
+            (this.collections[key] as Observable<CollectibleTrackerState>).pipe(
+              filter((state) => !!state)
+            )
+          )
+        ).subscribe((trackerStates) => {
+          this.encodedSessionData = trackerStates
+            .map((trackerState) => trackerState.encoded)
+            .join('.');
+          this.sessionQueryParam.next(this.encodedSessionData);
+        })
+      );
+    }
+  }
+
+  addCollection(key: CollectibleTrackerKey): void {
+    this.collections[key] = this.store.pipe(
+      map((state: AppState) =>
+        getCollectibleTrackerStateSelector(selectCollectibleTracker)(state, key)
+      )
     );
   }
 
@@ -196,21 +197,10 @@ export class AppComponent implements OnDestroy {
   }
 
   dispatchSessionData(): void {
-    const supportedCollections = {
-      [TrackerCategory.BUG_COLLECTION]: updateBugCollectionStateFromSessionAction,
-      [TrackerCategory.BUG_MODELS]: updateBugModelStateFromSessionAction,
-      [TrackerCategory.BUG_MODEL_SUPPLIES]: updateHaveBugModelSuppliesStateFromSessionAction,
-      [TrackerCategory.FISH_COLLECTION]: updateFishCollectionStateFromSessionAction,
-      [TrackerCategory.FISH_MODELS]: updateFishModelStateFromSessionAction,
-      [TrackerCategory.FISH_MODEL_SUPPLIES]: updateHaveFishModelSuppliesStateFromSessionAction,
-      [TrackerCategory.SEA_CREATURE_COLLECTION]: updateSeaCreatureCollectionStateFromSessionAction,
-      [TrackerCategory.SONGS]: updateSongCollectionStateFromSessionAction,
-    };
-
     Object.keys(this.sessionData).forEach((key) => {
-      if (supportedCollections[key]) {
+      if (this.trackerUpdateActions[key]) {
         this.store.dispatch(
-          supportedCollections[key]({ data: this.sessionData[key] })
+          this.trackerUpdateActions[key]({ data: this.sessionData[key] })
         );
       }
     });
@@ -247,18 +237,7 @@ export class AppComponent implements OnDestroy {
   }
 
   resetTracker(): void {
-    this.setEncodedSessionDataValue(
-      getDefaultEncoding([
-        TrackerCategory.BUG_COLLECTION,
-        TrackerCategory.BUG_MODELS,
-        TrackerCategory.BUG_MODEL_SUPPLIES,
-        TrackerCategory.FISH_COLLECTION,
-        TrackerCategory.FISH_MODELS,
-        TrackerCategory.FISH_MODEL_SUPPLIES,
-        TrackerCategory.SEA_CREATURE_COLLECTION,
-        TrackerCategory.SONGS,
-      ])
-    );
+    this.setEncodedSessionDataValue(getDefaultEncoding());
   }
 
   ngOnDestroy(): void {
