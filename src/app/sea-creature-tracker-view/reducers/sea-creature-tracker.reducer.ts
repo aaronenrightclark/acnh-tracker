@@ -1,20 +1,17 @@
 import { SEA_CREATURE_DATA } from '../../shared/models/constants';
 import {
-  Collectible,
   COLLECTIBLE_KEY_COLLECTED,
   CardStyle,
 } from '../../shared/models/collectible.model';
 import { CollectibleTrackerState } from '../../shared/models/app-state.model';
-import {
-  getDefaultEncoding,
-  encodeSessionData,
-} from '../../shared/services/collection-encoding.service';
-import {
-  TrackerCategory,
-  SessionCategoryData,
-} from '../../shared/models/app-state.model';
+import { getDefaultEncoding } from '../../shared/services/collection-encoding.service';
+import { TrackerCategory } from '../../shared/models/app-state.model';
 import { ActionReducer, Action, createReducer, on } from '@ngrx/store';
 import { SeaCreatureTrackerActions } from '../actions';
+import {
+  getUpdatedStateForCollectibleToggle,
+  getUpdatedCollectibleStateForProperty,
+} from '../../shared/helpers/reducer.helper';
 
 const initialState: CollectibleTrackerState = {
   collectibles: SEA_CREATURE_DATA,
@@ -22,24 +19,11 @@ const initialState: CollectibleTrackerState = {
   cardStyle: CardStyle.DETAILS,
 };
 
-// TODO: genericise for use with any modelable collection state
-const getEncodedState = (collectibles: {
-  [key: number]: Collectible;
-}): string => {
-  const sessionData = {};
-  const collected = new Array<number>();
-  const uncollected = new Array<number>();
-  Object.keys(collectibles).forEach((key) => {
-    collectibles[key].collected ? collected.push(+key) : uncollected.push(+key);
-    sessionData[TrackerCategory.SEA_CREATURE_COLLECTION] = {
-      inclusive: collected.length <= uncollected.length,
-      indices: collected.length <= uncollected.length ? collected : uncollected,
-    };
-  });
-  return encodeSessionData(sessionData);
+const defaultEncodingOptions = {
+  collection: TrackerCategory.SEA_CREATURE_COLLECTION,
 };
 
-const _seaCreatureTrackerReducer: ActionReducer<
+const seaCreatureTrackerReducer: ActionReducer<
   CollectibleTrackerState,
   Action
 > = createReducer(
@@ -47,27 +31,22 @@ const _seaCreatureTrackerReducer: ActionReducer<
   on(
     SeaCreatureTrackerActions.toggleSeaCreatureCollectedAction,
     (state, { collectible }) => {
-      const updated = {
-        ...state,
-        collectibles: {
-          ...state.collectibles,
-          [collectible.index]: {
-            ...state.collectibles[collectible.index],
-            collected: !state.collectibles[collectible.index].collected,
-          },
-        },
-      } as CollectibleTrackerState;
-      updated.encoded = getEncodedState(updated.collectibles);
-      return updated;
+      return getUpdatedStateForCollectibleToggle(
+        state,
+        collectible,
+        COLLECTIBLE_KEY_COLLECTED,
+        defaultEncodingOptions
+      );
     }
   ),
   on(
     SeaCreatureTrackerActions.updateSeaCreatureCollectionStateFromSessionAction,
     (state, { data }) =>
-      getUpdatedSeaCreatureStateForProperty(
+      getUpdatedCollectibleStateForProperty(
         state,
         data,
-        COLLECTIBLE_KEY_COLLECTED
+        COLLECTIBLE_KEY_COLLECTED,
+        defaultEncodingOptions
       )
   ),
   on(
@@ -81,27 +60,6 @@ const _seaCreatureTrackerReducer: ActionReducer<
   )
 );
 
-export function getUpdatedSeaCreatureStateForProperty(
-  state: CollectibleTrackerState,
-  data: SessionCategoryData,
-  propName: string
-): CollectibleTrackerState {
-  const updated = JSON.parse(JSON.stringify(state)) as CollectibleTrackerState;
-  for (const key of Object.keys(state.collectibles)) {
-    updated.collectibles[key] = {
-      ...state.collectibles[key],
-    } as Collectible;
-    updated.collectibles[key][propName] = data.inclusive
-      ? data.indices.indexOf(+key) > -1
-      : data.indices.indexOf(+key) < 0;
-  }
-  updated.encoded = getEncodedState(updated.collectibles);
-  return updated;
-}
-
-export function seaCreatureTrackerReducer(
-  state,
-  action
-): CollectibleTrackerState {
-  return _seaCreatureTrackerReducer(state, action);
+export function reducer(state, action): CollectibleTrackerState {
+  return seaCreatureTrackerReducer(state, action);
 }

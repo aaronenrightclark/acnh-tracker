@@ -11,7 +11,7 @@ export const initialState: CollectibleTrackerFilterState = {
   },
 };
 
-const _songTrackerFilterReducer = createReducer(
+const songTrackerFilterReducer = createReducer(
   initialState,
   on(
     SongTrackerFilterActions.filterSongsByNameAction,
@@ -42,9 +42,6 @@ const _songTrackerFilterReducer = createReducer(
   })
 );
 
-export function songTrackerFilterReducer(
-  state,
-  action
-): CollectibleTrackerFilterState {
-  return _songTrackerFilterReducer(state, action);
+export function reducer(state, action): CollectibleTrackerFilterState {
+  return songTrackerFilterReducer(state, action);
 }

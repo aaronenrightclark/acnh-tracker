@@ -2,7 +2,7 @@ import { CollectibleTrackerFilterState } from '../../shared/models/app-state.mod
 import { createReducer, on } from '@ngrx/store';
 import { BugTrackerFilterActions } from '../actions';
 import { CollectionSubset } from '../../shared/models/collectible.model';
-import { CollectionStatusFilterType } from 'src/app/shared/models/filter.model';
+import { CollectionStatusFilterType } from '../../shared/models/filter.model';
 
 export const initialState: CollectibleTrackerFilterState = {
   filters: {
@@ -13,7 +13,7 @@ export const initialState: CollectibleTrackerFilterState = {
   },
 };
 
-const _bugTrackerFilterReducer = createReducer(
+const bugTrackerFilterReducer = createReducer(
   initialState,
   on(
     BugTrackerFilterActions.filterBugsByNameAction,
@@ -44,9 +44,6 @@ const _bugTrackerFilterReducer = createReducer(
   })
 );
 
-export function bugTrackerFilterReducer(
-  state,
-  action
-): CollectibleTrackerFilterState {
-  return _bugTrackerFilterReducer(state, action);
+export function reducer(state, action): CollectibleTrackerFilterState {
+  return bugTrackerFilterReducer(state, action);
 }

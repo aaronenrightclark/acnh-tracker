@@ -13,7 +13,7 @@ export const initialState: CollectibleTrackerFilterState = {
   },
 };
 
-const _fishTrackerFilterReducer = createReducer(
+const fishTrackerFilterReducer = createReducer(
   initialState,
   on(
     FishTrackerFilterActions.filterFishByNameAction,
@@ -44,9 +44,6 @@ const _fishTrackerFilterReducer = createReducer(
   })
 );
 
-export function fishTrackerFilterReducer(
-  state,
-  action
-): CollectibleTrackerFilterState {
-  return _fishTrackerFilterReducer(state, action);
+export function reducer(state, action): CollectibleTrackerFilterState {
+  return fishTrackerFilterReducer(state, action);
 }

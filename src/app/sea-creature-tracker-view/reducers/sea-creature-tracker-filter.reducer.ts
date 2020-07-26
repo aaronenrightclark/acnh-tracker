@@ -11,7 +11,7 @@ export const initialState: CollectibleTrackerFilterState = {
   },
 };
 
-const _seaCreatureTrackerFilterReducer = createReducer(
+const seaCreatureTrackerFilterReducer = createReducer(
   initialState,
   on(
     SeaCreatureTrackerFilterActions.filterSeaCreaturesByNameAction,
@@ -45,9 +45,6 @@ const _seaCreatureTrackerFilterReducer = createReducer(
   )
 );
 
-export function seaCreatureTrackerFilterReducer(
-  state,
-  action
-): CollectibleTrackerFilterState {
-  return _seaCreatureTrackerFilterReducer(state, action);
+export function reducer(state, action): CollectibleTrackerFilterState {
+  return seaCreatureTrackerFilterReducer(state, action);
 }

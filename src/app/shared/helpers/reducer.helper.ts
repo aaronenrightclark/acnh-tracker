@@ -1,5 +1,5 @@
 import { Collectible } from '../models/collectible.model';
-import { encodeSessionData } from '../services/collection-encoding.service';
+import { getEncodedCollectibleState } from '../services/collection-encoding.service';
 import { CollectibleTrackerModel } from '../models/app-state.model';
 import {
   AppState,
@@ -10,14 +10,8 @@ import {
   DefaultProjectorFn,
   MemoizedSelectorWithProps,
 } from '@ngrx/store';
-import {
-  CollectibleTrackerFilters,
-  CollectibleTrackerStateKey,
-} from '../models/app-state.model';
-import {
-  CollectibleTrackerFilterStateKey,
-  CollectibleTrackerKey,
-} from '../models/app-state.model';
+import { CollectibleTrackerFilters } from '../models/app-state.model';
+import { CollectibleTrackerKey } from '../models/app-state.model';
 import {
   TrackerCategory,
   CollectibleTrackerState,
@@ -30,60 +24,28 @@ export interface StateEncodingOptions {
   modelSupplies?: TrackerCategory;
 }
 
-export const getEncodedCollectibleState = (
-  collectibles: {
-    [key: number]: Collectible;
-  },
-  options: StateEncodingOptions
-): string => {
-  const sessionData = {};
-  const collected = new Array<number>();
-  const uncollected = new Array<number>();
-  let haveModels: Array<number>;
-  let missingModels: Array<number>;
-  if (options.models) {
-    haveModels = new Array<number>();
-    missingModels = new Array<number>();
-  }
-  let haveModelSupplies: Array<number>;
-  let missingModelSupplies: Array<number>;
-  if (options.modelSupplies) {
-    haveModelSupplies = new Array<number>();
-    missingModelSupplies = new Array<number>();
-  }
-  Object.keys(collectibles).forEach((key) => {
-    collectibles[key].collected ? collected.push(+key) : uncollected.push(+key);
-    sessionData[options.collection] = {
-      inclusive: collected.length <= uncollected.length,
-      indices: collected.length <= uncollected.length ? collected : uncollected,
-    };
-    if (options.models) {
-      collectibles[key].haveModel
-        ? haveModels.push(+key)
-        : missingModels.push(+key);
-      sessionData[options.models] = {
-        inclusive: haveModels.length <= missingModels.length,
-        indices:
-          haveModels.length <= missingModels.length
-            ? haveModels
-            : missingModels,
-      };
-    }
-    if (options.modelSupplies) {
-      collectibles[key].haveModelSupplies
-        ? haveModelSupplies.push(+key)
-        : missingModelSupplies.push(+key);
-      sessionData[options.modelSupplies] = {
-        inclusive: haveModelSupplies.length <= missingModelSupplies.length,
-        indices:
-          haveModelSupplies.length <= missingModelSupplies.length
-            ? haveModelSupplies
-            : missingModelSupplies,
-      };
-    }
-  });
-  return encodeSessionData(sessionData);
-};
+export function getUpdatedStateForCollectibleToggle(
+  state: CollectibleTrackerState,
+  collectible: Collectible,
+  key: string,
+  encodingOptions: StateEncodingOptions
+): CollectibleTrackerState {
+  const updated = {
+    ...state,
+    collectibles: {
+      ...state.collectibles,
+      [collectible.index]: {
+        ...state.collectibles[collectible.index],
+        [key]: !state.collectibles[collectible.index][key],
+      },
+    },
+  } as CollectibleTrackerState;
+  updated.encoded = getEncodedCollectibleState(
+    updated.collectibles,
+    encodingOptions
+  );
+  return updated;
+}
 
 export function getUpdatedCollectibleStateForProperty<
   T extends CollectibleTrackerState

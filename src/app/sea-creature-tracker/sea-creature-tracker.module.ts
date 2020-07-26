@@ -9,16 +9,16 @@ import {
   TRACKER_KEY,
 } from '../shared/models/app-state.model';
 import { StoreModule } from '@ngrx/store';
-import { seaCreatureTrackerReducer } from '../sea-creature-tracker-view/reducers/sea-creature-tracker.reducer';
-import { seaCreatureTrackerFilterReducer } from '../sea-creature-tracker-view/reducers/sea-creature-tracker-filter.reducer';
+import * as seaCreatureTrackerReducer from '../sea-creature-tracker-view/reducers/sea-creature-tracker.reducer';
+import * as seaCreatureTrackerFilterReducer from '../sea-creature-tracker-view/reducers/sea-creature-tracker-filter.reducer';
 
 @NgModule({
   declarations: [SeaCreatureTrackerViewComponent],
   imports: [
     CommonModule,
     StoreModule.forFeature(CollectibleTrackerKey.SEA_CREATURES, {
-      trackerState: seaCreatureTrackerReducer,
-      trackerFilterState: seaCreatureTrackerFilterReducer,
+      trackerState: seaCreatureTrackerReducer.reducer,
+      trackerFilterState: seaCreatureTrackerFilterReducer.reducer,
     }),
     SharedModule.forChild({
       trackerKey: CollectibleTrackerKey.SEA_CREATURES,

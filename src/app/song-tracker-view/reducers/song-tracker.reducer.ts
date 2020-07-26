@@ -1,21 +1,17 @@
 import {
-  Collectible,
   COLLECTIBLE_KEY_COLLECTED,
   CardStyle,
 } from '../../shared/models/collectible.model';
 import { SONG_DATA } from '../../shared/models/constants';
 import { CollectibleTrackerState } from '../../shared/models/app-state.model';
-import {
-  TrackerCategory,
-  SessionCategoryData,
-} from '../../shared/models/app-state.model';
-import {
-  getDefaultEncoding,
-  encodeSessionData,
-} from '../../shared/services/collection-encoding.service';
+import { TrackerCategory } from '../../shared/models/app-state.model';
+import { getDefaultEncoding } from '../../shared/services/collection-encoding.service';
 import { createReducer, on, Action, ActionReducer } from '@ngrx/store';
 import { SongTrackerActions } from '../actions';
-import { getEncodedCollectibleState } from '../../shared/helpers/reducer.helper';
+import {
+  getUpdatedCollectibleStateForProperty,
+  getUpdatedStateForCollectibleToggle,
+} from '../../shared/helpers/reducer.helper';
 
 const initialState: CollectibleTrackerState = {
   collectibles: SONG_DATA,
@@ -23,48 +19,32 @@ const initialState: CollectibleTrackerState = {
   cardStyle: CardStyle.DETAILS,
 };
 
-// TODO: genericise for use with any modelable collection state
-const getEncodedState = (collectibles: {
-  [key: number]: Collectible;
-}): string => {
-  const sessionData = {};
-  const collected = new Array<number>();
-  const uncollected = new Array<number>();
-  Object.keys(collectibles).forEach((key) => {
-    collectibles[key].collected ? collected.push(+key) : uncollected.push(+key);
-    sessionData[TrackerCategory.SONGS] = {
-      inclusive: collected.length <= uncollected.length,
-      indices: collected.length <= uncollected.length ? collected : uncollected,
-    };
-  });
-  return encodeSessionData(sessionData);
+const defaultEncodingOptions = {
+  collection: TrackerCategory.SEA_CREATURE_COLLECTION,
 };
 
-const _songTrackerReducer: ActionReducer<
+const songTrackerReducer: ActionReducer<
   CollectibleTrackerState,
   Action
 > = createReducer(
   initialState,
   on(SongTrackerActions.toggleSongCollectedAction, (state, { collectible }) => {
-    const updated = {
-      ...state,
-      collectibles: {
-        ...state.collectibles,
-        [collectible.index]: {
-          ...state.collectibles[collectible.index],
-          collected: !state.collectibles[collectible.index].collected,
-        },
-      },
-    } as CollectibleTrackerState;
-    updated.encoded = getEncodedCollectibleState(updated.collectibles, {
-      collection: TrackerCategory.SONGS,
-    });
-    return updated;
+    return getUpdatedStateForCollectibleToggle(
+      state,
+      collectible,
+      COLLECTIBLE_KEY_COLLECTED,
+      defaultEncodingOptions
+    );
   }),
   on(
     SongTrackerActions.updateSongCollectionStateFromSessionAction,
     (state, { data }) =>
-      getUpdatedSongStateForProperty(state, data, COLLECTIBLE_KEY_COLLECTED)
+      getUpdatedCollectibleStateForProperty(
+        state,
+        data,
+        COLLECTIBLE_KEY_COLLECTED,
+        defaultEncodingOptions
+      )
   ),
   on(SongTrackerActions.setSongCardStyleAction, (state, { cardStyle }) => {
     return {
@@ -74,24 +54,6 @@ const _songTrackerReducer: ActionReducer<
   })
 );
 
-export function getUpdatedSongStateForProperty(
-  state: CollectibleTrackerState,
-  data: SessionCategoryData,
-  propName: string
-): CollectibleTrackerState {
-  const updated = JSON.parse(JSON.stringify(state)) as CollectibleTrackerState;
-  for (const key of Object.keys(state.collectibles)) {
-    updated.collectibles[key] = {
-      ...state.collectibles[key],
-    } as Collectible;
-    updated.collectibles[key][propName] = data.inclusive
-      ? data.indices.indexOf(+key) > -1
-      : data.indices.indexOf(+key) < 0;
-  }
-  updated.encoded = getEncodedState(updated.collectibles);
-  return updated;
-}
-
-export function songTrackerReducer(state, action): CollectibleTrackerState {
-  return _songTrackerReducer(state, action);
+export function reducer(state, action): CollectibleTrackerState {
+  return songTrackerReducer(state, action);
 }

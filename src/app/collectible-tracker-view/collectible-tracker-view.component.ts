@@ -46,6 +46,12 @@ export class CollectibleTrackerViewComponent implements OnInit {
     @Inject(TRACKER_KEY) public trackerKey: CollectibleTrackerKey,
     public store: Store<AppState>
   ) {
+    this.setTrackerStateObservables();
+    this.setTrackerFilterStateObservables();
+    this.setSharedStateObservables();
+  }
+
+  setTrackerStateObservables(): void {
     this.collection$ = this.store.pipe(
       map((state) =>
         getCollectiblesSelector(
@@ -61,46 +67,31 @@ export class CollectibleTrackerViewComponent implements OnInit {
         )(state, this.trackerKey)
       )
     );
+  }
 
-    this.store.subscribe((state) => {
-      const something = getCollectionNameFilterSelector(
-        getCollectionFiltersSelector(
-          getCollectibleTrackerFilterStateSelector(selectCollectibleTracker)
-        )
-      )(state, this.trackerKey);
-    });
+  setSharedStateObservables(): void {
     this.hemisphere$ = this.store.pipe(map((state) => selectHemisphere(state)));
+  }
+
+  setTrackerFilterStateObservables(): void {
+    const filterSelector = getCollectionFiltersSelector(
+      getCollectibleTrackerFilterStateSelector(selectCollectibleTracker)
+    );
     this.nameFilter$ = this.store.pipe(
       map((state) =>
-        getCollectionNameFilterSelector(
-          getCollectionFiltersSelector(
-            getCollectibleTrackerFilterStateSelector(selectCollectibleTracker)
-          )
-        )(state, this.trackerKey)
+        getCollectionNameFilterSelector(filterSelector)(state, this.trackerKey)
       )
     );
     this.collectionStatusFilter$ = this.store.pipe(
-      map((state) =>
-        getCollectionFiltersSelector(
-          getCollectibleTrackerFilterStateSelector(selectCollectibleTracker)
-        )(state, this.trackerKey)
-      ),
+      map((state) => filterSelector(state, this.trackerKey)),
       map((filters) => filters[CollectionStatusFilterType.COLLECTIBLE])
     );
     this.modelStatusFilter$ = this.store.pipe(
-      map((state) =>
-        getCollectionFiltersSelector(
-          getCollectibleTrackerFilterStateSelector(selectCollectibleTracker)
-        )(state, this.trackerKey)
-      ),
+      map((state) => filterSelector(state, this.trackerKey)),
       map((filters) => filters[CollectionStatusFilterType.MODEL])
     );
     this.modelSuppliesStatusFilter$ = this.store.pipe(
-      map((state) =>
-        getCollectionFiltersSelector(
-          getCollectibleTrackerFilterStateSelector(selectCollectibleTracker)
-        )(state, this.trackerKey)
-      ),
+      map((state) => filterSelector(state, this.trackerKey)),
       map((filters) => filters[CollectionStatusFilterType.MODEL_SUPPLIES])
     );
   }

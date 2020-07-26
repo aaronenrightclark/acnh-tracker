@@ -9,16 +9,16 @@ import {
   CollectibleTrackerKey,
   TRACKER_KEY,
 } from '../shared/models/app-state.model';
-import { fishTrackerReducer } from '../fish-tracker-view/reducers/fish-tracker.reducer';
-import { fishTrackerFilterReducer } from '../fish-tracker-view/reducers/fish-tracker-filter.reducer';
+import * as fishTrackerReducer from '../fish-tracker-view/reducers/fish-tracker.reducer';
+import * as fishTrackerFilterReducer from '../fish-tracker-view/reducers/fish-tracker-filter.reducer';
 
 @NgModule({
   declarations: [FishTrackerViewComponent],
   imports: [
     CommonModule,
     StoreModule.forFeature(CollectibleTrackerKey.FISH, {
-      trackerState: fishTrackerReducer,
-      trackerFilterState: fishTrackerFilterReducer,
+      trackerState: fishTrackerReducer.reducer,
+      trackerFilterState: fishTrackerFilterReducer.reducer,
     }),
     SharedModule.forChild({
       trackerKey: CollectibleTrackerKey.FISH,
