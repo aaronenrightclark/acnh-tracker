@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { BugTrackerRoutingModule } from './bug-tracker-routing.module';
 import { StoreModule } from '@ngrx/store';
 import * as bugTrackerReducer from '../bug-tracker-view/reducers/bug-tracker.reducer';
-import { bugTrackerFilterReducer } from '../bug-tracker-view/reducers/bug-tracker-filter.reducer';
+import * as bugTrackerFilterReducer from '../bug-tracker-view/reducers/bug-tracker-filter.reducer';
 import {
   CollectibleTrackerKey,
   TRACKER_KEY,
@@ -18,7 +18,7 @@ import {
     CommonModule,
     StoreModule.forFeature(CollectibleTrackerKey.BUGS, {
       trackerState: bugTrackerReducer.reducer,
-      trackerFilterState: bugTrackerFilterReducer,
+      trackerFilterState: bugTrackerFilterReducer.reducer,
     }),
     SharedModule.forChild({
       trackerKey: CollectibleTrackerKey.BUGS,

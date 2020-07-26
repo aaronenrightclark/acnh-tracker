@@ -9,16 +9,16 @@ import {
   CollectibleTrackerKey,
   TRACKER_KEY,
 } from '../shared/models/app-state.model';
-import { songTrackerReducer } from '../song-tracker-view/reducers/song-tracker.reducer';
-import { songTrackerFilterReducer } from '../song-tracker-view/reducers/song-tracker-filter.reducer';
+import * as songTrackerReducer from '../song-tracker-view/reducers/song-tracker.reducer';
+import * as songTrackerFilterReducer from '../song-tracker-view/reducers/song-tracker-filter.reducer';
 
 @NgModule({
   declarations: [SongTrackerViewComponent],
   imports: [
     CommonModule,
     StoreModule.forFeature(CollectibleTrackerKey.SONGS, {
-      trackerState: songTrackerReducer,
-      trackerFilterState: songTrackerFilterReducer,
+      trackerState: songTrackerReducer.reducer,
+      trackerFilterState: songTrackerFilterReducer.reducer,
     }),
     SharedModule.forChild({
       trackerKey: CollectibleTrackerKey.SONGS,
