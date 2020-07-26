@@ -1,16 +1,15 @@
-import { LandingPage } from './app.po';
+import { BugTrackerView } from '../app.po';
 import { browser, logging } from 'protractor';
-
-describe('acnh-tracker landing page', () => {
-  let page: LandingPage;
+describe('bug tracker view', () => {
+  let view: BugTrackerView;
 
   beforeEach(() => {
-    page = new LandingPage();
+    view = new BugTrackerView();
   });
 
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getH1()).toEqual('ACNH Tracker');
+  it('should display bug tracker view container', () => {
+    view.navigateTo();
+    expect(view.isBugTrackerContainerDisplayed()).toBeTruthy();
   });
 
   afterEach(async () => {
